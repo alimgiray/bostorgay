@@ -1,31 +1,36 @@
 <template>
-  <div>
-    <h1>Register</h1>
+  <div class="centered-medium">
+    <h1 class="page-title">Register</h1>
     <div>
       <input
         v-model="username"
         type="text"
         placeholder="username"
-        class="mt-1"
+        class="auth-input"
       />
     </div>
     <div>
-      <input v-model="email" type="email" placeholder="email" class="mt-1" />
+      <input
+        v-model="email"
+        type="email"
+        placeholder="email"
+        class="auth-input"
+      />
     </div>
     <div>
       <input
         v-model="password"
         type="password"
         placeholder="password"
-        class="mt-1"
+        class="auth-input"
       />
     </div>
-    <div>
-      <button @click="register" class="mt-2 py-1 px-4">Register</button>
+    <div class="flex justify-end">
+      <button @click="register" class="small-button">Register</button>
     </div>
     <div class="mt-4">
       Already have an account? <br />
-      Click <a @click="goLoginPage">here</a> to login.
+      Click <a @click="goLoginPage" class="link">here</a> to login.
     </div>
   </div>
 </template>
@@ -43,7 +48,7 @@ export default {
   },
   mounted() {
     if (this.loggedIn) {
-      this.$router.push({ name: "Dashboard" });
+      this.$router.push({ name: "Home" });
     }
   },
   methods: {
@@ -66,7 +71,7 @@ export default {
   watch: {
     loggedIn: function (newVal) {
       if (newVal) {
-        this.$router.push({ name: "Dashboard" });
+        this.$router.push({ name: "Home" });
       }
     },
   },

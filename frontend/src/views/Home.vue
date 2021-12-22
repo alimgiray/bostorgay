@@ -1,6 +1,7 @@
 <template>
-  <div>
-    <h1>Home</h1>
+  <div class="p-2 grid md:grid-cols-3 sm:grid-cols-2">
+    <div class="col-span-2">Home</div>
+    <div>Queue</div>
   </div>
 </template>
 
@@ -8,14 +9,7 @@
 export default {
   name: "Home",
   components: {},
-  async mounted() {
-    this.$store.dispatch("checkLoginStatus");
-    if (this.$store.state.loggedIn) {
-      this.$router.push({ name: "Dashboard" });
-    } else {
-      this.$router.push({ name: "Login" });
-    }
-  },
+  async mounted() {},
 };
 </script>
 

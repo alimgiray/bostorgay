@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  @apply text-blue-600;
+}
+
+.page-title {
+  @apply text-blue-400 font-bold uppercase text-2xl;
+}
+
+.auth-input {
+  @apply w-full	mt-1 py-1 px-2 border-0 text-base bg-blue-100 placeholder-blue-800;
+}
+
+.centered-medium {
+  @apply max-w-md m-auto mt-10 p-4;
+}
+
+.small-button {
+  @apply mt-2 py-1 px-4 border-0 text-base bg-blue-200 border-blue-200  text-blue-800;
+}
+
+.link {
+  @apply underline cursor-pointer text-blue-900;
+}
+
+.logo {
+  @apply cursor-pointer text-blue-500 text-4xl;
+}

@@ -12,12 +12,7 @@ export default {
   data: function () {
     return {};
   },
-  mounted() {
-    this.$store.dispatch("checkLoginStatus");
-    if (!this.$store.state.loggedIn) {
-      this.$store.commit("clearError");
-    }
-  },
+  mounted() {},
   computed: {
     show() {
       return this.$store.state.showError;
