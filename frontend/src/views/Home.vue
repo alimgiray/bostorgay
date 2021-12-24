@@ -1,14 +1,19 @@
 <template>
-  <div class="p-2 grid md:grid-cols-3 sm:grid-cols-2">
-    <div class="col-span-2">Home</div>
-    <div>Queue</div>
+  <div id="home">
+    <Queue />
+    <List />
   </div>
 </template>
 
 <script>
+import List from "../components/List.vue";
+import Queue from "../components/Queue.vue";
 export default {
   name: "Home",
-  components: {},
+  components: {
+    List,
+    Queue,
+  },
   async mounted() {},
 };
 </script>

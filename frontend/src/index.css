@@ -6,6 +6,10 @@ body {
   @apply text-blue-600;
 }
 
+#home {
+  @apply max-w-6xl m-auto mt-2;
+}
+
 .page-title {
   @apply text-blue-400 font-bold uppercase text-2xl;
 }

@@ -9,8 +9,19 @@ export default createStore({
     token: "",
     showError: false,
     errorMessage: "",
+    songs: [],
+    artists: [],
   },
   mutations: {
+    setSongs(state, songs) {
+      state.songs = songs;
+      localStorage.setItem("songs", JSON.stringify(songs));
+    },
+    setArtists(state, artists) {
+      state.artists = artists;
+      localStorage.setItem("artists", JSON.stringify(artists));
+    },
+    // Below is not used
     login(state, { username, token }) {
       state.username = username;
       state.token = token;
@@ -38,6 +49,55 @@ export default createStore({
     },
   },
   actions: {
+    checkSongs({ commit }) {
+      const currentSongs = getFromLocalStorage("songs");
+      let lastSongID = 0;
+      if (currentSongs.length > 0) {
+        lastSongID = currentSongs[currentSongs.length - 1].id;
+      }
+      // TODO: get songs from backend using lastSongID
+
+      const newlyAddedSongs = [
+        {
+          id: 1,
+          name: "Elimdeki Kemane",
+          url: "https://www.youtube.com/watch?v=_iOLkj5eclk",
+          artists: [1, 2],
+        },
+        {
+          id: 2,
+          name: "Qamışım",
+          url: "https://www.youtube.com/watch?v=50OmnguhyOE",
+          artists: [1, 3],
+        },
+      ];
+      const updatedSongs = currentSongs.concat(newlyAddedSongs);
+      commit("setSongs", updatedSongs);
+    },
+    checkArtists({ commit }) {
+      const currentArtists = getFromLocalStorage("artists");
+      let lastArtistID = 0;
+      if (currentArtists.length > 0) {
+        lastArtistID = currentArtists[currentArtists.length - 1].id;
+      }
+      // TODO: get artists from backend using lastArtistID
+      const newlyAddedArtists = [
+        {
+          id: 1,
+          name: "Aliye Hacabadinova",
+        },
+        {
+          id: 2,
+          name: "Grup Yo-Gurt",
+        },
+        {
+          id: 3,
+          name: "Pushkin Klezmer Band",
+        },
+      ];
+      const updatedArtists = currentArtists.concat(newlyAddedArtists);
+      commit("setArtists", updatedArtists);
+    },
     checkLoginStatus({ commit }) {
       const username = localStorage.getItem("username");
       const token = localStorage.getItem("token");
@@ -110,3 +170,9 @@ export default createStore({
     },
   },
 });
+
+function getFromLocalStorage(name) {
+  return localStorage.getItem(name)
+    ? JSON.parse(localStorage.getItem(name))
+    : [];
+}
