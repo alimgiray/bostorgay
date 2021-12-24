@@ -4,7 +4,7 @@
     <div class="p-2">
       <div v-for="item in list" :key="item.id">
         <ArtistListItem v-if="!item.url" :artist="item" />
-        <SongListItem v-if="item.url" :song="item" :artists="item.artists" />
+        <SongListItem v-if="item.url" :song="item" :artistIDs="item.artists" />
       </div>
     </div>
   </div>
