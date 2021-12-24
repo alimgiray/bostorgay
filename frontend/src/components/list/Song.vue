@@ -8,19 +8,20 @@
           :key="artist.id"
           class="text-sm text-slate-500"
         >
-          <a @click="console.log(artist.id)" class="underline">{{
-            artist.name
-          }}</a
+          <a
+            @click="goArtistPage(artist.id)"
+            class="underline cursor-pointer"
+            >{{ artist.name }}</a
           ><span v-if="index < songArtists.length - 1">, </span>
         </span>
       </div>
     </div>
     <div>
       <button>
-        <PlayIcon class="m-1 h-5 w-5 text-blue-500" />
+        <PlayIcon @click="play()" class="m-1 h-5 w-5 text-blue-500" />
       </button>
       <button>
-        <PlusIcon class="m-1 h-5 w-5 text-blue-500" />
+        <PlusIcon @click="addToQueue()" class="m-1 h-5 w-5 text-blue-500" />
       </button>
     </div>
   </div>
@@ -48,6 +49,17 @@ export default {
     this.songArtists = this.$store.state.artists.filter((artist) =>
       this.artistIDs.includes(artist.id)
     );
+  },
+  methods: {
+    goArtistPage(artistID) {
+      console.log(artistID);
+    },
+    play() {
+      this.$store.commit("playSong", this.song);
+    },
+    addToQueue() {
+      console.log(songID);
+    },
   },
   computed: {},
 };

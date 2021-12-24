@@ -11,6 +11,8 @@ export default createStore({
     errorMessage: "",
     songs: [],
     artists: [],
+    queue: [],
+    currentSong: null,
   },
   mutations: {
     setSongs(state, songs) {
@@ -20,6 +22,17 @@ export default createStore({
     setArtists(state, artists) {
       state.artists = artists;
       localStorage.setItem("artists", JSON.stringify(artists));
+    },
+    playSong(state, song) {
+      state.currentSong = song;
+    },
+    addToQueue(state, song) {
+      state.queue.push(song);
+    },
+    removeSongFromQueue(state, song) {
+      state.queue = state.queue.filter(
+        (songInQueue) => songInQueue.id != song.id
+      );
     },
     // Below is not used
     login(state, { username, token }) {
