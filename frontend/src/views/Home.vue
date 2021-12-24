@@ -1,6 +1,6 @@
 <template>
   <div id="home">
-    <Player />
+    <Player v-if="currentSong" />
     <Queue />
     <List />
   </div>
@@ -19,6 +19,11 @@ export default {
     Player,
   },
   async mounted() {},
+  computed: {
+    currentSong() {
+      return this.$store.state.currentSong ?? false;
+    },
+  },
 };
 </script>
 

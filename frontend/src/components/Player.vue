@@ -15,10 +15,17 @@ export default {
   },
   mounted() {
     this.player = YouTubePlayer(this.$refs.player.id);
+    if (this.currentSong) {
+      this.playCurrentSong();
+    }
   },
   methods: {
     getVideoIDFromURL(url) {
       return "K_O4BrwHWH4";
+    },
+    playCurrentSong() {
+      this.player.loadVideoById(this.getVideoIDFromURL(this.currentSong));
+      this.player.playVideo();
     },
   },
   computed: {
@@ -27,7 +34,7 @@ export default {
     },
   },
   watch: {
-    currentSong: function (song) {
+    currentSong: async function (song) {
       if (song) {
         this.player.loadVideoById(this.getVideoIDFromURL(song.url));
         this.player.playVideo();
