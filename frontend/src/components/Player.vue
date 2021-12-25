@@ -21,10 +21,12 @@ export default {
   },
   methods: {
     getVideoIDFromURL(url) {
-      return "K_O4BrwHWH4";
+      if (!url) return;
+      const parsedURL = new URL(url);
+      return parsedURL.searchParams.get("v");
     },
     playCurrentSong() {
-      this.player.loadVideoById(this.getVideoIDFromURL(this.currentSong));
+      this.player.loadVideoById(this.getVideoIDFromURL(this.currentSong?.url));
       this.player.playVideo();
     },
   },
@@ -36,8 +38,11 @@ export default {
   watch: {
     currentSong: async function (song) {
       if (song) {
-        this.player.loadVideoById(this.getVideoIDFromURL(song.url));
-        this.player.playVideo();
+        const videoID = this.getVideoIDFromURL(song.url);
+        if (videoID) {
+          this.player.loadVideoById(videoID);
+          this.player.playVideo();
+        }
       }
     },
   },
