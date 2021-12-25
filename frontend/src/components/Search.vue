@@ -1,18 +1,29 @@
 <template>
-  <div>
-    <input
-      v-model="searchTerm"
-      @keyup="search"
-      type="text"
-      placeholder="Search for songs or @artists"
-      class="w-full border-b p-2 text-base"
-    />
+  <div class="flex">
+    <div class="w-full">
+      <input
+        v-model="searchTerm"
+        @keyup="search"
+        type="text"
+        placeholder="Search for songs or @artists"
+        class="w-full border-b p-2 text-base"
+      />
+    </div>
+    <div class="flex items-center mr-1">
+      <button>
+        <XIcon @click="clear()" class="h-6 w-6 text-blue-500" />
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
+import { XIcon } from "@heroicons/vue/outline";
 export default {
   name: "Search",
+  components: {
+    XIcon,
+  },
   data: function () {
     return {
       searchTerm: "",
@@ -33,6 +44,10 @@ export default {
         song.name.toLowerCase().includes(this.searchTerm.toLowerCase())
       );
       this.$emit("onResults", songs);
+    },
+    clear() {
+      this.searchTerm = "";
+      this.$emit("onResults", this.$store.state.songs);
     },
   },
   computed: {},
