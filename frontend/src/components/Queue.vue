@@ -1,5 +1,19 @@
 <template>
-  <div class="p-2">Queue</div>
+  <div class="py-2 text-md">
+    <div class="text-lg border-b px-2 py-1 bg-slate-200">Your queue</div>
+    <div
+      class="mt-1 py-1 px-2 border-b"
+      v-for="(song, index) in queue"
+      :key="song.id"
+    >
+      <span
+        @click="playSong(song)"
+        :class="song.id !== currentSong.id ? 'text-slate-500' : 'text-blue-500'"
+      >
+        {{ index + 1 }} - {{ song.name }}
+      </span>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -9,7 +23,19 @@ export default {
     return {};
   },
   mounted() {},
-  computed: {},
+  methods: {
+    playSong(song) {
+      this.$store.commit("playSong", song);
+    },
+  },
+  computed: {
+    queue() {
+      return this.$store.state.queue;
+    },
+    currentSong() {
+      return this.$store.state.currentSong;
+    },
+  },
 };
 </script>
 

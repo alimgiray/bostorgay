@@ -27,7 +27,7 @@ export default createStore({
       state.currentSong = song;
     },
     addToQueue(state, song) {
-      state.queue.push(song);
+      state.queue.unshift(song);
     },
     removeSongFromQueue(state, song) {
       state.queue = state.queue.filter(
@@ -69,7 +69,6 @@ export default createStore({
         lastSongID = currentSongs[currentSongs.length - 1].id;
       }
       // TODO: get songs from backend using lastSongID
-
       const newlyAddedSongs = [
         {
           id: 1,
@@ -82,6 +81,18 @@ export default createStore({
           name: "Qamışım",
           url: "https://www.youtube.com/watch?v=50OmnguhyOE",
           artists: [1, 3],
+        },
+        {
+          id: 3,
+          name: "Dahdan Da Endi Bir Kozu",
+          url: "https://www.youtube.com/watch?v=arq87TC0OQ0",
+          artists: [4],
+        },
+        {
+          id: 4,
+          name: "Tipir",
+          url: "https://www.youtube.com/watch?v=dhSwvlAFtws",
+          artists: [4],
         },
       ];
       const updatedSongs = currentSongs.concat(newlyAddedSongs);
@@ -106,6 +117,10 @@ export default createStore({
         {
           id: 3,
           name: "Pushkin Klezmer Band",
+        },
+        {
+          id: 4,
+          name: "Karolina Cicha",
         },
       ];
       const updatedArtists = currentArtists.concat(newlyAddedArtists);
