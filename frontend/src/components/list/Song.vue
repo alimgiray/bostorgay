@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-between">
+  <div class="flex justify-between py-2">
     <div>
       <div>{{ song.name }}</div>
       <div>
@@ -16,12 +16,12 @@
         </span>
       </div>
     </div>
-    <div>
+    <div class="flex items-center">
       <button>
-        <PlayIcon @click="play()" class="m-1 h-5 w-5 text-blue-500" />
+        <PlayIcon @click="play()" class="mx-1 h-6 w-6 text-blue-500" />
       </button>
       <button>
-        <PlusIcon @click="addToQueue()" class="m-1 h-5 w-5 text-blue-500" />
+        <PlusIcon @click="addToQueue()" class="mx-1 h-6 w-6 text-blue-500" />
       </button>
     </div>
   </div>
@@ -52,13 +52,20 @@ export default {
   },
   methods: {
     goArtistPage(artistID) {
+      // TODO implement after artist page
       console.log(artistID);
     },
+    isSongAlreadyInQueue() {
+      return this.$store.state.queue.some((song) => song.id === this.song.id);
+    },
     play() {
+      if (!this.isSongAlreadyInQueue()) {
+        this.addToQueue();
+      }
       this.$store.commit("playSong", this.song);
     },
     addToQueue() {
-      console.log(songID);
+      this.$store.commit("addToQueue", this.song);
     },
   },
   computed: {},
