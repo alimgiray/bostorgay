@@ -14,7 +14,7 @@ export default {
     };
   },
   mounted() {
-    this.player = YouTubePlayer(this.$refs.player.id);
+    this.player = new YouTubePlayer(this.$refs.player.id);
     if (this.currentSong) {
       this.playCurrentSong();
     }
@@ -28,6 +28,32 @@ export default {
     playCurrentSong() {
       this.player.loadVideoById(this.getVideoIDFromURL(this.currentSong?.url));
       this.player.playVideo();
+      this.player.on("stateChange", (event) => {
+        // Song ended
+        if (event.data === 0) {
+          const nextSong = this.getNextSong();
+          if (nextSong) {
+            this.$store.commit("playSong", nextSong);
+          } else {
+            this.$store.commit("clearPlayer");
+          }
+        }
+      });
+    },
+    getNextSong() {
+      if (!this.$store.state.currentSong) {
+        return null;
+      }
+      const currentSongIndex = this.$store.state.queue.findIndex(
+        (song) => song.id === this.$store.state.currentSong?.id
+      );
+      if (
+        currentSongIndex !== -1 &&
+        this.$store.state.queue.length > currentSongIndex
+      ) {
+        return this.$store.state.queue[currentSongIndex + 1];
+      }
+      return null;
     },
   },
   computed: {

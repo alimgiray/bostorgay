@@ -9,7 +9,7 @@
         class="w-full border-b p-2 text-base"
       />
     </div>
-    <div class="flex items-center mr-1">
+    <div v-if="searchTerm != ''" class="flex items-center mr-1">
       <button>
         <XIcon @click="clear()" class="h-6 w-6 text-blue-500" />
       </button>
