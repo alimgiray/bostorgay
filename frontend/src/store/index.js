@@ -26,8 +26,12 @@ export default createStore({
     playSong(state, song) {
       state.currentSong = song;
     },
-    addToQueue(state, song) {
-      state.queue.unshift(song);
+    addToQueue(state, { song, prepend = false }) {
+      if (prepend) {
+        state.queue.unshift(song);
+      } else {
+        state.queue.push(song);
+      }
     },
     removeSongFromQueue(state, song) {
       state.queue = state.queue.filter(

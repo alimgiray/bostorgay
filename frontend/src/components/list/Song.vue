@@ -21,7 +21,10 @@
         <PlayIcon @click="play()" class="mx-1 h-6 w-6 text-blue-500" />
       </button>
       <button>
-        <PlusIcon @click="addToQueue()" class="mx-1 h-6 w-6 text-blue-500" />
+        <PlusIcon
+          @click="addToQueue(false)"
+          class="mx-1 h-6 w-6 text-blue-500"
+        />
       </button>
     </div>
   </div>
@@ -60,12 +63,14 @@ export default {
     },
     play() {
       if (!this.isSongAlreadyInQueue()) {
-        this.addToQueue();
+        this.addToQueue(true);
       }
       this.$store.commit("playSong", this.song);
     },
-    addToQueue() {
-      this.$store.commit("addToQueue", this.song);
+    addToQueue(prepend) {
+      if (!this.isSongAlreadyInQueue()) {
+        this.$store.commit("addToQueue", { song: this.song, prepend });
+      }
     },
   },
   computed: {},
