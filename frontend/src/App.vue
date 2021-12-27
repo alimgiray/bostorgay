@@ -11,11 +11,12 @@ export default {
   components: {
     Nav,
   },
-  mounted() {
-    this.$store.dispatch("checkLoginStatus");
-    this.$store.dispatch("checkSongs");
-    this.$store.dispatch("checkArtists");
-    this.$store.dispatch("checkQueue");
+  async mounted() {
+    // This order is important
+    await this.$store.dispatch("checkLoginStatus");
+    await this.$store.dispatch("checkArtists");
+    await this.$store.dispatch("checkSongs");
+    await this.$store.dispatch("checkQueue");
   },
 };
 </script>

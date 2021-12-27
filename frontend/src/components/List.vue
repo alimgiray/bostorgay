@@ -34,7 +34,16 @@ export default {
       this.list = results;
     },
   },
-  computed: {},
+  computed: {
+    fetchedSongs() {
+      return this.$store.state.songs;
+    },
+  },
+  watch: {
+    fetchedSongs: function () {
+      this.list = this.fetchedSongs;
+    },
+  },
 };
 </script>
 

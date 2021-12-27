@@ -1,7 +1,7 @@
 const route = require("express").Router();
 
 route.use("/users", require("../services/user/user.controller"));
-route.use("/tasks", require("../services/task/task.controller"));
+route.use("/songs", require("../services/song/song.controller"));
 
 // Health check
 route.get("/alive", alive);

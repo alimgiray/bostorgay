@@ -61,8 +61,6 @@ export default createStore({
       state.loggedIn = false;
       localStorage.removeItem("token");
       localStorage.removeItem("username");
-      localStorage.removeItem("songs");
-      localStorage.removeItem("artists");
     },
     setError(state, message) {
       state.showError = true;
@@ -78,41 +76,26 @@ export default createStore({
     },
   },
   actions: {
-    checkSongs({ commit }) {
+    async checkSongs({ commit }) {
       const currentSongs = getFromLocalStorage("songs");
       let lastSongID = 0;
       if (currentSongs.length > 0) {
         lastSongID = currentSongs[currentSongs.length - 1].id;
       }
-      // TODO: get songs from backend using lastSongID
-      const newlyAddedSongs = [
-        {
-          id: 1,
-          name: "Elimdeki Kemane",
-          url: "https://www.youtube.com/watch?v=_iOLkj5eclk",
-          artists: [1, 2],
+      const response = await fetch(`${API_URL}/api/songs?after=${lastSongID}`, {
+        headers: {
+          "Content-Type": "application/json",
         },
-        {
-          id: 2,
-          name: "Qamışım",
-          url: "https://www.youtube.com/watch?v=50OmnguhyOE",
-          artists: [1, 3],
-        },
-        {
-          id: 3,
-          name: "Dahdan Da Endi Bir Kozu",
-          url: "https://www.youtube.com/watch?v=arq87TC0OQ0",
-          artists: [4],
-        },
-        {
-          id: 4,
-          name: "Tipir",
-          url: "https://www.youtube.com/watch?v=dhSwvlAFtws",
-          artists: [4],
-        },
-      ];
-      const updatedSongs = currentSongs.concat(newlyAddedSongs);
-      commit("setSongs", updatedSongs);
+      });
+      if (response.ok) {
+        const newlyAddedSongs = await response.json();
+        const updatedSongs = currentSongs.concat(newlyAddedSongs);
+        commit("setSongs", updatedSongs);
+      } else {
+        const err = await response.json();
+        // TODO show error modal
+        console.log(err);
+      }
     },
     checkArtists({ commit }) {
       const currentArtists = getFromLocalStorage("artists");
