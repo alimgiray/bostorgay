@@ -30,16 +30,20 @@ export default createStore({
       state.currentSong = null;
     },
     addToQueue(state, { song, prepend = false }) {
+      console.log("add to queue");
       if (prepend) {
         state.queue.unshift(song);
       } else {
         state.queue.push(song);
       }
+      localStorage.setItem("queue", JSON.stringify(state.queue));
     },
     removeSongFromQueue(state, song) {
+      console.log("remove from queue");
       state.queue = state.queue.filter(
         (songInQueue) => songInQueue.id != song.id
       );
+      localStorage.setItem("queue", JSON.stringify(state.queue));
     },
     // Below is not used
     login(state, { username, token }) {
@@ -53,7 +57,10 @@ export default createStore({
       state.username = "";
       state.token = "";
       state.loggedIn = false;
-      localStorage.clear();
+      localStorage.removeItem("token");
+      localStorage.removeItem("username");
+      localStorage.removeItem("songs");
+      localStorage.removeItem("artists");
     },
     setError(state, message) {
       state.showError = true;
@@ -132,6 +139,9 @@ export default createStore({
       ];
       const updatedArtists = currentArtists.concat(newlyAddedArtists);
       commit("setArtists", updatedArtists);
+    },
+    checkQueue({ state }) {
+      state.queue = getFromLocalStorage("queue");
     },
     checkLoginStatus({ commit }) {
       const username = localStorage.getItem("username");

@@ -15,6 +15,7 @@ export default {
     this.$store.dispatch("checkLoginStatus");
     this.$store.dispatch("checkSongs");
     this.$store.dispatch("checkArtists");
+    this.$store.dispatch("checkQueue");
   },
 };
 </script>
