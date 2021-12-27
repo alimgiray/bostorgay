@@ -28,10 +28,10 @@ export default {
     playCurrentSong() {
       this.player.loadVideoById(this.getVideoIDFromURL(this.currentSong?.url));
       this.player.playVideo();
+      const nextSong = this.getNextSong();
       this.player.on("stateChange", (event) => {
         // Song ended
         if (event.data === 0) {
-          const nextSong = this.getNextSong();
           if (nextSong) {
             this.$store.commit("playSong", nextSong);
           } else {
@@ -41,17 +41,18 @@ export default {
       });
     },
     getNextSong() {
-      if (!this.$store.state.currentSong) {
-        return null;
-      }
       const currentSongIndex = this.$store.state.queue.findIndex(
         (song) => song.id === this.$store.state.currentSong?.id
       );
       if (
         currentSongIndex !== -1 &&
-        this.$store.state.queue.length > currentSongIndex
+        this.$store.state.queue.length > currentSongIndex + 1
       ) {
         return this.$store.state.queue[currentSongIndex + 1];
+      }
+      // If no next song, return first one from the list
+      if (this.$store.state.queue.length > 0) {
+        return this.$store.state.queue[0];
       }
       return null;
     },
@@ -64,11 +65,7 @@ export default {
   watch: {
     currentSong: async function (song) {
       if (song) {
-        const videoID = this.getVideoIDFromURL(song.url);
-        if (videoID) {
-          this.player.loadVideoById(videoID);
-          this.player.playVideo();
-        }
+        this.playCurrentSong();
       }
     },
   },

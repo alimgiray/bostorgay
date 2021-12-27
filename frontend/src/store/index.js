@@ -30,7 +30,6 @@ export default createStore({
       state.currentSong = null;
     },
     addToQueue(state, { song, prepend = false }) {
-      console.log("add to queue");
       if (prepend) {
         state.queue.unshift(song);
       } else {
@@ -39,7 +38,6 @@ export default createStore({
       localStorage.setItem("queue", JSON.stringify(state.queue));
     },
     removeSongFromQueue(state, song) {
-      console.log("remove from queue");
       state.queue = state.queue.filter(
         (songInQueue) => songInQueue.id != song.id
       );
