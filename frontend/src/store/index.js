@@ -43,6 +43,10 @@ export default createStore({
       );
       localStorage.setItem("queue", JSON.stringify(state.queue));
     },
+    shuffleQueue(state) {
+      state.queue = shuffle(state.queue);
+      localStorage.setItem("queue", JSON.stringify(state.queue));
+    },
     // Below is not used
     login(state, { username, token }) {
       state.username = username;
@@ -218,4 +222,18 @@ function getFromLocalStorage(name) {
   return localStorage.getItem(name)
     ? JSON.parse(localStorage.getItem(name))
     : [];
+}
+
+function shuffle(array) {
+  let currentIndex = array.length,
+    randomIndex;
+  while (currentIndex != 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
+  }
+  return array;
 }

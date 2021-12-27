@@ -1,6 +1,11 @@
 <template>
   <div class="py-2 text-md">
-    <div class="text-lg border-b px-2 py-1 bg-slate-200">Song queue</div>
+    <div class="flex justify-between text-lg border-b px-2 py-1 bg-slate-200">
+      <span>Song queue</span>
+      <button>
+        <RefreshIcon @click="shuffleQueue()" class="h-6 w-6 text-blue-500" />
+      </button>
+    </div>
     <div
       class="mt-1 py-1 px-2 border-b cursor-pointer"
       v-for="(song, index) in queue"
@@ -24,10 +29,12 @@
 
 <script>
 import { XIcon } from "@heroicons/vue/outline";
+import { RefreshIcon } from "@heroicons/vue/outline";
 export default {
   name: "Queue",
   components: {
     XIcon,
+    RefreshIcon,
   },
   data: function () {
     return {};
@@ -39,6 +46,9 @@ export default {
     },
     removeFromQueue(song) {
       this.$store.commit("removeSongFromQueue", song);
+    },
+    shuffleQueue() {
+      this.$store.commit("shuffleQueue");
     },
   },
   computed: {
