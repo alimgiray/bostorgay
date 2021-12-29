@@ -1,50 +1,75 @@
 const express = require("express");
 const router = express.Router();
 
-// const Joi = require("joi");
+const Joi = require("joi");
 
-// const validateRequest = require("../../helpers/validate-request");
-// const authenticate = require("../../helpers/authenticate");
+const validateRequest = require("../../helpers/validate-request");
+const authenticateAdmin = require("../../helpers/authenticate-admin");
 
 const songService = require("./song.service");
 
-router.get("/", getSongsAfterID);
-// router.post("/", addSongSchema, addSong);
+router.get("/", getAllSongs);
+router.get("/search", searchSongs);
+router.get("/:id", getSong);
+router.post("/", authenticateAdmin, songSchema, addSong);
+router.put("/:id", authenticateAdmin, songSchema, editSong);
+router.delete("/:id", authenticateAdmin, deleteSong);
 
-// TODO get these from database
-function getSongsAfterID(req, res, next) {
-  const lastID = req.query.after;
-  if (lastID > 0) {
-    res.json([]);
-    return;
-  }
-  const songs = [
-    {
-      id: 1,
-      name: "Elimdeki Kemane",
-      url: "https://www.youtube.com/watch?v=_iOLkj5eclk",
-      artists: [1, 2],
-    },
-    {
-      id: 2,
-      name: "Qamışım",
-      url: "https://www.youtube.com/watch?v=50OmnguhyOE",
-      artists: [1, 3],
-    },
-    {
-      id: 3,
-      name: "Dahdan Da Endi Bir Kozu",
-      url: "https://www.youtube.com/watch?v=arq87TC0OQ0",
-      artists: [4],
-    },
-    {
-      id: 4,
-      name: "Tipir",
-      url: "https://www.youtube.com/watch?v=dhSwvlAFtws",
-      artists: [4],
-    },
-  ];
-  res.json(songs);
+function getAllSongs(req, res, next) {
+  songService
+    .getAllSongs()
+    .then((songs) => res.json(songs))
+    .catch(next);
+}
+
+function searchSongs(req, res, next) {
+  const query = req.query.q;
+  songService
+    .searchSongs(query)
+    .then((songs) => res.json(songs))
+    .catch(next);
+}
+
+function getSong(req, res, next) {
+  const songID = req.params.id;
+  songService
+    .getSong(songID)
+    .then((song) => res.json(song))
+    .catch(next);
+}
+
+function songSchema(req, res, next) {
+  const schema = Joi.object({
+    name: Joi.string().required().min(3),
+    artists: Joi.array().items(Joi.number()).required().min(1), // Artist IDs
+    url: Joi.string().required().min(30), // Expecting a valid youtube URL
+  });
+  validateRequest(req, res, next, schema);
+}
+
+function addSong(req, res, next) {
+  const song = req.body;
+  songService
+    .addSong(song)
+    .then((song) => res.json(song))
+    .catch(next);
+}
+
+function editSong(req, res, next) {
+  const songID = req.params.id;
+  const song = req.body;
+  songService
+    .editSong(songID, song)
+    .then((song) => res.json(song))
+    .catch(next);
+}
+
+function deleteSong(req, res, next) {
+  const songID = req.params.id;
+  songService
+    .deleteSong(songID)
+    .then(() => res.sendStatus(204))
+    .catch(next);
 }
 
 module.exports = router;
