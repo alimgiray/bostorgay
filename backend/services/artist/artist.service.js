@@ -1,3 +1,6 @@
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
+
 const errors = require("../../errors");
 
 const Artist = require("./artist.model");
@@ -16,7 +19,16 @@ async function getAllArtists() {
   return await Artist.findAll({});
 }
 
-async function searchArtists() {}
+async function searchArtists(query) {
+  return await Artist.findAll({
+    where: {
+      name: {
+        [Op.substring]: query,
+      },
+    },
+  });
+}
+
 async function getSongsOfArtist(artistID) {}
 async function getArtist(artistID) {}
 
