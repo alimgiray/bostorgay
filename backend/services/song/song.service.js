@@ -16,7 +16,15 @@ module.exports = {
 };
 
 async function getAllSongs() {
-  return await Song.findAll({});
+  return await Song.findAll({
+    include: [
+      {
+        model: Artist,
+        as: "artists",
+        attributes: ["id", "name"],
+      },
+    ],
+  });
 }
 
 async function searchSongs(query) {
@@ -26,6 +34,13 @@ async function searchSongs(query) {
         [Op.substring]: query,
       },
     },
+    include: [
+      {
+        model: Artist,
+        as: "artists",
+        attributes: ["id", "name"],
+      },
+    ],
   });
 }
 
@@ -34,6 +49,13 @@ async function getSong(songID) {
     where: {
       id: songID,
     },
+    include: [
+      {
+        model: Artist,
+        as: "artists",
+        attributes: ["id", "name"],
+      },
+    ],
   });
   if (!song) {
     throw new errors.AppError(

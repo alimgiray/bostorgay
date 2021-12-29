@@ -29,7 +29,10 @@ async function searchArtists(query) {
   });
 }
 
-async function getSongsOfArtist(artistID) {}
+async function getSongsOfArtist(artistID) {
+  const artist = await getArtist(artistID);
+  return artist.getSongs();
+}
 
 async function getArtist(artistID) {
   const artist = await Artist.findOne({
