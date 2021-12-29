@@ -5,6 +5,7 @@ const Joi = require("joi");
 
 const validateRequest = require("../../helpers/validate-request");
 const authenticateAdmin = require("../../helpers/authenticate-admin");
+const authenticateEditor = require("../../helpers/authenticate-editor");
 
 const artistService = require("./artist.service");
 
@@ -12,8 +13,8 @@ router.get("/", getAllArtists);
 router.get("/search", searchArtists);
 router.get("/:id/songs", getSongsOfArtist);
 router.get("/:id", getArtist);
-router.post("/", authenticateAdmin, artistSchema, addArtist);
-router.put("/:id", authenticateAdmin, artistSchema, editArtist);
+router.post("/", authenticateEditor, artistSchema, addArtist);
+router.put("/:id", authenticateEditor, artistSchema, editArtist);
 router.delete("/:id", authenticateAdmin, deleteArtist);
 
 function getAllArtists(req, res, next) {

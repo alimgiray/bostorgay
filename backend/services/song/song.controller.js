@@ -5,14 +5,15 @@ const Joi = require("joi");
 
 const validateRequest = require("../../helpers/validate-request");
 const authenticateAdmin = require("../../helpers/authenticate-admin");
+const authenticateEditor = require("../../helpers/authenticate-editor");
 
 const songService = require("./song.service");
 
 router.get("/", getAllSongs);
 router.get("/search", searchSongs);
 router.get("/:id", getSong);
-router.post("/", authenticateAdmin, songSchema, addSong);
-router.put("/:id", authenticateAdmin, songSchema, editSong);
+router.post("/", authenticateEditor, songSchema, addSong);
+router.put("/:id", authenticateEditor, songSchema, editSong);
 router.delete("/:id", authenticateAdmin, deleteSong);
 
 function getAllSongs(req, res, next) {
