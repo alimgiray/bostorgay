@@ -8,7 +8,7 @@ module.exports = {
 };
 
 function sign(user) {
-  const token = jwt.sign(user, secret);
+  const token = jwt.sign(user, secret, { expiresIn: "7d" });
   return token;
 }
 
