@@ -8,6 +8,9 @@ const User = require("./user.model");
 module.exports = {
   register,
   login,
+  getAllUsers,
+  deleteUser,
+  updateUser,
 };
 
 async function register(username, password, email) {
@@ -52,4 +55,36 @@ async function login(email, password) {
     "Invalid email or password",
     true
   );
+}
+
+async function getUser(userId) {
+  const user = await User.findOne({
+    where: {
+      id: userId,
+    },
+  });
+  if (!user) {
+    throw new errors.AppError(
+      errors.errorTypes.NOT_FOUND,
+      404,
+      "User not found",
+      true
+    );
+  }
+  return user;
+}
+
+async function getAllUsers() {
+  return await User.findAll({});
+}
+
+async function deleteUser(userID) {
+  const user = await getUser(userID);
+  await user.destroy();
+}
+
+async function updateUser(userID, type) {
+  const user = await getUser(userID);
+  user.type = type;
+  return await user.save();
 }
