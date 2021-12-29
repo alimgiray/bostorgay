@@ -23,6 +23,14 @@ const User = database.define(
       type: DataTypes.STRING(256),
       allowNull: false,
       unique: true,
+      validate: {
+        isEmail: true,
+      },
+    },
+    type: {
+      type: DataTypes.ENUM("user", "admin", "editor"),
+      allowNull: false,
+      defaultValue: "user",
     },
   },
   {
