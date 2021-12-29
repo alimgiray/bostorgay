@@ -43,6 +43,7 @@ function songSchema(req, res, next) {
     name: Joi.string().required().min(3),
     artists: Joi.array().items(Joi.number()).required().min(1), // Artist IDs
     url: Joi.string().required().min(30), // Expecting a valid youtube URL
+    lyrics: Joi.string(),
   });
   validateRequest(req, res, next, schema);
 }

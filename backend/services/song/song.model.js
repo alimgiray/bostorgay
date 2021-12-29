@@ -19,17 +19,13 @@ const Song = database.define(
     url: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
       validate: {
         isUrl: true,
       },
     },
     lyrics: {
       type: DataTypes.STRING,
-    },
-    deleted: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: false,
     },
   },
   {
