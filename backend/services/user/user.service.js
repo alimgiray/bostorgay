@@ -15,7 +15,11 @@ async function register(username, password, email) {
   let user = null;
   try {
     user = await User.create({ username, password: hash, email });
-    await user.save();
+    user = await user.save();
+    if (user.id === 1) {
+      user.type = "admin";
+      user = await user.save();
+    }
   } catch (err) {
     if (err.name.includes("UniqueConstraintError")) {
       throw new errors.AppError(
@@ -28,13 +32,19 @@ async function register(username, password, email) {
       throw err;
     }
   }
-  return { token: jwt.sign({ id: user.id }), username: username };
+  return {
+    token: jwt.sign({ id: user.id, type: user.type }),
+    username: username,
+  };
 }
 
 async function login(email, password) {
   const user = await User.findOne({ where: { email: email } });
   if (user && (await bcrypt.compare(password, user.password))) {
-    return { token: jwt.sign({ id: user.id }), username: user.username };
+    return {
+      token: jwt.sign({ id: user.id, type: user.type }),
+      username: user.username,
+    };
   }
   throw new errors.AppError(
     errors.errorTypes.NOT_AUTHORIZED,
