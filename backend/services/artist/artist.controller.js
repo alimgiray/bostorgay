@@ -66,7 +66,7 @@ function editArtist(req, res, next) {
   const artistID = req.params.id;
   const artist = req.body;
   artistService
-    .editArtist(artistID, artist)
+    .editArtist(artistID, artist.name)
     .then((artist) => res.json(artist))
     .catch(next);
 }

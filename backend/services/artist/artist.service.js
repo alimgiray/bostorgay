@@ -30,12 +30,36 @@ async function searchArtists(query) {
 }
 
 async function getSongsOfArtist(artistID) {}
-async function getArtist(artistID) {}
+
+async function getArtist(artistID) {
+  const artist = await Artist.findOne({
+    where: {
+      id: artistID,
+    },
+  });
+  if (!artist) {
+    throw new errors.AppError(
+      errors.errorTypes.NOT_FOUND,
+      404,
+      "Artist not found",
+      true
+    );
+  }
+  return artist;
+}
 
 async function addArtist(name) {
   const artist = await Artist.create({ name });
   return await artist.save();
 }
 
-async function editArtist(artistID, artist) {}
-async function deleteArtist(artistID) {}
+async function editArtist(artistID, name) {
+  const artist = await getArtist(artistID);
+  artist.name = name;
+  return await artist.save();
+}
+
+async function deleteArtist(artistID) {
+  const artist = await getArtist(artistID);
+  await artist.destroy();
+}
