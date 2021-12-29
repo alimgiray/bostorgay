@@ -37,7 +37,15 @@ const Song = database.define(
   }
 );
 
-Song.belongsToMany(Artist);
-Artist.hasMany(Song);
+Song.belongsToMany(Artist, {
+  through: "artist_song",
+  as: "artists",
+  foreignKey: "song_id",
+});
+Artist.belongsToMany(Song, {
+  through: "artist_song",
+  as: "songs",
+  foreignKey: "artist_id",
+});
 
 module.exports = Song;
