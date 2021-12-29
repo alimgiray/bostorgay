@@ -57,7 +57,7 @@ function artistSchema(req, res, next) {
 function addArtist(req, res, next) {
   const artist = req.body;
   artistService
-    .addArtist(artist)
+    .addArtist(artist.name)
     .then((artist) => res.json(artist))
     .catch(next);
 }

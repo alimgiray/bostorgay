@@ -12,10 +12,18 @@ module.exports = {
   deleteArtist,
 };
 
-async function getAllArtists() {}
+async function getAllArtists() {
+  return await Artist.findAll({});
+}
+
 async function searchArtists() {}
 async function getSongsOfArtist(artistID) {}
 async function getArtist(artistID) {}
-async function addArtist(artist) {}
+
+async function addArtist(name) {
+  const artist = await Artist.create({ name });
+  return await artist.save();
+}
+
 async function editArtist(artistID, artist) {}
 async function deleteArtist(artistID) {}
