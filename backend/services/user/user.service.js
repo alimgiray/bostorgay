@@ -64,6 +64,7 @@ async function getUser(userId) {
     where: {
       id: userId,
     },
+    attributes: { exclude: ["password"] },
   });
   if (!user) {
     throw new errors.AppError(
@@ -77,7 +78,9 @@ async function getUser(userId) {
 }
 
 async function getAllUsers() {
-  return await User.findAll({});
+  return await User.findAll({
+    attributes: { exclude: ["password"] },
+  });
 }
 
 async function deleteUser(userID) {

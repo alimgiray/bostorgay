@@ -5,7 +5,7 @@
       <button>Add new</button>
     </div>
     <div>
-      <Table />
+      <Table :rows="users" />
     </div>
   </div>
 </template>
@@ -17,19 +17,26 @@ export default {
     Table,
   },
   data: function () {
-    return {
-      users: [],
-    };
+    return {};
   },
   mounted() {
     this.$store.dispatch("checkLoginStatus");
     if (!this.isAdmin) {
       this.$router.push({ name: "Home" });
     }
+    this.getUsers();
+  },
+  methods: {
+    getUsers() {
+      this.$store.dispatch("getUsers");
+    },
   },
   computed: {
     isAdmin() {
       return this.$store.state.user.userType === "admin";
+    },
+    users() {
+      return this.$store.state.user.users;
     },
   },
 };

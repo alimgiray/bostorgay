@@ -6,6 +6,7 @@ const userModule = {
     username: "",
     token: "",
     userType: "",
+    users: [],
   }),
   mutations: {
     login(state, { username, token, type }) {
@@ -26,6 +27,9 @@ const userModule = {
       localStorage.removeItem("username");
       localStorage.removeItem("type");
     },
+    setUsers(state, users) {
+      state.users = users;
+    },
   },
   actions: {
     checkLoginStatus({ commit }) {
@@ -39,7 +43,7 @@ const userModule = {
       }
     },
     async login({ commit }, { email, password }) {
-      return fetch(`${API_URL}/api/users/login`, {
+      fetch(`${API_URL}/api/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -55,17 +59,15 @@ const userModule = {
         })
         .then((data) => {
           commit("login", data);
-          return true;
         })
         .catch((response) => {
           response.json().then((error) => {
             commit("setError", error.description);
           });
-          return false;
         });
     },
     async register({ commit }, { username, email, password }) {
-      return fetch(`${API_URL}/api/users/register`, {
+      fetch(`${API_URL}/api/users/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -87,6 +89,34 @@ const userModule = {
             commit("setError", error.description);
           });
         });
+    },
+    async getUsers({ commit, getters }) {
+      fetch(`${API_URL}/api/users`, {
+        headers: getters.requestHeader,
+      })
+        .then((response) => {
+          if (response.ok) {
+            commit("clearError");
+            return response.json();
+          }
+          return Promise.reject(response);
+        })
+        .then((data) => {
+          commit("setUsers", data);
+        })
+        .catch((response) => {
+          response.json().then((error) => {
+            commit("setError", error.description);
+          });
+        });
+    },
+  },
+  getters: {
+    requestHeader(state) {
+      return {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${state.token}`,
+      };
     },
   },
 };

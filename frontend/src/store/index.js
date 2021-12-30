@@ -116,14 +116,6 @@ export default createStore({
       state.queue = getFromLocalStorage("queue");
     },
   },
-  getters: {
-    requestHeader(state) {
-      return {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${state.token}`,
-      };
-    },
-  },
 });
 
 function getFromLocalStorage(name) {
