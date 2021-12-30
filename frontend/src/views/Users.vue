@@ -1,10 +1,26 @@
 <template>
-  <div>Users</div>
+  <div>
+    <div>Users</div>
+    <div>
+      <button>Add new</button>
+    </div>
+    <div>
+      <Table />
+    </div>
+  </div>
 </template>
 
 <script>
+import Table from "../components/utility/Table.vue";
 export default {
-  components: {},
+  components: {
+    Table,
+  },
+  data: function () {
+    return {
+      users: [],
+    };
+  },
   mounted() {
     this.$store.dispatch("checkLoginStatus");
     if (!this.isAdmin) {
