@@ -9,6 +9,7 @@ module.exports = {
   register,
   login,
   getAllUsers,
+  getByUsername,
   deleteUser,
   updateUser,
 };
@@ -63,6 +64,24 @@ async function getUser(userId) {
   const user = await User.findOne({
     where: {
       id: userId,
+    },
+    attributes: { exclude: ["password"] },
+  });
+  if (!user) {
+    throw new errors.AppError(
+      errors.errorTypes.NOT_FOUND,
+      404,
+      "User not found",
+      true
+    );
+  }
+  return user;
+}
+
+async function getByUsername(username) {
+  const user = await User.findOne({
+    where: {
+      username: username,
     },
     attributes: { exclude: ["password"] },
   });

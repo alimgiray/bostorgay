@@ -9,6 +9,7 @@ const userService = require("./user.service");
 
 router.post("/register", registerSchema, register);
 router.post("/login", loginSchema, login);
+router.get("/:username", getUser);
 router.get("/", authenticateAdmin, getAllUsers);
 router.delete("/:id", authenticateAdmin, deleteUser);
 router.put("/:id/", authenticateAdmin, updateUserSchema, updateUser);
@@ -53,6 +54,14 @@ function getAllUsers(req, res, next) {
   userService
     .getAllUsers()
     .then((users) => res.json(users))
+    .catch(next);
+}
+
+function getUser(req, res, next) {
+  const username = req.params.username;
+  userService
+    .getByUsername(username)
+    .then((user) => res.json(user))
     .catch(next);
 }
 
