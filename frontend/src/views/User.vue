@@ -2,7 +2,13 @@
   <div class="p-2">
     <div class="text-lg">
       {{ username }}
-      <span v-if="user?.type === 'admin' || user?.type === 'editor'">
+      <span
+        v-if="
+          user?.type === 'admin' ||
+          user?.type === 'editor' ||
+          user?.type === 'banned'
+        "
+      >
         <span
           class="py-0.5 px-2 ml-1 rounded-3xl bg-slate-200 text-xs align-center"
         >
@@ -15,19 +21,25 @@
     </div>
     <div v-if="user && isAdmin" class="mt-1">
       <button
+        @click="update(user.id, 'editor')"
         v-if="user.type === 'user'"
         class="flex mt-2 py-1 px-2 border border-blue-500"
       >
         Make Editor
       </button>
       <button
-        v-if="user.type === 'editor'"
+        @click="update(user.id, 'user')"
+        v-if="user.type === 'editor' || user.type === 'banned'"
         class="flex mt-2 py-1 px-2 border border-blue-500"
       >
-        Remove Editor Privileges
+        Make User
       </button>
-      <button class="flex mt-2 py-1 px-2 border border-blue-500">
-        Delete This User
+      <button
+        v-if="user.type !== 'admin' && user.type !== 'banned'"
+        @click="update(user.id, 'banned')"
+        class="flex mt-2 py-1 px-2 border border-blue-500"
+      >
+        Ban This User
       </button>
     </div>
   </div>
@@ -55,6 +67,11 @@ export default {
     },
     format(t) {
       return time.format(t);
+    },
+    update(id, type) {
+      this.$store.dispatch("updateUser", { id, type }).then((user) => {
+        this.user = user;
+      });
     },
   },
   computed: {

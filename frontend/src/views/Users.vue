@@ -3,9 +3,6 @@
     <div>
       <Table :rows="users" :viewFn="viewUser" />
     </div>
-    <div class="flex justify-end mt-3">
-      <button class="py-1 px-3 border border-blue-500">Add New</button>
-    </div>
   </div>
 </template>
 

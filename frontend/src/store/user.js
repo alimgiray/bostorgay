@@ -126,6 +126,26 @@ const userModule = {
           });
         });
     },
+    async updateUser({ commit, getters }, { id, type }) {
+      return fetch(`${API_URL}/api/users/${id}`, {
+        method: "PUT",
+        headers: getters.requestHeader,
+        body: JSON.stringify({ type }),
+      })
+        .then((response) => {
+          if (response.ok) {
+            commit("clearError");
+            return response.json();
+          } else {
+            return Promise.reject(response);
+          }
+        })
+        .catch((response) => {
+          response.json().then((error) => {
+            commit("setError", error.description);
+          });
+        });
+    },
   },
   getters: {
     requestHeader(state) {

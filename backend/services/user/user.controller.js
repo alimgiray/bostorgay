@@ -75,7 +75,7 @@ function deleteUser(req, res, next) {
 
 function updateUserSchema(req, res, next) {
   const schema = Joi.object({
-    type: Joi.string().required().min(1).valid("user", "editor"),
+    type: Joi.string().required().min(1).valid("user", "editor", "banned"),
   });
   validateRequest(req, res, next, schema);
 }
