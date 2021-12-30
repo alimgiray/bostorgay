@@ -5,8 +5,8 @@
     </div>
     <div class="flex justify-between py-1 overflow-x-auto">
       <div>
-        <button class="px-2">Artists</button>
-        <button class="px-2">Songs</button>
+        <button class="px-2" @click="artistsPage">Artists</button>
+        <button class="px-2" @click="songsPage">Songs</button>
       </div>
       <div>
         <button v-if="isAdmin" class="px-2" @click="usersPage">Users</button>
@@ -46,6 +46,12 @@ export default {
     },
     usersPage() {
       this.$router.push({ name: "Users" });
+    },
+    artistsPage() {
+      this.$router.push({ name: "Artists" });
+    },
+    songsPage() {
+      this.$router.push({ name: "Songs" });
     },
     logout() {
       this.$store.dispatch("logout");
