@@ -7,6 +7,7 @@ export default createStore({
     loggedIn: false,
     username: "",
     token: "",
+    userType: "",
     showError: false,
     errorMessage: "",
     songs: [],
@@ -47,20 +48,23 @@ export default createStore({
       state.queue = shuffle(state.queue);
       localStorage.setItem("queue", JSON.stringify(state.queue));
     },
-    // Below is not used
-    login(state, { username, token }) {
+    login(state, { username, token, type }) {
       state.username = username;
       state.token = token;
+      state.userType = type;
       state.loggedIn = true;
       localStorage.setItem("token", token);
       localStorage.setItem("username", username);
+      localStorage.setItem("type", type);
     },
     logout(state) {
       state.username = "";
       state.token = "";
+      state.userType = "";
       state.loggedIn = false;
       localStorage.removeItem("token");
       localStorage.removeItem("username");
+      localStorage.removeItem("type");
     },
     setError(state, message) {
       state.showError = true;
@@ -131,8 +135,9 @@ export default createStore({
     checkLoginStatus({ commit }) {
       const username = localStorage.getItem("username");
       const token = localStorage.getItem("token");
+      const type = localStorage.getItem("type");
       if (username && token) {
-        commit("login", { username, token });
+        commit("login", { username, token, type });
       } else {
         commit("logout");
       }

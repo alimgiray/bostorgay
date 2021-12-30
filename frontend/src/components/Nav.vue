@@ -1,19 +1,23 @@
 <template>
-  <div class="p-2 flex justify-around border-b-2">
-    <div>
+  <div class="border-b-2">
+    <div class="py-4 flex justify-around border-b">
       <a class="logo" @click="home">{{ appName }}</a>
     </div>
-    <!-- Membership disabled -->
-    <!-- <div class="mr-2">
-      <div v-if="loggedIn">
-        <a class="link mr-2" @click="profile">{{ username }}</a>
-        <a class="link" @click="logout">Logout</a>
+    <div class="flex justify-between py-1 overflow-x-auto">
+      <div>
+        <button class="px-2">Artists</button>
+        <button class="px-2">Songs</button>
       </div>
-      <div v-else>
-        <a class="link mr-2" @click="login">Login</a>
-        <a class="link" @click="register">Register</a>
+      <div>
+        <button v-if="isAdmin" class="px-2" @click="usersPage">Users</button>
+        <button v-if="loggedIn" class="px-2" @click="profile">Profile</button>
+        <button v-if="loggedIn" class="px-2" @click="logout">Logout</button>
+        <button v-if="!loggedIn" class="px-2" @click="login">Login</button>
+        <button v-if="!loggedIn" class="px-2" @click="register">
+          Register
+        </button>
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -40,6 +44,9 @@ export default {
     profile() {
       console.log("Not implemented");
     },
+    usersPage() {
+      this.$router.push({ name: "Users" });
+    },
     logout() {
       this.$store.dispatch("logout");
       this.$router.push({ name: "Home" });
@@ -51,6 +58,9 @@ export default {
     },
     loggedIn() {
       return this.$store.state.loggedIn;
+    },
+    isAdmin() {
+      return this.$store.state.userType === "admin";
     },
   },
 };

@@ -38,6 +38,7 @@ async function register(username, password, email) {
   return {
     token: jwt.sign({ id: user.id, type: user.type }),
     username: username,
+    type: user.type,
   };
 }
 
@@ -47,6 +48,7 @@ async function login(email, password) {
     return {
       token: jwt.sign({ id: user.id, type: user.type }),
       username: user.username,
+      type: user.type,
     };
   }
   throw new errors.AppError(
