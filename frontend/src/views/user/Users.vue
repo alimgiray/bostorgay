@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Table from "../components/utility/Table.vue";
+import Table from "../../components/utility/Table.vue";
 export default {
   name: "Users",
   components: {

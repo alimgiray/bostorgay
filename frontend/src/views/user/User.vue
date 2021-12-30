@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import time from "../utils/time";
+import time from "../../utils/time";
 export default {
   name: "User",
   components: {},
