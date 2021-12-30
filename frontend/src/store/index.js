@@ -1,16 +1,16 @@
 import { createStore } from "vuex";
 
 import userModule from "./user";
+import errorModule from "./error";
 
 const API_URL = import.meta.env.VITE_API_URL || "/";
 
 export default createStore({
   modules: {
     user: userModule,
+    error: errorModule,
   },
   state: {
-    showError: false,
-    errorMessage: "",
     songs: [],
     artists: [],
     queue: [],
