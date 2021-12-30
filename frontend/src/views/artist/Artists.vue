@@ -9,7 +9,10 @@ export default {
   mounted() {},
   computed: {
     isAdmin() {
-      return this.$store.state.userType === "admin";
+      return this.$store.state.user.userType === "admin";
+    },
+    isEditor() {
+      return this.$store.state.user.userType === "editor";
     },
   },
 };
