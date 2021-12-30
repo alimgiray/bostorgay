@@ -1,9 +1,13 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 import Home from "../views/Home.vue";
+
 import Users from "../views/Users.vue";
+import User from "../views/User.vue";
+
 import Artists from "../views/Artists.vue";
 import Songs from "../views/Songs.vue";
+
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 
@@ -27,6 +31,11 @@ const routes = [
     path: "/users",
     name: "Users",
     component: Users,
+  },
+  {
+    path: "/user/:username",
+    name: "User",
+    component: User,
   },
   {
     path: "/artists",

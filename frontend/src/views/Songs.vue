@@ -4,6 +4,7 @@
 
 <script>
 export default {
+  name: "Songs",
   components: {},
   mounted() {},
   computed: {

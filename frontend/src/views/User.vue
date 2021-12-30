@@ -1,10 +1,15 @@
 <template>
-  <div>Artists</div>
+  <div>User: {{ username }}</div>
 </template>
 
 <script>
 export default {
-  name: "Artists",
+  name: "User",
+  data: function () {
+    return {
+      username: this.$route.params.username,
+    };
+  },
   components: {},
   mounted() {},
   computed: {

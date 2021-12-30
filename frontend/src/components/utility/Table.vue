@@ -12,7 +12,6 @@
     </thead>
     <tr v-for="row in filteredRows" :key="row.id">
       <td
-        @click="view(row.id)"
         v-for="key in Object.keys(row)"
         :key="key"
         class="border py-1 text-center"
@@ -22,7 +21,7 @@
       <td class="border py-1">
         <div class="flex justify-around">
           <ChevronDoubleRightIcon
-            @click="view(row.id)"
+            @click="view(row)"
             class="h-4 w-4 md:h-6 md:w-6 text-blue-500"
           />
         </div>
@@ -49,8 +48,8 @@ export default {
   },
   mounted() {},
   methods: {
-    view(id) {
-      this.viewFn.call(this, id);
+    view(row) {
+      this.viewFn.call(this, row);
     },
   },
   computed: {

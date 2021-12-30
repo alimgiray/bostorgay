@@ -12,6 +12,7 @@
 <script>
 import Table from "../components/utility/Table.vue";
 export default {
+  name: "Users",
   components: {
     Table,
   },
@@ -29,8 +30,8 @@ export default {
     getUsers() {
       this.$store.dispatch("getUsers");
     },
-    viewUser(id) {
-      this.$router.push({ name: "User", params: { id } });
+    viewUser(user) {
+      this.$router.push({ name: "User", params: { username: user.username } });
     },
   },
   computed: {
