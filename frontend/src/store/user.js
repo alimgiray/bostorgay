@@ -110,6 +110,22 @@ const userModule = {
           });
         });
     },
+    async getUser({ commit }, username) {
+      return fetch(`${API_URL}/api/users/${username}`)
+        .then((response) => {
+          if (response.ok) {
+            commit("clearError");
+            return response.json();
+          } else {
+            return Promise.reject(response);
+          }
+        })
+        .catch((response) => {
+          response.json().then((error) => {
+            commit("setError", error.description);
+          });
+        });
+    },
   },
   getters: {
     requestHeader(state) {
