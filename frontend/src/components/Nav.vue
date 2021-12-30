@@ -54,19 +54,19 @@ export default {
       this.$router.push({ name: "Songs" });
     },
     logout() {
-      this.$store.dispatch("logout");
+      this.$store.commit("logout");
       this.$router.push({ name: "Home" });
     },
   },
   computed: {
     username() {
-      return this.$store.state.username;
+      return this.$store.state.user.username;
     },
     loggedIn() {
-      return this.$store.state.loggedIn;
+      return this.$store.state.user.loggedIn;
     },
     isAdmin() {
-      return this.$store.state.userType === "admin";
+      return this.$store.state.user.userType === "admin";
     },
   },
 };

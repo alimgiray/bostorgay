@@ -29,7 +29,7 @@ export default {
   },
   computed: {
     isAdmin() {
-      return this.$store.state.userType === "admin";
+      return this.$store.state.user.userType === "admin";
     },
   },
 };
