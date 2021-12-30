@@ -1,11 +1,10 @@
 <template>
-  <div>
-    <div>Users</div>
+  <div class="p-2">
     <div>
-      <button>Add new</button>
+      <Table :rows="users" :viewFn="viewUser" />
     </div>
-    <div>
-      <Table :rows="users" />
+    <div class="flex justify-end mt-3">
+      <button class="py-1 px-3 border border-blue-500">Add New</button>
     </div>
   </div>
 </template>
@@ -29,6 +28,9 @@ export default {
   methods: {
     getUsers() {
       this.$store.dispatch("getUsers");
+    },
+    viewUser(id) {
+      this.$router.push({ name: "User", params: { id } });
     },
   },
   computed: {
