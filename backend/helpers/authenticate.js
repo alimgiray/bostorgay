@@ -29,6 +29,10 @@ authenticate = (req, res, next) => {
       true
     );
   }
+  if (!user.type) {
+    res.sendStatus(401);
+    return;
+  }
   if (user.type === "banned") {
     res.sendStatus(401);
     return;

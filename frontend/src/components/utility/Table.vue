@@ -22,7 +22,7 @@
         <div class="flex justify-around">
           <ChevronDoubleRightIcon
             @click="view(row)"
-            class="h-4 w-4 md:h-6 md:w-6 text-blue-500"
+            class="h-4 w-4 md:h-6 md:w-6 text-blue-500 cursor-pointer"
           />
         </div>
       </td>

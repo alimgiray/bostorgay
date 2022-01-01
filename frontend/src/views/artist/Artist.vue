@@ -1,5 +1,5 @@
 <template>
-  <div>Artist</div>
+  <div>Artist id: {{ id }}</div>
 </template>
 
 <script>

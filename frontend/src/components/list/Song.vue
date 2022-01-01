@@ -49,7 +49,7 @@ export default {
     };
   },
   mounted() {
-    this.songArtists = this.$store.state.artists.filter((artist) =>
+    this.songArtists = this.$store.state.artist.artists.filter((artist) =>
       this.artistIDs.includes(artist.id)
     );
   },

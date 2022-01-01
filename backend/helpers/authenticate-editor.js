@@ -16,7 +16,7 @@ authenticate = (req, res, next) => {
     res.sendStatus(401);
     return;
   }
-  if (user.type !== "admin" || user.type !== "editor") {
+  if (user.type !== "admin" && user.type !== "editor") {
     res.sendStatus(401);
     return;
   }

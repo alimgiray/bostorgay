@@ -2,6 +2,7 @@ import { createStore } from "vuex";
 
 import userModule from "./user";
 import errorModule from "./error";
+import artistModule from "./artist";
 
 const API_URL = import.meta.env.VITE_API_URL || "/";
 
@@ -9,10 +10,10 @@ export default createStore({
   modules: {
     user: userModule,
     error: errorModule,
+    artist: artistModule,
   },
   state: {
     songs: [],
-    artists: [],
     queue: [],
     currentSong: null,
   },
@@ -20,10 +21,6 @@ export default createStore({
     setSongs(state, songs) {
       state.songs = songs;
       localStorage.setItem("songs", JSON.stringify(songs));
-    },
-    setArtists(state, artists) {
-      state.artists = artists;
-      localStorage.setItem("artists", JSON.stringify(artists));
     },
     playSong(state, song) {
       state.currentSong = song;
@@ -83,34 +80,6 @@ export default createStore({
         // TODO show error modal
         console.log(err);
       }
-    },
-    checkArtists({ commit }) {
-      const currentArtists = getFromLocalStorage("artists");
-      let lastArtistID = 0;
-      if (currentArtists.length > 0) {
-        lastArtistID = currentArtists[currentArtists.length - 1].id;
-      }
-      // TODO: get artists from backend using lastArtistID
-      const newlyAddedArtists = [
-        {
-          id: 1,
-          name: "Aliye Hacabadinova",
-        },
-        {
-          id: 2,
-          name: "Grup Yo-Gurt",
-        },
-        {
-          id: 3,
-          name: "Pushkin Klezmer Band",
-        },
-        {
-          id: 4,
-          name: "Karolina Cicha",
-        },
-      ];
-      const updatedArtists = currentArtists.concat(newlyAddedArtists);
-      commit("setArtists", updatedArtists);
     },
     checkQueue({ state }) {
       state.queue = getFromLocalStorage("queue");

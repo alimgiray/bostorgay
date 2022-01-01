@@ -42,7 +42,7 @@ export default {
       this.$router.push({ name: "Home" });
     },
     profile() {
-      console.log("Not implemented");
+      this.$router.push({ name: "User", params: { username: this.username } });
     },
     usersPage() {
       this.$router.push({ name: "Users" });
