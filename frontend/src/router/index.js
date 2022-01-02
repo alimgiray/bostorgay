@@ -8,6 +8,7 @@ import User from "../views/user/User.vue";
 import Artists from "../views/artist/Artists.vue";
 import Artist from "../views/artist/Artist.vue";
 import NewArtist from "../views/artist/NewArtist.vue";
+import EditArtist from "../views/artist/EditArtist.vue";
 
 import Songs from "../views/song/Songs.vue";
 import Song from "../views/song/Song.vue";
@@ -51,6 +52,11 @@ const routes = [
     path: "/artist/new",
     name: "NewArtist",
     component: NewArtist,
+  },
+  {
+    path: "/artist/edit/:id",
+    name: "EditArtist",
+    component: EditArtist,
   },
   {
     path: "/artist/:id",

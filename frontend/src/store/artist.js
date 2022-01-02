@@ -12,6 +12,15 @@ const artistModule = {
     addArtist(state, artist) {
       state.artists.push(artist);
     },
+    updateArtist(state, updatedArtist) {
+      state.artists = state.artists.map((artist) => {
+        if (artist.id != updatedArtist.id) {
+          return artist;
+        } else {
+          return updatedArtist;
+        }
+      });
+    },
     setArtistSuggestions(state, artists) {
       state.suggestions = artists;
     },
@@ -95,6 +104,28 @@ const artistModule = {
         })
         .then((artist) => {
           commit("addArtist", artist);
+        })
+        .catch((response) => {
+          response.json().then((error) => {
+            commit("setError", error.description);
+          });
+        });
+    },
+    editArtist({ commit, getters }, { id, name }) {
+      fetch(`${API_URL}/api/artists/${id}`, {
+        method: "PUT",
+        headers: getters.requestHeader,
+        body: JSON.stringify({ name }),
+      })
+        .then((response) => {
+          if (response.ok) {
+            commit("clearError");
+            return response.json();
+          }
+          return Promise.reject(response);
+        })
+        .then((artist) => {
+          commit("updateArtist", artist);
         })
         .catch((response) => {
           response.json().then((error) => {

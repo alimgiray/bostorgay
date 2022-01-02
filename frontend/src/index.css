@@ -24,7 +24,7 @@ body {
 }
 
 .centered-medium {
-  @apply max-w-md m-auto mt-10 p-4;
+  @apply max-w-md m-auto p-4;
 }
 
 .small-button {
