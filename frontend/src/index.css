@@ -11,6 +11,10 @@ body {
   @apply max-w-6xl m-auto mt-2;
 }
 
+#selectedNavItem {
+  @apply text-orange-400;
+}
+
 .page-title {
   @apply text-blue-400 font-bold uppercase text-xl;
 }

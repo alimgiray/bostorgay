@@ -5,15 +5,53 @@
     </div>
     <div class="flex justify-between py-1 overflow-x-auto">
       <div>
-        <button class="px-2" @click="artistsPage">Artists</button>
-        <button class="px-2" @click="songsPage">Songs</button>
+        <button
+          class="px-2"
+          :id="isCurrentPage('Artists') ? 'selectedNavItem' : ''"
+          @click="artistsPage"
+        >
+          Artists
+        </button>
+        <button
+          class="px-2"
+          :id="isCurrentPage('Songs') ? 'selectedNavItem' : ''"
+          @click="songsPage"
+        >
+          Songs
+        </button>
       </div>
       <div>
-        <button v-if="isAdmin" class="px-2" @click="usersPage">Users</button>
-        <button v-if="loggedIn" class="px-2" @click="profile">Profile</button>
+        <button
+          v-if="isAdmin"
+          class="px-2"
+          :id="isCurrentPage('Users') ? 'selectedNavItem' : ''"
+          @click="usersPage"
+        >
+          Users
+        </button>
+        <button
+          v-if="loggedIn"
+          class="px-2"
+          :id="isCurrentPage('User') ? 'selectedNavItem' : ''"
+          @click="profile"
+        >
+          Profile
+        </button>
         <button v-if="loggedIn" class="px-2" @click="logout">Logout</button>
-        <button v-if="!loggedIn" class="px-2" @click="login">Login</button>
-        <button v-if="!loggedIn" class="px-2" @click="register">
+        <button
+          v-if="!loggedIn"
+          class="px-2"
+          :id="isCurrentPage('Login') ? 'selectedNavItem' : ''"
+          @click="login"
+        >
+          Login
+        </button>
+        <button
+          v-if="!loggedIn"
+          class="px-2"
+          :id="isCurrentPage('Register') ? 'selectedNavItem' : ''"
+          @click="register"
+        >
           Register
         </button>
       </div>
@@ -22,6 +60,7 @@
 </template>
 
 <script>
+import { useRouter } from "vue-router";
 export default {
   name: "Nav",
   components: {},
@@ -57,6 +96,9 @@ export default {
       this.$store.commit("logout");
       this.$router.push({ name: "Home" });
     },
+    isCurrentPage(page) {
+      return page === this.currentPage;
+    },
   },
   computed: {
     username() {
@@ -67,6 +109,9 @@ export default {
     },
     isAdmin() {
       return this.$store.state.user.userType === "admin";
+    },
+    currentPage() {
+      return useRouter().currentRoute.value.name;
     },
   },
 };
