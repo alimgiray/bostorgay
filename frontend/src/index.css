@@ -12,7 +12,7 @@ body {
 }
 
 .page-title {
-  @apply text-blue-400 font-bold uppercase text-2xl;
+  @apply text-blue-400 font-bold uppercase text-xl;
 }
 
 .auth-input {

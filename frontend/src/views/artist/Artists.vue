@@ -11,42 +11,23 @@
     </div>
     <div>
       <div v-for="artist in artists" :key="artist.id">
-        <div
-          @click="goArtistPage(artist.id)"
-          class="
-            p-2
-            border-b border-slate-300
-            cursor-pointer
-            flex
-            justify-between
-          "
-        >
-          {{ artist.name }}
-          <ChevronDoubleRightIcon
-            @click="view(row)"
-            class="h-6 w-6 text-blue-500 cursor-pointer"
-          />
-        </div>
+        <ArtistListItem :artist="artist" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { ChevronDoubleRightIcon } from "@heroicons/vue/outline";
-
+import ArtistListItem from "../../components/list/Artist.vue";
 export default {
   name: "Artists",
-  components: { ChevronDoubleRightIcon },
+  components: { ArtistListItem },
   mounted() {
     this.$store.dispatch("getArtists");
   },
   methods: {
     goNewArtistPage() {
       this.$router.push({ name: "NewArtist" });
-    },
-    goArtistPage(id) {
-      this.$router.push({ name: "Artist", params: { id } });
     },
   },
   computed: {

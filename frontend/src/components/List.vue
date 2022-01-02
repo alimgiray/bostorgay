@@ -27,7 +27,7 @@ export default {
     };
   },
   mounted() {
-    this.list = this.$store.state.songs.slice(-20);
+    this.list = this.$store.state.song.songs.slice(-20);
   },
   methods: {
     setResults(results) {
@@ -36,7 +36,7 @@ export default {
   },
   computed: {
     fetchedSongs() {
-      return this.$store.state.songs;
+      return this.$store.state.song.songs;
     },
   },
   watch: {

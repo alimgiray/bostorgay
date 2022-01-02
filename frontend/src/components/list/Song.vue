@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-between py-2">
+  <div class="flex justify-between p-2 border-b border-slate-300">
     <div>
       <div>{{ song.name }}</div>
       <div>

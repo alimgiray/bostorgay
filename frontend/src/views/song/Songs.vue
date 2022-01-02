@@ -8,16 +8,20 @@
     </div>
     <div>
       <div v-for="song in songs" :key="song.id">
-        {{ song.name }}
+        <SongListItem v-if="song.url" :song="song" :artistIDs="song.artists" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import SongListItem from "../../components/list/Song.vue";
+
 export default {
   name: "Songs",
-  components: {},
+  components: {
+    SongListItem,
+  },
   mounted() {
     this.$store.dispatch("getSongs");
   },
