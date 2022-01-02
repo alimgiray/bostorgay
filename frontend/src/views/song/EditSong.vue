@@ -1,6 +1,6 @@
 <template>
   <div class="centered-medium">
-    <h1 class="page-title">Add New Song</h1>
+    <h1 class="page-title">Edit Song</h1>
     <div>
       <input v-model="name" type="text" placeholder="name" class="auth-input" />
     </div>
@@ -57,7 +57,7 @@
       />
     </div>
     <div class="flex justify-end">
-      <button @click="addNewSong" class="small-button">Add</button>
+      <button @click="editSong" class="small-button">Update</button>
     </div>
   </div>
 </template>
@@ -66,13 +66,15 @@
 import { PlusIcon } from "@heroicons/vue/outline";
 import { MinusIcon } from "@heroicons/vue/outline";
 export default {
-  name: "NewSong",
+  name: "EditSong",
   components: {
     PlusIcon,
     MinusIcon,
   },
   data: function () {
     return {
+      id: this.$route.params.id,
+      song: null,
       name: "",
       artistSearch: "",
       artists: [],
@@ -80,16 +82,22 @@ export default {
       lyrics: "",
     };
   },
-  mounted() {
+  async mounted() {
     this.$store.dispatch("checkLoginStatus");
     if (!this.isAdmin && !this.isEditor) {
       this.$router.push({ name: "Home" });
     }
+    this.song = await this.$store.dispatch("getSong", this.id);
+    this.name = this.song.name;
+    this.url = this.song.url;
+    this.lyrics = this.song.lyrics;
+    this.artists = this.song.artists;
   },
   methods: {
-    addNewSong() {
+    editSong() {
       const artistIDs = this.artists.map((artist) => artist.id);
-      this.$store.dispatch("addSong", {
+      this.$store.dispatch("editSong", {
+        id: this.id,
         name: this.name,
         artists: artistIDs,
         url: this.url,

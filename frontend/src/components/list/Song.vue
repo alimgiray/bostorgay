@@ -26,18 +26,25 @@
           class="mx-1 h-6 w-6 text-blue-500"
         />
       </button>
+      <button v-if="isAdmin || isEditor">
+        <PencilIcon
+          @click="editSong(song.id)"
+          class="mx-1 h-6 w-6 text-blue-500"
+        />
+      </button>
     </div>
   </div>
 </template>
 
 <script>
-import { PlayIcon, PlusIcon } from "@heroicons/vue/outline";
+import { PlayIcon, PlusIcon, PencilIcon } from "@heroicons/vue/outline";
 
 export default {
   name: "SongListItem",
   components: {
     PlayIcon,
     PlusIcon,
+    PencilIcon,
   },
   props: {
     song: Object,
@@ -67,8 +74,18 @@ export default {
         this.$store.commit("addToQueue", { song: this.song, prepend });
       }
     },
+    editSong(id) {
+      this.$router.push({ name: "EditSong", params: { id: id } });
+    },
   },
-  computed: {},
+  computed: {
+    isAdmin() {
+      return this.$store.state.user.userType === "admin";
+    },
+    isEditor() {
+      return this.$store.state.user.userType === "editor";
+    },
+  },
 };
 </script>
 

@@ -1,11 +1,10 @@
 <template>
   <div
-    @click="goArtistPage(artist.id)"
     class="p-2 border-b border-slate-300 cursor-pointer flex justify-between"
   >
     {{ artist.name }}
     <ChevronDoubleRightIcon
-      @click="view(row)"
+      @click="goArtistPage(artist.id)"
       class="h-6 w-6 text-blue-500 cursor-pointer"
     />
   </div>
