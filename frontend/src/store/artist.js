@@ -20,6 +20,44 @@ const artistModule = {
     },
   },
   actions: {
+    async getArtist({ commit }, id) {
+      return fetch(`${API_URL}/api/artists/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
+          if (response.ok) {
+            commit("clearError");
+            return response.json();
+          }
+          return Promise.reject(response);
+        })
+        .catch((response) => {
+          response.json().then((error) => {
+            commit("setError", error.description);
+          });
+        });
+    },
+    async getSongsOfArtist({ commit }, id) {
+      return fetch(`${API_URL}/api/artists/${id}/songs`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
+          if (response.ok) {
+            commit("clearError");
+            return response.json();
+          }
+          return Promise.reject(response);
+        })
+        .catch((response) => {
+          response.json().then((error) => {
+            commit("setError", error.description);
+          });
+        });
+    },
     getArtists({ commit }) {
       fetch(`${API_URL}/api/artists`, {
         headers: {
