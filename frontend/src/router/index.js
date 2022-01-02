@@ -11,6 +11,7 @@ import NewArtist from "../views/artist/NewArtist.vue";
 
 import Songs from "../views/song/Songs.vue";
 import Song from "../views/song/Song.vue";
+import NewSong from "../views/song/NewSong.vue";
 
 import Login from "../views/user/Login.vue";
 import Register from "../views/user/Register.vue";
@@ -60,6 +61,11 @@ const routes = [
     path: "/songs",
     name: "Songs",
     component: Songs,
+  },
+  {
+    path: "/song/new",
+    name: "NewSong",
+    component: NewSong,
   },
   {
     path: "/song/:id",

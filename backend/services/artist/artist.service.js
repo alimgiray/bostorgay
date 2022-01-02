@@ -26,6 +26,7 @@ async function searchArtists(query) {
         [Op.substring]: query,
       },
     },
+    limit: 5,
   });
 }
 
