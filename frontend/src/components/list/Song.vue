@@ -4,7 +4,7 @@
       <div>{{ song.name }}</div>
       <div>
         <span
-          v-for="(artist, index) in songArtists"
+          v-for="(artist, index) in artists"
           :key="artist.id"
           class="text-sm text-slate-500"
         >
@@ -12,7 +12,7 @@
             @click="goArtistPage(artist.id)"
             class="underline cursor-pointer"
             >{{ artist.name }}</a
-          ><span v-if="index < songArtists.length - 1">, </span>
+          ><span v-if="index < artists.length - 1">, </span>
         </span>
       </div>
     </div>
@@ -41,22 +41,17 @@ export default {
   },
   props: {
     song: Object,
-    artistIDs: Array,
+    artists: Array,
   },
   data: function () {
     return {
       songArtists: [],
     };
   },
-  mounted() {
-    this.songArtists = this.$store.state.artist.artists.filter((artist) =>
-      this.artistIDs.includes(artist.id)
-    );
-  },
+  mounted() {},
   methods: {
     goArtistPage(artistID) {
-      // TODO implement after artist page
-      console.log(artistID);
+      this.$router.push({ name: "Artist", params: { id: artistID } });
     },
     isSongAlreadyInQueue() {
       return this.$store.state.queue.some((song) => song.id === this.song.id);

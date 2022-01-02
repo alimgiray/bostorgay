@@ -8,7 +8,7 @@
     </div>
     <div>
       <div v-for="song in songs" :key="song.id">
-        <SongListItem v-if="song.url" :song="song" :artistIDs="song.artists" />
+        <SongListItem v-if="song.url" :song="song" :artists="song.artists" />
       </div>
     </div>
   </div>
