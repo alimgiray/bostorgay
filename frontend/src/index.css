@@ -4,7 +4,7 @@
 @tailwind variants;
 
 body {
-  @apply text-blue-600 max-w-lg ml-auto mr-auto;
+  @apply text-blue-600 max-w-lg ml-auto mr-auto min-h-screen;
 }
 
 #home {
