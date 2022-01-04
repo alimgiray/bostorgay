@@ -103,6 +103,31 @@ const songModule = {
           });
         });
     },
+    searchSongs({ commit }, query) {
+      if (query == "") {
+        return [];
+      }
+      return fetch(`${API_URL}/api/songs/search?q=${query}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
+          if (response.ok) {
+            commit("clearError");
+            return response.json();
+          }
+          return Promise.reject(response);
+        })
+        .then((songs) => {
+          return songs;
+        })
+        .catch((response) => {
+          response.json().then((error) => {
+            commit("setError", error.description);
+          });
+        });
+    },
   },
 };
 

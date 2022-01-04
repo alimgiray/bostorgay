@@ -30,9 +30,11 @@ async function getAllSongs() {
 async function searchSongs(query) {
   return await Song.findAll({
     where: {
-      name: {
-        [Op.substring]: query,
-      },
+      name: Sequelize.where(
+        Sequelize.fn("UPPER", Sequelize.col("name")),
+        "LIKE",
+        "%" + query.toUpperCase() + "%"
+      ),
     },
     include: [
       {
@@ -41,6 +43,7 @@ async function searchSongs(query) {
         attributes: ["id", "name"],
       },
     ],
+    limit: 20,
   });
 }
 

@@ -41,9 +41,7 @@ export default {
         this.$emit("onResults", artists);
         return;
       }
-      const songs = this.$store.state.songs.filter((song) =>
-        song.name.toLowerCase().includes(this.searchTerm.toLowerCase())
-      );
+      const songs = await this.$store.dispatch("searchSongs", this.searchTerm);
       this.$emit("onResults", songs);
     },
     clear() {
