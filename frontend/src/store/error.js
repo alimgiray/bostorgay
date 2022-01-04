@@ -14,7 +14,9 @@ const errorModule = {
     },
     clearError(state) {
       state.showError = false;
-      state.errorMessage = "";
+      setTimeout(() => {
+        state.errorMessage = "";
+      }, 1000);
     },
   },
   actions: {},
