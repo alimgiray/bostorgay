@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="p-2 border-b border-slate-300 cursor-pointer flex justify-between"
-  >
+  <div class="p-2 border-b border-slate-300 flex justify-between">
     {{ artist.name }}
     <ChevronDoubleRightIcon
       @click="goArtistPage(artist.id)"

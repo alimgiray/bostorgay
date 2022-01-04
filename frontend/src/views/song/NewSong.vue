@@ -75,6 +75,7 @@ export default {
     return {
       name: "",
       artistSearch: "",
+      artistSearchResults: [],
       artists: [],
       url: "",
       lyrics: "",
@@ -96,17 +97,20 @@ export default {
         lyrics: this.lyrics,
       });
     },
-    searchArtist() {
+    async searchArtist() {
       if (this.artistSearch === "") {
-        this.$store.commit("clearArtistSuggestions");
+        this.artistSearchResults = [];
       } else {
-        this.$store.dispatch("searchArtists", this.artistSearch);
+        this.artistSearchResults = await this.$store.dispatch(
+          "searchArtists",
+          this.artistSearch
+        );
       }
     },
     addSelectedArtist(artist) {
       this.artists.push(artist);
       this.artistSearch = "";
-      this.$store.commit("clearArtistSuggestions");
+      this.artistSearchResults = [];
     },
     removeFromSelectedArtists(artist) {
       this.artists = this.artists.filter(
@@ -122,7 +126,7 @@ export default {
       return this.$store.state.user.userType === "editor";
     },
     suggestedArtists() {
-      return this.$store.state.artist.suggestions.filter(
+      return this.artistSearchResults.filter(
         (artist) =>
           !this.artists.some(
             (selectedArtist) => selectedArtist.id === artist.id

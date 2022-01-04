@@ -3,7 +3,6 @@ const API_URL = import.meta.env.VITE_API_URL || "/";
 const artistModule = {
   state: () => ({
     artists: [],
-    suggestions: [],
   }),
   mutations: {
     setArtists(state, artists) {
@@ -20,12 +19,6 @@ const artistModule = {
           return updatedArtist;
         }
       });
-    },
-    setArtistSuggestions(state, artists) {
-      state.suggestions = artists;
-    },
-    clearArtistSuggestions(state) {
-      state.suggestions = [];
     },
   },
   actions: {
@@ -135,9 +128,9 @@ const artistModule = {
     },
     searchArtists({ commit }, query) {
       if (query == "") {
-        return;
+        return [];
       }
-      fetch(`${API_URL}/api/artists/search?q=${query}`, {
+      return fetch(`${API_URL}/api/artists/search?q=${query}`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -150,7 +143,7 @@ const artistModule = {
           return Promise.reject(response);
         })
         .then((artists) => {
-          commit("setArtistSuggestions", artists);
+          return artists;
         })
         .catch((response) => {
           response.json().then((error) => {

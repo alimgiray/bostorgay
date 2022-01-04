@@ -31,11 +31,12 @@ export default {
   },
   mounted() {},
   methods: {
-    search() {
+    async search() {
       if (this.searchTerm.startsWith("@")) {
         const artistSearchTerm = this.searchTerm.substring(1);
-        const artists = this.$store.state.artists.filter((artist) =>
-          artist.name.toLowerCase().includes(artistSearchTerm.toLowerCase())
+        const artists = await this.$store.dispatch(
+          "searchArtists",
+          artistSearchTerm
         );
         this.$emit("onResults", artists);
         return;
