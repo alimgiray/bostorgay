@@ -1,5 +1,6 @@
 <template>
   <main id="app" class="font-serif">
+    <ErrorModal />
     <Nav />
     <router-view />
     <Collapsable />
@@ -9,10 +10,12 @@
 <script>
 import Nav from "./components/Nav.vue";
 import Collapsable from "./components/Collapsable.vue";
+import ErrorModal from "./components/utility/ErrorModal.vue";
 export default {
   components: {
     Nav,
     Collapsable,
+    ErrorModal,
   },
   async mounted() {
     // This order is important
