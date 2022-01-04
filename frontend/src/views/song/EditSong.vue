@@ -101,7 +101,7 @@ export default {
         name: this.name,
         artists: artistIDs,
         url: this.url,
-        lyrics: this.lyrics,
+        lyrics: this.lyrics || "",
       });
     },
     searchArtist() {
