@@ -30,14 +30,16 @@ const artistModule = {
       })
         .then((response) => {
           if (response.ok) {
-            commit("clearError");
             return response.json();
           }
           return Promise.reject(response);
         })
         .catch((response) => {
           response.json().then((error) => {
-            commit("setError", error.description);
+            commit("setNotification", {
+              message: error.description,
+              isError: true,
+            });
           });
         });
     },
@@ -49,14 +51,16 @@ const artistModule = {
       })
         .then((response) => {
           if (response.ok) {
-            commit("clearError");
             return response.json();
           }
           return Promise.reject(response);
         })
         .catch((response) => {
           response.json().then((error) => {
-            commit("setError", error.description);
+            commit("setNotification", {
+              message: error.description,
+              isError: true,
+            });
           });
         });
     },
@@ -68,7 +72,6 @@ const artistModule = {
       })
         .then((response) => {
           if (response.ok) {
-            commit("clearError");
             return response.json();
           }
           return Promise.reject(response);
@@ -78,7 +81,10 @@ const artistModule = {
         })
         .catch((response) => {
           response.json().then((error) => {
-            commit("setError", error.description);
+            commit("setNotification", {
+              message: error.description,
+              isError: true,
+            });
           });
         });
     },
@@ -90,7 +96,10 @@ const artistModule = {
       })
         .then((response) => {
           if (response.ok) {
-            commit("clearError");
+            commit("setNotification", {
+              message: "Artist added",
+              isError: false,
+            });
             return response.json();
           }
           return Promise.reject(response);
@@ -100,7 +109,10 @@ const artistModule = {
         })
         .catch((response) => {
           response.json().then((error) => {
-            commit("setError", error.description);
+            commit("setNotification", {
+              message: error.description,
+              isError: true,
+            });
           });
         });
     },
@@ -112,7 +124,10 @@ const artistModule = {
       })
         .then((response) => {
           if (response.ok) {
-            commit("clearError");
+            commit("setNotification", {
+              message: "Artist updated",
+              isError: false,
+            });
             return response.json();
           }
           return Promise.reject(response);
@@ -122,7 +137,10 @@ const artistModule = {
         })
         .catch((response) => {
           response.json().then((error) => {
-            commit("setError", error.description);
+            commit("setNotification", {
+              message: error.description,
+              isError: true,
+            });
           });
         });
     },
@@ -137,7 +155,6 @@ const artistModule = {
       })
         .then((response) => {
           if (response.ok) {
-            commit("clearError");
             return response.json();
           }
           return Promise.reject(response);
@@ -147,7 +164,10 @@ const artistModule = {
         })
         .catch((response) => {
           response.json().then((error) => {
-            commit("setError", error.description);
+            commit("setNotification", {
+              message: error.description,
+              isError: true,
+            });
           });
         });
     },

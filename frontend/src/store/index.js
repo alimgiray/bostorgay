@@ -1,14 +1,14 @@
 import { createStore } from "vuex";
 
 import userStore from "./user";
-import errorStore from "./error";
+import notificationStore from "./notification";
 import artistStore from "./artist";
 import songStore from "./song";
 
 export default createStore({
   modules: {
     user: userStore,
-    error: errorStore,
+    notification: notificationStore,
     artist: artistStore,
     song: songStore,
   },

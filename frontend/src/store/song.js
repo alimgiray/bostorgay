@@ -30,14 +30,16 @@ const songModule = {
       })
         .then((response) => {
           if (response.ok) {
-            commit("clearError");
             return response.json();
           }
           return Promise.reject(response);
         })
         .catch((response) => {
           response.json().then((error) => {
-            commit("setError", error.description);
+            commit("setNotification", {
+              message: error.description,
+              isError: true,
+            });
           });
         });
     },
@@ -45,7 +47,6 @@ const songModule = {
       fetch(`${API_URL}/api/songs`)
         .then((response) => {
           if (response.ok) {
-            commit("clearError");
             return response.json();
           }
           return Promise.reject(response);
@@ -55,7 +56,10 @@ const songModule = {
         })
         .catch((response) => {
           response.json().then((error) => {
-            commit("setError", error.description);
+            commit("setNotification", {
+              message: error.description,
+              isError: true,
+            });
           });
         });
     },
@@ -67,7 +71,10 @@ const songModule = {
       })
         .then((response) => {
           if (response.ok) {
-            commit("clearError");
+            commit("setNotification", {
+              message: "Song added",
+              isError: false,
+            });
             return response.json();
           }
           return Promise.reject(response);
@@ -77,7 +84,10 @@ const songModule = {
         })
         .catch((response) => {
           response.json().then((error) => {
-            commit("setError", error.description);
+            commit("setNotification", {
+              message: error.description,
+              isError: true,
+            });
           });
         });
     },
@@ -89,7 +99,10 @@ const songModule = {
       })
         .then((response) => {
           if (response.ok) {
-            commit("clearError");
+            commit("setNotification", {
+              message: "Song updated",
+              isError: false,
+            });
             return response.json();
           }
           return Promise.reject(response);
@@ -99,7 +112,10 @@ const songModule = {
         })
         .catch((response) => {
           response.json().then((error) => {
-            commit("setError", error.description);
+            commit("setNotification", {
+              message: error.description,
+              isError: true,
+            });
           });
         });
     },
@@ -114,7 +130,6 @@ const songModule = {
       })
         .then((response) => {
           if (response.ok) {
-            commit("clearError");
             return response.json();
           }
           return Promise.reject(response);
@@ -124,7 +139,10 @@ const songModule = {
         })
         .catch((response) => {
           response.json().then((error) => {
-            commit("setError", error.description);
+            commit("setNotification", {
+              message: error.description,
+              isError: true,
+            });
           });
         });
     },
