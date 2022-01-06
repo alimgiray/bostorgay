@@ -31,7 +31,13 @@ export default {
   },
   methods: {
     editArtist() {
-      this.$store.dispatch("editArtist", { id: this.id, name: this.name });
+      const success = this.$store.dispatch("editArtist", {
+        id: this.id,
+        name: this.name,
+      });
+      if (success) {
+        this.$router.push({ name: "Artist", params: { id: this.id } });
+      }
     },
   },
   computed: {

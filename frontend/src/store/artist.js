@@ -88,8 +88,8 @@ const artistModule = {
           });
         });
     },
-    addArtist({ commit, getters }, name) {
-      fetch(`${API_URL}/api/artists`, {
+    async addArtist({ commit, getters }, name) {
+      return fetch(`${API_URL}/api/artists`, {
         method: "POST",
         headers: getters.requestHeader,
         body: JSON.stringify({ name }),
@@ -106,6 +106,7 @@ const artistModule = {
         })
         .then((artist) => {
           commit("addArtist", artist);
+          return artist.id;
         })
         .catch((response) => {
           response.json().then((error) => {
@@ -114,10 +115,11 @@ const artistModule = {
               isError: true,
             });
           });
+          return false;
         });
     },
-    editArtist({ commit, getters }, { id, name }) {
-      fetch(`${API_URL}/api/artists/${id}`, {
+    async editArtist({ commit, getters }, { id, name }) {
+      return fetch(`${API_URL}/api/artists/${id}`, {
         method: "PUT",
         headers: getters.requestHeader,
         body: JSON.stringify({ name }),
@@ -134,6 +136,7 @@ const artistModule = {
         })
         .then((artist) => {
           commit("updateArtist", artist);
+          return true;
         })
         .catch((response) => {
           response.json().then((error) => {
@@ -142,6 +145,7 @@ const artistModule = {
               isError: true,
             });
           });
+          return false;
         });
     },
     searchArtists({ commit }, query) {

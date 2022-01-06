@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: "Artist",
+  name: "NewArtist",
   components: {},
   data: function () {
     return {
@@ -26,8 +26,11 @@ export default {
     }
   },
   methods: {
-    addNewArtist() {
-      this.$store.dispatch("addArtist", this.name);
+    async addNewArtist() {
+      const newArtistID = await this.$store.dispatch("addArtist", this.name);
+      if (newArtistID) {
+        this.$router.push({ name: "Artist", params: { id: newArtistID } });
+      }
     },
   },
   computed: {
