@@ -5,6 +5,9 @@
       <input v-model="name" type="text" placeholder="name" class="auth-input" />
     </div>
     <div class="flex justify-end">
+      <button @click="deleteArtist" class="small-button-red mr-2">
+        Delete
+      </button>
       <button @click="editArtist" class="small-button">Update</button>
     </div>
   </div>
@@ -37,6 +40,12 @@ export default {
       });
       if (success) {
         this.$router.push({ name: "Artist", params: { id: this.id } });
+      }
+    },
+    deleteArtist() {
+      const success = this.$store.dispatch("deleteArtist", this.id);
+      if (success) {
+        this.$router.push({ name: "Artists" });
       }
     },
   },

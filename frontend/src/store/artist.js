@@ -20,6 +20,9 @@ const artistModule = {
         }
       });
     },
+    removeArtist(state, id) {
+      state.artists = state.artists.filter((artist) => artist.id != id);
+    },
   },
   actions: {
     async getArtist({ commit }, id) {
@@ -136,6 +139,35 @@ const artistModule = {
         })
         .then((artist) => {
           commit("updateArtist", artist);
+          return true;
+        })
+        .catch((response) => {
+          response.json().then((error) => {
+            commit("setNotification", {
+              message: error.description,
+              isError: true,
+            });
+          });
+          return false;
+        });
+    },
+    async deleteArtist({ commit, getters }, id) {
+      return fetch(`${API_URL}/api/artists/${id}`, {
+        method: "DELETE",
+        headers: getters.requestHeader,
+      })
+        .then((response) => {
+          if (response.ok) {
+            commit("setNotification", {
+              message: "Artist deleted",
+              isError: false,
+            });
+            return;
+          }
+          return Promise.reject(response);
+        })
+        .then(() => {
+          commit("removeArtist", id);
           return true;
         })
         .catch((response) => {

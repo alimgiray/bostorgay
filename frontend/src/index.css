@@ -31,6 +31,10 @@ body {
   @apply mt-2 py-1 px-4 border-0 text-base bg-blue-200 border-blue-200  text-blue-800;
 }
 
+.small-button-red {
+  @apply mt-2 py-1 px-4 border-0 text-base bg-red-200 border-blue-200  text-red-800;
+}
+
 .link {
   @apply underline cursor-pointer text-blue-900;
 }
