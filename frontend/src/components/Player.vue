@@ -41,25 +41,25 @@ export default {
       });
     },
     getNextSong() {
-      const currentSongIndex = this.$store.state.queue.findIndex(
-        (song) => song.id === this.$store.state.currentSong?.id
+      const currentSongIndex = this.$store.state.player.queue.findIndex(
+        (song) => song.id === this.$store.state.player.currentSong?.id
       );
       if (
         currentSongIndex !== -1 &&
-        this.$store.state.queue.length > currentSongIndex + 1
+        this.$store.state.player.queue.length > currentSongIndex + 1
       ) {
-        return this.$store.state.queue[currentSongIndex + 1];
+        return this.$store.state.player.queue[currentSongIndex + 1];
       }
       // If no next song, return first one from the list
-      if (this.$store.state.queue.length > 0) {
-        return this.$store.state.queue[0];
+      if (this.$store.state.player.queue.length > 0) {
+        return this.$store.state.player.queue[0];
       }
       return null;
     },
   },
   computed: {
     currentSong() {
-      return this.$store.state.currentSong;
+      return this.$store.state.player.currentSong;
     },
   },
   watch: {

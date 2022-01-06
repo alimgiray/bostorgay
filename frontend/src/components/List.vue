@@ -26,9 +26,7 @@ export default {
       list: [],
     };
   },
-  mounted() {
-    this.list = this.$store.state.song.songs.slice(-20);
-  },
+  mounted() {},
   methods: {
     setResults(results) {
       this.list = results;

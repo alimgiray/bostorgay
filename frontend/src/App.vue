@@ -20,7 +20,7 @@ export default {
   async mounted() {
     // This order is important
     await this.$store.dispatch("checkLoginStatus");
-    await this.$store.dispatch("checkQueue");
+    await this.$store.dispatch("initQueue");
   },
 };
 </script>

@@ -61,7 +61,9 @@ export default {
       this.$router.push({ name: "Artist", params: { id: artistID } });
     },
     isSongAlreadyInQueue() {
-      return this.$store.state.queue.some((song) => song.id === this.song.id);
+      return this.$store.state.player.queue.some(
+        (song) => song.id === this.song.id
+      );
     },
     play() {
       if (!this.isSongAlreadyInQueue()) {

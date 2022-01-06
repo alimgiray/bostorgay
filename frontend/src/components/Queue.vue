@@ -53,10 +53,10 @@ export default {
   },
   computed: {
     queue() {
-      return this.$store.state.queue;
+      return this.$store.state.player.queue;
     },
     currentSong() {
-      return this.$store.state.currentSong;
+      return this.$store.state.player.currentSong;
     },
   },
 };

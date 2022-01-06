@@ -71,7 +71,7 @@ export default {
   },
   computed: {
     currentSong() {
-      return this.$store.state.currentSong ?? false;
+      return this.$store.state.player.currentSong ?? false;
     },
     playerTitle() {
       if (this.currentSong) {
