@@ -88,14 +88,17 @@ export default {
     }
   },
   methods: {
-    addNewSong() {
+    async addNewSong() {
       const artistIDs = this.artists.map((artist) => artist.id);
-      this.$store.dispatch("addSong", {
+      const id = await this.$store.dispatch("addSong", {
         name: this.name,
         artists: artistIDs,
         url: this.url,
         lyrics: this.lyrics,
       });
+      if (id) {
+        this.$router.push({ name: "Song", params: { id } });
+      }
     },
     async searchArtist() {
       if (this.artistSearch === "") {

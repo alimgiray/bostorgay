@@ -57,6 +57,7 @@
       />
     </div>
     <div class="flex justify-end">
+      <button @click="deleteSong" class="small-button-red mr-2">Delete</button>
       <button @click="editSong" class="small-button">Update</button>
     </div>
   </div>
@@ -104,6 +105,12 @@ export default {
         url: this.url,
         lyrics: this.lyrics || "",
       });
+    },
+    deleteSong() {
+      const success = this.$store.dispatch("deleteSong", this.id);
+      if (success) {
+        this.$router.push({ name: "Songs" });
+      }
     },
     async searchArtist() {
       if (this.artistSearch === "") {
