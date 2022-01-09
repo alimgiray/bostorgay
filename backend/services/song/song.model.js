@@ -2,6 +2,7 @@ const { DataTypes } = require("sequelize");
 const database = require("../../database");
 
 const Artist = require("../artist/artist.model");
+const Playlist = require("../playlist/playlist.model");
 
 const Song = database.define(
   "song",
@@ -42,6 +43,17 @@ Artist.belongsToMany(Song, {
   through: "artist_song",
   as: "songs",
   foreignKey: "artist_id",
+});
+
+Song.belongsToMany(Playlist, {
+  through: "playlist_song",
+  as: "playlists",
+  foreignKey: "song_id",
+});
+Playlist.belongsToMany(Song, {
+  through: "playlist_song",
+  as: "songs",
+  foreignKey: "playlist_id",
 });
 
 module.exports = Song;
