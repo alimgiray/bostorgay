@@ -21,7 +21,13 @@
         <PlayIcon @click="play()" class="mx-1 h-6 w-6 text-blue-500" />
       </button>
       <button>
+        <TrashIcon
+          v-if="playlistID > 0"
+          @click="removeFromPlaylist"
+          class="mx-1 h-6 w-6 text-blue-500"
+        />
         <PlusIcon
+          v-else
           @click="addToQueue(false)"
           class="mx-1 h-6 w-6 text-blue-500"
         />
@@ -31,17 +37,19 @@
 </template>
 
 <script>
-import { PlayIcon, PlusIcon } from "@heroicons/vue/outline";
+import { PlayIcon, PlusIcon, TrashIcon } from "@heroicons/vue/outline";
 
 export default {
   name: "SongListItem",
   components: {
     PlayIcon,
     PlusIcon,
+    TrashIcon,
   },
   props: {
     song: Object,
     artists: Array,
+    playlistID: Number,
   },
   data: function () {
     return {
@@ -71,6 +79,13 @@ export default {
     },
     goSongPage(id) {
       this.$router.push({ name: "Song", params: { id: id } });
+    },
+    async removeFromPlaylist() {
+      await this.$store.dispatch("removeSongFromPlaylist", {
+        songID: this.song.id,
+        playlistID: this.playlistID,
+      });
+      this.$emit("onUpdatePlaylist");
     },
   },
   computed: {

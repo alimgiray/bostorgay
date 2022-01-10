@@ -7,17 +7,37 @@
       <div>
         <button
           class="px-2"
-          :id="isCurrentPage('Artists') ? 'selectedNavItem' : ''"
+          :id="
+            isCurrentPage('Artists') || isCurrentPage('Artist')
+              ? 'selectedNavItem'
+              : ''
+          "
           @click="artistsPage"
         >
           Artists
         </button>
         <button
           class="px-2"
-          :id="isCurrentPage('Songs') ? 'selectedNavItem' : ''"
+          :id="
+            isCurrentPage('Songs') || isCurrentPage('Song')
+              ? 'selectedNavItem'
+              : ''
+          "
           @click="songsPage"
         >
           Songs
+        </button>
+        <button
+          v-if="loggedIn"
+          class="px-2"
+          :id="
+            isCurrentPage('User') || isCurrentPage('Playlist')
+              ? 'selectedNavItem'
+              : ''
+          "
+          @click="profile"
+        >
+          Playlists
         </button>
       </div>
       <div>
@@ -28,14 +48,6 @@
           @click="usersPage"
         >
           Users
-        </button>
-        <button
-          v-if="loggedIn"
-          class="px-2"
-          :id="isCurrentPage('User') ? 'selectedNavItem' : ''"
-          @click="profile"
-        >
-          Profile
         </button>
         <button v-if="loggedIn" class="px-2" @click="logout">Logout</button>
         <button

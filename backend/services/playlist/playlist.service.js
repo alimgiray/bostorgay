@@ -43,7 +43,7 @@ async function getPlaylist(userID, playlistID) {
       {
         model: User,
         as: "user",
-        attributes: ["id"],
+        attributes: ["id", "username"],
         where: {
           id: userID,
         },
@@ -81,11 +81,10 @@ async function createPlaylist(userID, playlist) {
 async function editPlaylist(userID, playlist) {
   const oldPlaylist = await getPlaylist(userID, playlist.id);
   oldPlaylist.name = playlist.name;
-  if (playlist.songs && playlist.songs.length > 0) {
-    const songs = await Song.findAll({ where: { id: playlist.songs } });
-    oldPlaylist.setSongs(songs);
-  }
-  return await oldPlaylist.save();
+  const songs = await Song.findAll({ where: { id: playlist.songs } });
+  await oldPlaylist.setSongs(songs);
+  await oldPlaylist.save();
+  return await getPlaylist(userID, playlist.id);
 }
 
 async function deletePlaylist(userID, playlistID) {

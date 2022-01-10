@@ -22,6 +22,11 @@ export default {
     await this.$store.dispatch("checkLoginStatus");
     await this.$store.dispatch("initQueue");
   },
+  computed: {
+    loggedIn() {
+      return this.$store.state.user.loggedIn;
+    },
+  },
 };
 </script>
 
