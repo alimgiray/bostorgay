@@ -94,7 +94,6 @@ const playlistModule = {
           commit("replacePlaylist", playlist);
         })
         .catch((response) => {
-          console.log(response);
           response.json().then((error) => {
             commit("setNotification", {
               message: error.description,
@@ -103,6 +102,33 @@ const playlistModule = {
           });
         });
     },
+    editPlaylist({ commit, getters, state }, playlist) {
+      fetch(`${API_URL}/api/playlists/${playlistID}`, {
+        method: "PUT",
+        headers: getters.requestHeader,
+        body: JSON.stringify({
+          name: playlist.name,
+          songs: playlist.songs,
+        }),
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          }
+          return Promise.reject(response);
+        })
+        .then((playlist) => {
+          commit("replacePlaylist", playlist);
+        })
+        .catch((response) => {
+          response.json().then((error) => {
+            commit("setNotification", {
+              message: error.description,
+              isError: true,
+            });
+          });
+        });
+    }
   },
 };
 
