@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     editPlaylist() {
-      const success = this.$store.dispatch("editPlaylist", {
+      const success = this.$store.dispatch("editPlaylistName", {
         id: this.id,
         name: this.name,
         songs: this.songs,
