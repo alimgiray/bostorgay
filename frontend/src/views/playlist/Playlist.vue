@@ -48,6 +48,12 @@ export default {
     async refreshPlaylist() {
       this.playlist = await this.$store.dispatch("getPlaylist", this.id);
     },
+    editPlaylist() {
+      this.$router.push({ name: "EditPlaylist", params: { id: this.id } });
+    },
+    deletePlaylist() {
+      this.$store.dispatch("deletePlaylist", this.id);
+    },
   },
   computed: {
     loggedIn() {

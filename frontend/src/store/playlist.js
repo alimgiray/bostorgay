@@ -16,6 +16,11 @@ const playlistModule = {
         return playlist;
       });
     },
+    deletePlaylist(state, deletedPlaylistID) {
+      state.playlists = state.playlists.filter(
+        (playlist) => playlist.id != deletedPlaylistID
+      );
+    },
   },
   actions: {
     getPlaylists({ commit, getters }) {
@@ -77,10 +82,10 @@ const playlistModule = {
         (song) => song.id != songID
       );
       playlist.songs = updatedSongsList;
-      dispatch('updatePlaylist', {
+      dispatch("updatePlaylist", {
         id: playlist.id,
-        name: playlist.name, 
-        songs: playlist.songs
+        name: playlist.name,
+        songs: playlist.songs,
       });
     },
     addSongToPlaylist({ dispatch, state }, { songID, playlistID }) {
@@ -94,25 +99,25 @@ const playlistModule = {
       if (!playlist || playlist.songs.length === 0) {
         return;
       }
-      playlist.songs.push(songID)
-      dispatch('updatePlaylist', {
+      playlist.songs.push(songID);
+      dispatch("updatePlaylist", {
         id: playlist.id,
-        name: playlist.name, 
-        songs: playlist.songs
+        name: playlist.name,
+        songs: playlist.songs,
       });
     },
     editPlaylistName({ dispatch }, playlist) {
-      dispatch('updatePlaylist', {
+      dispatch("updatePlaylist", {
         id: playlist.id,
-        name: playlist.name, 
-        songs: playlist.songs
+        name: playlist.name,
+        songs: playlist.songs,
       });
     },
     async updatePlaylist({ commit, getters }, { id, name, songs }) {
       return fetch(`${API_URL}/api/playlists/${id}`, {
         method: "PUT",
         headers: getters.requestHeader,
-        body: JSON.stringify({name, songs}),
+        body: JSON.stringify({ name, songs }),
       })
         .then((response) => {
           if (response.ok) {
@@ -131,7 +136,30 @@ const playlistModule = {
             });
           });
         });
-    }
+    },
+    async deletePlaylist({ commit, getters }, id) {
+      return fetch(`${API_URL}/api/playlists/${id}`, {
+        method: "DELETE",
+        headers: getters.requestHeader,
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          }
+          return Promise.reject(response);
+        })
+        .then(() => {
+          commit("deletePlaylist", id);
+        })
+        .catch((response) => {
+          response.json().then((error) => {
+            commit("setNotification", {
+              message: error.description,
+              isError: true,
+            });
+          });
+        });
+    },
   },
 };
 
