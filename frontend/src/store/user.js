@@ -35,7 +35,6 @@ const userModule = {
     checkLoginStatus({ commit }) {
       const token = localStorage.getItem("token");
       if (token) {
-        console.log("refresh token")
         this.dispatch('refreshToken');
       } else {
         commit("logout");

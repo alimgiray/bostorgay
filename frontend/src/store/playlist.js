@@ -117,7 +117,10 @@ const playlistModule = {
       return fetch(`${API_URL}/api/playlists/${id}`, {
         method: "PUT",
         headers: getters.requestHeader,
-        body: JSON.stringify({ name, songs }),
+        body: JSON.stringify({
+          name,
+          songs: songs ?? [],
+        }),
       })
         .then((response) => {
           if (response.ok) {
