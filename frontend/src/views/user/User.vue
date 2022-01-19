@@ -24,11 +24,15 @@
       <div
         v-for="playlist in playlists"
         :key="playlist.id"
-        class="border-b border-slate-400 py-2"
+        class="border-b border-slate-400 py-2 flex justify-between"
       >
         <a @click="goPlaylistPage(playlist.id)" class="cursor-pointer"
           >{{ playlist.name }} - {{ playlist.songs?.length || 0 }} song(s)</a
         >
+        <PlayIcon
+          @click="play(playlist.id)"
+          class="mx-1 h-6 w-6 text-blue-500"
+        />
       </div>
       <div class="flex justify-end">
         <button @click="goCreatePlaylistPage" class="small-button">
@@ -63,18 +67,23 @@
 </template>
 
 <script>
+import { PlayIcon } from "@heroicons/vue/outline";
 import time from "../../utils/time";
 export default {
   name: "User",
-  components: {},
+  components: {
+    PlayIcon,
+  },
   data: function () {
     return {
       username: this.$route.params.username,
       user: null,
+      ownPage: false,
     };
   },
   async mounted() {
     await this.getUser();
+    this.ownPage = this.user.username === this.$store.state.user.username;
   },
   methods: {
     async getUser() {
@@ -95,12 +104,38 @@ export default {
     goCreatePlaylistPage() {
       this.$router.push({ name: "NewPlaylist" });
     },
+    play(playlistID) {
+      // If own page, playlist already loaded
+      if (this.ownPage) {
+        const playlists = this.$store.state.playlist.playlists.filter(
+          (playlist) => playlist.id === playlistID
+        );
+        if (playlists.length === 0) {
+          this.$store.commit("setNotification", {
+            message: "Playlist not found",
+            isError: true,
+          });
+          return;
+        }
+        const playlist = playlists[0];
+        if (!playlist || !playlist.songs || playlist.songs.length === 0) {
+          this.$store.commit("setNotification", {
+            message: "Playlist has no songs",
+            isError: true,
+          });
+          return;
+        }
+        this.$store.commit("setQueueFromPlaylist", playlist);
+        this.$store.commit("setCurrentPlaylist", playlist);
+      }
+    },
   },
   computed: {
     isAdmin() {
       return this.$store.state.user.userType === "admin";
     },
     playlists() {
+      // TODO get user's playlist from backend and also show them (a.k.a. public playlists)
       return this.$store.state.playlist.playlists;
     },
   },

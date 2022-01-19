@@ -17,7 +17,7 @@ export default {
     Collapsable,
     Notification,
   },
-  async mounted() {
+  async created() {
     // This order is important
     await this.$store.dispatch("checkLoginStatus");
     await this.$store.dispatch("initQueue");

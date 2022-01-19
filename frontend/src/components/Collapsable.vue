@@ -15,7 +15,10 @@
   >
     <div class="flex justify-between p-2 h-12 align-middle border-b">
       <div class="flex flex-col justify-around">
-        <span class="text-center">Playing: {{ playerTitle }}</span>
+        <span class="text-center"
+          >Playing: {{ playerTitle }}
+          <span v-if="isPlaylist">({{ playlistName }})</span></span
+        >
       </div>
       <div class="flex flex-col justify-around">
         <ChevronDoubleUpIcon
@@ -81,6 +84,12 @@ export default {
         return "-";
       }
     },
+    isPlaylist() {
+      return this.$store.state.playlist.currentPlaylist ?? false;
+    }, 
+    playlistName() {
+      return this.$store.state.playlist.currentPlaylist.name;
+    }
   },
 };
 </script>

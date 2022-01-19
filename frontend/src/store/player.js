@@ -28,6 +28,10 @@ const playerModule = {
       state.queue = shuffle(state.queue);
       localStorage.setItem("queue", JSON.stringify(state.queue));
     },
+    setQueueFromPlaylist(state, playlist) {
+      state.queue = playlist.songs;
+      state.currentSong = state.queue[0];
+    },
   },
   actions: {
     async initQueue({ state, dispatch }) {

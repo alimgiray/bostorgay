@@ -25,6 +25,9 @@ const playlistModule = {
         (playlist) => playlist.id != deletedPlaylistID
       );
     },
+    setCurrentPlaylist(state, playlist) {
+      state.currentPlaylist = playlist;
+    }
   },
   actions: {
     getPlaylists({ commit, getters, rootState }) {
