@@ -8,10 +8,14 @@ module.exports = {
 };
 
 function sign(user) {
-  const token = jwt.sign(user, secret, { expiresIn: "7d" });
+  const token = jwt.sign(user, secret, { expiresIn: "30d" });
   return token;
 }
 
 function verify(token) {
-  return jwt.verify(token, secret);
+  try {
+    return jwt.verify(token, secret);
+  } catch(err) {
+    return null;
+  }
 }

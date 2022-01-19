@@ -72,6 +72,16 @@ export default {
         this.$refs.modal.classList.remove("bg-red-400");
       }
     },
+    message: function (newVal) {
+      if (newVal === "Token expired" || newVal === "Token not found") {
+        this.$store.commit("logout");
+        this.$store.commit("setNotification", {
+          message: "Your session is expired. Please login again to continue",
+          isError: true,
+        });
+        this.$router.push({name: "Login"});
+      }
+    },
   },
 };
 </script>
