@@ -27,7 +27,10 @@ const playlistModule = {
     },
   },
   actions: {
-    getPlaylists({ commit, getters }) {
+    getPlaylists({ commit, getters, rootState }) {
+      if (!rootState.user.loggedIn) {
+        return;
+      }
       fetch(`${API_URL}/api/playlists`, {
         headers: getters.requestHeader,
       })
@@ -100,8 +103,11 @@ const playlistModule = {
         return;
       }
       const playlist = playlists[0];
-      if (!playlist || playlist.songs.length === 0) {
+      if (!playlist) {
         return;
+      }
+      if (!playlist.songs) {
+        playlist.songs = [];
       }
       playlist.songs.push(songID);
       dispatch("updatePlaylist", {
@@ -134,6 +140,10 @@ const playlistModule = {
         })
         .then((playlist) => {
           commit("replacePlaylist", playlist);
+          commit("setNotification", {
+            message: "Playlist updated",
+            isError: false,
+          });
         })
         .catch((response) => {
           response.json().then((error) => {

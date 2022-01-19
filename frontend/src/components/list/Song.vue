@@ -42,11 +42,17 @@
           right-10
           mt-20
           bg-slate-50
-          p-2
+          p-1
         "
       >
-        <div v-for="playlist in playlists" :key="playlist.id" class="border-b border-blue-500">
-          {{playlist.name}}
+        <div
+          v-for="playlist in playlists"
+          :key="playlist.id"
+          class="flex justify-start cursor-pointer pr-2 py-2"
+          @click="addToPlaylist(playlist.id)"
+        >
+          <PlusIcon class="mx-1 h-6 w-6 text-blue-500" />
+          {{ playlist.name }}
         </div>
       </div>
     </div>
@@ -91,7 +97,7 @@ export default {
       this.$store.commit("playSong", this.song);
     },
     addToQueue(prepend) {
-      if (this.loggedIn) {
+      if (this.loggedIn && !prepend) {
         this.showPlaylistPanel = !this.showPlaylistPanel;
       }
       if (!this.isSongAlreadyInQueue()) {
@@ -108,6 +114,13 @@ export default {
       });
       this.$emit("onUpdatePlaylist");
     },
+    async addToPlaylist(playlistID) {
+      await this.$store.dispatch("addSongToPlaylist", {
+        songID: this.song.id,
+        playlistID: playlistID,
+      })
+      this.showPlaylistPanel = false;
+    },
   },
   computed: {
     isAdmin() {
@@ -121,7 +134,7 @@ export default {
     },
     playlists() {
       return this.$store.state.playlist.playlists;
-    }
+    },
   },
 };
 </script>

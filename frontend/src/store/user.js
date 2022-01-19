@@ -32,16 +32,16 @@ const userModule = {
     },
   },
   actions: {
-    checkLoginStatus({ commit }) {
+    async checkLoginStatus({ commit }) {
       const token = localStorage.getItem("token");
       if (token) {
-        this.dispatch('refreshToken');
+        await this.dispatch('refreshToken');
       } else {
         commit("logout");
       }
     },
-    refreshToken({ commit, getters }) {
-      fetch(`${API_URL}/api/users/refresh`, {
+    async refreshToken({ commit, getters }) {
+      await fetch(`${API_URL}/api/users/refresh`, {
         headers: getters.requestHeader,
       })
         .then((response) => {
