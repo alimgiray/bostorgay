@@ -31,8 +31,11 @@ const playerModule = {
   },
   actions: {
     initQueue({ state }) {
-      state.queue = getFromLocalStorage("queue");
-      this.dispatch("getPlaylists");
+      const savedQueue = getFromLocalStorage("queue");
+      if (savedQueue) {
+        state.queue = savedQueue;
+      }
+      // this.dispatch("getPlaylists");
     },
   },
 };

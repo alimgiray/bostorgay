@@ -4,11 +4,13 @@ const Joi = require("joi");
 
 const validateRequest = require("../../helpers/validate-request");
 const authenticateAdmin = require("../../helpers/authenticate-admin");
+const authenticate = require("../../helpers/authenticate");
 
 const userService = require("./user.service");
 
 router.post("/register", registerSchema, register);
 router.post("/login", loginSchema, login);
+router.get("/refresh", authenticate, refreshToken);
 router.get("/:username", getUser);
 router.get("/", authenticateAdmin, getAllUsers);
 router.delete("/:id", authenticateAdmin, deleteUser);
@@ -46,6 +48,14 @@ function login(req, res, next) {
   const email = req.body.email;
   userService
     .login(email, password)
+    .then((resp) => res.json(resp))
+    .catch(next);
+}
+
+function refreshToken(req, res, next) {
+  const userID = req.user.id;
+  userService
+    .refreshToken(userID)
     .then((resp) => res.json(resp))
     .catch(next);
 }

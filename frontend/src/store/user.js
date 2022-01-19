@@ -33,14 +33,35 @@ const userModule = {
   },
   actions: {
     checkLoginStatus({ commit }) {
-      const username = localStorage.getItem("username");
       const token = localStorage.getItem("token");
-      const type = localStorage.getItem("type");
-      if (username && token) {
-        commit("login", { username, token, type });
+      if (token) {
+        console.log("refresh token")
+        this.dispatch('refreshToken');
       } else {
         commit("logout");
       }
+    },
+    refreshToken({ commit, getters }) {
+      fetch(`${API_URL}/api/users/refresh`, {
+        headers: getters.requestHeader,
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          }
+          return Promise.reject(response);
+        })
+        .then((data) => {
+          commit("login", data);
+        })
+        .catch((response) => {
+          response.json().then((error) => {
+            commit("setNotification", {
+              message: error.description,
+              isError: true,
+            });
+          });
+        });
     },
     async login({ commit }, { email, password }) {
       fetch(`${API_URL}/api/users/login`, {
@@ -163,9 +184,10 @@ const userModule = {
   },
   getters: {
     requestHeader(state) {
+      const token = state.token ? state.token : localStorage.getItem("token");
       return {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${state.token}`,
+        Authorization: `Bearer ${token}`,
       };
     },
   },

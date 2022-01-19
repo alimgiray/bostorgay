@@ -8,6 +8,7 @@ const User = require("./user.model");
 module.exports = {
   register,
   login,
+  refreshToken,
   getAllUsers,
   getByUsername,
   deleteUser,
@@ -56,6 +57,23 @@ async function login(email, password) {
     errors.errorTypes.NOT_AUTHORIZED,
     401,
     "Invalid email or password",
+    true
+  );
+}
+
+async function refreshToken(userID) {
+  const user = await User.findOne({ where: { id: userID } });
+  if (user) {
+    return {
+      token: jwt.sign({ id: user.id, type: user.type }),
+      username: user.username,
+      type: user.type,
+    };
+  }
+  throw new errors.AppError(
+    errors.errorTypes.NOT_AUTHORIZED,
+    401,
+    "Token expired",
     true
   );
 }
