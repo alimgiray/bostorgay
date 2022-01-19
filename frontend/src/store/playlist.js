@@ -3,6 +3,7 @@ const API_URL = import.meta.env.VITE_API_URL || "/";
 const playlistModule = {
   state: () => ({
     playlists: [],
+    currentPlaylist: null,
   }),
   mutations: {
     setPlaylists(state, playlists) {
@@ -15,6 +16,9 @@ const playlistModule = {
         }
         return playlist;
       });
+    },
+    addPlaylist(state, newPlaylist) {
+      state.playlists = state.playlists.push(newPlaylist);
     },
     deletePlaylist(state, deletedPlaylistID) {
       state.playlists = state.playlists.filter(
@@ -140,14 +144,42 @@ const playlistModule = {
           });
         });
     },
+    async createPlaylist({ commit, getters }, playlist) {
+      return fetch(`${API_URL}/api/playlists`, {
+        method: "POST",
+        headers: getters.requestHeader,
+        body: JSON.stringify({
+          name: playlist.name,
+          songs: playlist.songs,
+        }),
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          }
+          return Promise.reject(response);
+        })
+        .then((playlist) => {
+          commit("addPlaylist", playlist);
+          return playlist.id;
+        })
+        .catch((response) => {
+          response.json().then((error) => {
+            commit("setNotification", {
+              message: error.description,
+              isError: true,
+            });
+          });
+        });
+    },
     async deletePlaylist({ commit, getters }, id) {
-      return fetch(`${API_URL}/api/playlists/${id}`, {
+      fetch(`${API_URL}/api/playlists/${id}`, {
         method: "DELETE",
         headers: getters.requestHeader,
       })
         .then((response) => {
           if (response.ok) {
-            return response.json();
+            return;
           }
           return Promise.reject(response);
         })

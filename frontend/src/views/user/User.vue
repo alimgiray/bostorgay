@@ -27,7 +27,7 @@
         class="border-b border-slate-400 py-2"
       >
         <a @click="goPlaylistPage(playlist.id)" class="cursor-pointer"
-          >{{ playlist.name }} - {{ playlist.songs.length || 0 }} song(s)</a
+          >{{ playlist.name }} - {{ playlist.songs?.length || 0 }} song(s)</a
         >
       </div>
       <div class="flex justify-end">

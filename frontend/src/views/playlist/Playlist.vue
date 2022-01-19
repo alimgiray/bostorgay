@@ -41,6 +41,9 @@ export default {
       this.$router.push({ name: "Home" });
     }
     this.playlist = await this.$store.dispatch("getPlaylist", this.id);
+    if (!this.playlist) {
+      this.$router.push({ name: "Home" });
+    }
     this.ownPlaylist =
       this.playlist.user.username === this.$store.state.user.username;
   },
@@ -51,8 +54,14 @@ export default {
     editPlaylist() {
       this.$router.push({ name: "EditPlaylist", params: { id: this.id } });
     },
-    deletePlaylist() {
-      this.$store.dispatch("deletePlaylist", this.id);
+    async deletePlaylist() {
+      console.log("deleting playlist");
+      await this.$store.dispatch("deletePlaylist", this.id);
+      console.log("playlist deleted");
+      this.$router.push({
+        name: "User",
+        params: { username: this.$store.state.user.username },
+      });
     },
   },
   computed: {

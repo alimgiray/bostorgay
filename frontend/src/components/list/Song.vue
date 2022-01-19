@@ -32,6 +32,23 @@
           class="mx-1 h-6 w-6 text-blue-500"
         />
       </button>
+      <div
+        v-if="showPlaylistPanel"
+        class="
+          border border-blue-500
+          z-10
+          absolute
+          w-fit
+          right-10
+          mt-20
+          bg-slate-50
+          p-2
+        "
+      >
+        <div v-for="playlist in playlists" :key="playlist.id" class="border-b border-blue-500">
+          {{playlist.name}}
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -54,6 +71,7 @@ export default {
   data: function () {
     return {
       songArtists: [],
+      showPlaylistPanel: false,
     };
   },
   mounted() {},
@@ -73,6 +91,9 @@ export default {
       this.$store.commit("playSong", this.song);
     },
     addToQueue(prepend) {
+      if (this.loggedIn) {
+        this.showPlaylistPanel = !this.showPlaylistPanel;
+      }
       if (!this.isSongAlreadyInQueue()) {
         this.$store.commit("addToQueue", { song: this.song, prepend });
       }
@@ -95,6 +116,12 @@ export default {
     isEditor() {
       return this.$store.state.user.userType === "editor";
     },
+    loggedIn() {
+      return this.$store.state.user.loggedIn;
+    },
+    playlists() {
+      return this.$store.state.playlist.playlists;
+    }
   },
 };
 </script>

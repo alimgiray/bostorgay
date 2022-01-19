@@ -9,6 +9,7 @@
       border-t border-blue-500
       bg-white
       h-12
+      z-20
     "
     ref="collapsable"
   >
