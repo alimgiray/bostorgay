@@ -15,7 +15,7 @@ module.exports = {
   deletePlaylist,
 };
 
-async function getAllPlaylistsOfUser(userID) {
+async function getAllPlaylistsOfUser(username) {
   return await Playlist.findAll({
     include: [
       {
@@ -23,7 +23,7 @@ async function getAllPlaylistsOfUser(userID) {
         as: "user",
         attributes: ["id"],
         where: {
-          id: userID,
+          username: username,
         },
       },
       {
@@ -34,7 +34,7 @@ async function getAllPlaylistsOfUser(userID) {
   });
 }
 
-async function getPlaylist(userID, playlistID) {
+async function getPlaylist(useusernameID, playlistID) {
   const playlist = await Playlist.findOne({
     where: {
       id: playlistID,
@@ -45,7 +45,7 @@ async function getPlaylist(userID, playlistID) {
         as: "user",
         attributes: ["id", "username"],
         where: {
-          id: userID,
+          username: username,
         },
       },
       {
