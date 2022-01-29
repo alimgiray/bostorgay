@@ -19,6 +19,9 @@
         >
           {{ index + 1 }} - {{ song.name }}
         </span>
+        <button v-if="canAddToCurrentPlaylist(song.id)">
+          <PlusIcon @click="addToCurrentPlaylist(song.id)" class="h-6 w-6 text-blue-500" />
+        </button>
         <button>
           <XIcon @click="removeFromQueue(song)" class="h-6 w-6 text-blue-500" />
         </button>
@@ -28,13 +31,13 @@
 </template>
 
 <script>
-import { XIcon } from "@heroicons/vue/outline";
-import { RefreshIcon } from "@heroicons/vue/outline";
+import { RefreshIcon, XIcon, PlusIcon } from "@heroicons/vue/outline";
 export default {
   name: "Queue",
   components: {
     XIcon,
     RefreshIcon,
+    PlusIcon,
   },
   data: function () {
     return {};
@@ -50,6 +53,18 @@ export default {
     shuffleQueue() {
       this.$store.commit("shuffleQueue");
     },
+    canAddToCurrentPlaylist(songID) {
+      const currentPlaylist = this.$store.state.playlist.currentPlaylist;
+      if (!currentPlaylist) {
+        return false;
+      }
+      console.log(currentPlaylist);
+      const songInPlaylist = currentPlaylist?.songs.find(song => song.id === songID);
+      return !songInPlaylist;
+    },
+    addToCurrentPlaylist(songID) {
+      return;
+    }
   },
   computed: {
     queue() {

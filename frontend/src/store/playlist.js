@@ -98,7 +98,7 @@ const playlistModule = {
         songs: playlist.songs,
       });
     },
-    addSongToPlaylist({ dispatch, state }, { songID, playlistID }) {
+    addSongToPlaylist({ dispatch, state }, { song, playlistID }) {
       const playlists = state.playlists.filter(
         (playlist) => playlist.id == playlistID
       );
@@ -112,7 +112,7 @@ const playlistModule = {
       if (!playlist.songs) {
         playlist.songs = [];
       }
-      playlist.songs.push(songID);
+      playlist.songs.push(song);
       dispatch("updatePlaylist", {
         id: playlist.id,
         name: playlist.name,
@@ -126,13 +126,13 @@ const playlistModule = {
         songs: playlist.songs,
       });
     },
-    async updatePlaylist({ commit, getters }, { id, name, songs }) {
+    async updatePlaylist({ commit, getters, state }, { id, name, songs }) {
       return fetch(`${API_URL}/api/playlists/${id}`, {
         method: "PUT",
         headers: getters.requestHeader,
         body: JSON.stringify({
           name,
-          songs: songs ?? [],
+          songs: songs?.map(song => song.id) ?? [],
         }),
       })
         .then((response) => {
@@ -147,6 +147,9 @@ const playlistModule = {
             message: "Playlist updated",
             isError: false,
           });
+          if (playlist.id === state.currentPlaylist?.id) {
+            // commit("setQueueFromPlaylist", playlist);
+          }
         })
         .catch((response) => {
           response.json().then((error) => {

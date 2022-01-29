@@ -34,7 +34,7 @@ export default {
       const success = this.$store.dispatch("editPlaylistName", {
         id: this.id,
         name: this.name,
-        songs: this.songs,
+        songs: this.playlist?.songs.map((song) => song.id) ?? [],
       });
       if (success) {
         this.$router.push({ name: "Playlist", params: { id: this.id } });
@@ -43,9 +43,8 @@ export default {
   },
   computed: {
     username() {
-      return this.$store.state.user.username
+      return this.$store.state.user.username;
     },
-
   },
 };
 </script>

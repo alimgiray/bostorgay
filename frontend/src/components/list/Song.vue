@@ -86,6 +86,7 @@ export default {
       this.$router.push({ name: "Artist", params: { id: artistID } });
     },
     isSongAlreadyInQueue() {
+      console.log(this.song)
       return this.$store.state.player.queue.some(
         (song) => song.id === this.song.id
       );
@@ -116,7 +117,7 @@ export default {
     },
     async addToPlaylist(playlistID) {
       await this.$store.dispatch("addSongToPlaylist", {
-        songID: this.song.id,
+        songID: this.song,
         playlistID: playlistID,
       })
       this.showPlaylistPanel = false;

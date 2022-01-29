@@ -31,7 +31,7 @@
         >
         <PlayIcon
           @click="play(playlist.id)"
-          class="mx-1 h-6 w-6 text-blue-500"
+          class="mx-1 h-6 w-6 text-blue-500 cursor-pointer"
         />
       </div>
       <div class="flex justify-end">
@@ -125,7 +125,7 @@ export default {
           });
           return;
         }
-        this.$store.commit("setQueueFromPlaylist", playlist);
+        // this.$store.commit("setQueueFromPlaylist", playlist);
         this.$store.commit("setCurrentPlaylist", playlist);
       }
     },
