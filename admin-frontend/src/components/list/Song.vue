@@ -21,40 +21,11 @@
         <PlayIcon @click="play()" class="mx-1 h-6 w-6 text-blue-500" />
       </button>
       <button>
-        <TrashIcon
-          v-if="playlistID > 0"
-          @click="removeFromPlaylist"
-          class="mx-1 h-6 w-6 text-blue-500"
-        />
         <PlusIcon
-          v-else
           @click="addToQueue(false)"
           class="mx-1 h-6 w-6 text-blue-500"
         />
       </button>
-      <div
-        v-if="showPlaylistPanel"
-        class="
-          border border-blue-500
-          z-10
-          absolute
-          w-fit
-          right-10
-          mt-20
-          bg-slate-50
-          p-1
-        "
-      >
-        <div
-          v-for="playlist in playlists"
-          :key="playlist.id"
-          class="flex justify-start cursor-pointer pr-2 py-2"
-          @click="addToPlaylist(playlist.id)"
-        >
-          <PlusIcon class="mx-1 h-6 w-6 text-blue-500" />
-          {{ playlist.name }}
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -77,7 +48,6 @@ export default {
   data: function () {
     return {
       songArtists: [],
-      showPlaylistPanel: false,
     };
   },
   mounted() {},
@@ -86,7 +56,6 @@ export default {
       this.$router.push({ name: "Artist", params: { id: artistID } });
     },
     isSongAlreadyInQueue() {
-      console.log(this.song)
       return this.$store.state.player.queue.some(
         (song) => song.id === this.song.id
       );
@@ -98,29 +67,12 @@ export default {
       this.$store.commit("playSong", this.song);
     },
     addToQueue(prepend) {
-      if (this.loggedIn && !prepend) {
-        this.showPlaylistPanel = !this.showPlaylistPanel;
-      }
       if (!this.isSongAlreadyInQueue()) {
         this.$store.commit("addToQueue", { song: this.song, prepend });
       }
     },
     goSongPage(id) {
       this.$router.push({ name: "Song", params: { id: id } });
-    },
-    async removeFromPlaylist() {
-      await this.$store.dispatch("removeSongFromPlaylist", {
-        songID: this.song.id,
-        playlistID: this.playlistID,
-      });
-      this.$emit("onUpdatePlaylist");
-    },
-    async addToPlaylist(playlistID) {
-      await this.$store.dispatch("addSongToPlaylist", {
-        songID: this.song,
-        playlistID: playlistID,
-      })
-      this.showPlaylistPanel = false;
     },
   },
   computed: {
@@ -132,9 +84,6 @@ export default {
     },
     loggedIn() {
       return this.$store.state.user.loggedIn;
-    },
-    playlists() {
-      return this.$store.state.playlist.playlists;
     },
   },
 };

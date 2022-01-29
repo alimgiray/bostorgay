@@ -15,10 +15,6 @@ import Song from "../views/song/Song.vue";
 import NewSong from "../views/song/NewSong.vue";
 import EditSong from "../views/song/EditSong.vue";
 
-import Playlist from "../views/playlist/Playlist.vue";
-import EditPlaylist from "../views/playlist/EditPlaylist.vue";
-import NewPlaylist from "../views/playlist/NewPlaylist.vue";
-
 import Login from "../views/user/Login.vue";
 import Register from "../views/user/Register.vue";
 
@@ -87,21 +83,6 @@ const routes = [
     path: "/song/:id",
     name: "Song",
     component: Song,
-  },
-  {
-    path: "/playlist/new",
-    name: "NewPlaylist",
-    component: NewPlaylist,
-  },
-  {
-    path: "/playlist/:id",
-    name: "Playlist",
-    component: Playlist,
-  },
-  {
-    path: "/playlist/:id",
-    name: "EditPlaylist",
-    component: EditPlaylist,
   },
 ];
 

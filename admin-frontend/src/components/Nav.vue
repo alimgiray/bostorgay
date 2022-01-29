@@ -1,8 +1,5 @@
 <template>
   <div class="border-b-2">
-    <div class="py-4 flex justify-around border-b">
-      <a class="logo" @click="home">{{ appName }}</a>
-    </div>
     <div class="flex justify-between py-1 overflow-x-auto">
       <div>
         <button
@@ -26,18 +23,6 @@
           @click="songsPage"
         >
           Songs
-        </button>
-        <button
-          v-if="loggedIn"
-          class="px-2"
-          :id="
-            isCurrentPage('User') || isCurrentPage('Playlist')
-              ? 'selectedNavItem'
-              : ''
-          "
-          @click="profile"
-        >
-          Playlists
         </button>
       </div>
       <div>

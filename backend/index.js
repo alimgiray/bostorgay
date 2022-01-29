@@ -3,8 +3,6 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 
-const database = require("./database");
-
 const helmet = require("helmet");
 const xssClean = require("xss-clean");
 const hpp = require("hpp");
@@ -18,7 +16,8 @@ app.use(hpp());
 app.use(express.json());
 
 app.use("/api", require("./api"));
-// Static files (CSS, JS etc.)
+// Serve frontend apps
+app.use("/admin", express.static("../admin-frontend/dist/"));
 app.use("/", express.static("../frontend/dist/"));
 // Global error handler
 app.use(require("./errors/error-handler"));
