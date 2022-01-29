@@ -9,6 +9,7 @@ export default {
   data: function () {
     return {
       id: this.$route.params.id,
+      name: this.$route.params.name,
       artist: null,
       songs: [], // songs of the artist
     };
