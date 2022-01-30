@@ -87,26 +87,13 @@ async function getSong(songID) {
 async function addSong(song) {
   const artists = await getArtistsOfSong(song.artists);
   try {
-    // Save song as audio
-    const songURL = url.parse(song.url, true);
-    const query = songURL.query;
-    console.log(query);
-    console.log(query.v)
-    if (!query.v) {
-      throw new errors.AppError(
-        errors.errorTypes.NOT_VALID,
-        400,
-        "Invalid Song URL",
-        true
-      );
-    }
     let newSong = await Song.create({
       name: song.name,
       url: song.url,
     });
     newSong.addArtists(artists);
     newSong = await newSong.save();
-    yd.download(query.v, `${newSong.id}.mp3`);
+    saveAudio(song)
     return newSong;
   } catch (err) {
     if (
@@ -124,6 +111,21 @@ async function addSong(song) {
       throw err;
     }
   }
+}
+
+// Save song as audio file
+function saveAudio(song) {
+   const songURL = url.parse(song.url, true);
+   const query = songURL.query;
+   if (!query.v) {
+     throw new errors.AppError(
+       errors.errorTypes.NOT_VALID,
+       400,
+       "Invalid Song URL",
+       true
+     );
+   }
+   yd.download(query.v, `${newSong.id}.mp3`);
 }
 
 async function editSong(songID, song) {
