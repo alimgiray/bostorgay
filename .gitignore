@@ -105,3 +105,9 @@ dist
 
 # Database
 database.sqlite
+
+# Output directory
+backend/audio/*.mp3
+
+# Local files
+backend/**/.DS_Store

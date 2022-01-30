@@ -1,5 +1,18 @@
+const url = require("url");
+const path = require("path");
+const ffmpegPath = path.resolve(`./bin/${process.env.FFMPEG_BIN}`);
+const outputDir = path.resolve("./audio");
+
 const Sequelize = require("sequelize");
-const Op = Sequelize.Op;
+const youtube_dl = require("youtube-mp3-downloader");
+const yd = new youtube_dl({
+  ffmpegPath: ffmpegPath,
+  outputPath: outputDir,
+  youtubeVideoQuality: "highestaudio",
+  queueParallelism: 2,
+  progressTimeout: 2000,
+  allowWebm: false,
+});
 
 const errors = require("../../errors");
 
@@ -74,14 +87,33 @@ async function getSong(songID) {
 async function addSong(song) {
   const artists = await getArtistsOfSong(song.artists);
   try {
-    const newSong = await Song.create({
+    // Save song as audio
+    const songURL = url.parse(song.url, true);
+    const query = songURL.query;
+    console.log(query);
+    console.log(query.v)
+    if (!query.v) {
+      throw new errors.AppError(
+        errors.errorTypes.NOT_VALID,
+        400,
+        "Invalid Song URL",
+        true
+      );
+    }
+    let newSong = await Song.create({
       name: song.name,
       url: song.url,
     });
     newSong.addArtists(artists);
-    return await newSong.save();
+    newSong = await newSong.save();
+    yd.download(query.v, `${newSong.id}.mp3`);
+    return newSong;
   } catch (err) {
-    if (err.errors[0].message.includes("url must be unique")) {
+    if (
+      err.errors &&
+      err.errors.length > 0 &&
+      err.errors[0].message.includes("url must be unique")
+    ) {
       throw new errors.AppError(
         errors.errorTypes.NOT_VALID,
         400,
