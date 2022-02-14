@@ -88,7 +88,6 @@ async function getSong(songID) {
       true
     );
   }
-  song.setDataValue("url", `/audio/${song.filename}.mp3`);
   return song;
 }
 
@@ -104,10 +103,10 @@ async function addSong(song) {
     let newSong = await Song.create({
       name: song.name,
       filename: song.filename,
+      url: `/audio/${song.filename}.mp3`,
     });
     newSong.addArtists(artists);
     newSong = await newSong.save();
-    newSong.setDataValue("url", `/audio/${song.filename}.mp3`);
     return newSong;
   } catch (err) {
     throw err;
@@ -143,7 +142,6 @@ async function editSong(songID, song) {
   const oldSong = await getSong(songID);
   oldSong.name = song.name;
   oldSong.setArtists(artists);
-  oldSong.setDataValue("url", `/audio/${oldSong.filename}.mp3`);
   return await oldSong.save();
 }
 
