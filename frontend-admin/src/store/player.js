@@ -39,7 +39,6 @@ const playerModule = {
       if (savedQueue && savedQueue.length > 0) {
         state.queue = savedQueue;
       }
-      await dispatch("getPlaylists", {}, { root: true });
     },
   },
 };

@@ -4,7 +4,6 @@
     class="
       absolute
       bottom-0
-      max-w-lg
       w-full
       border-t border-blue-500
       bg-white

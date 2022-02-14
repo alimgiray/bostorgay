@@ -14,7 +14,10 @@ async function handleError(error, res) {
     }
     process.exit(1);
   }
-  res.status(error.httpCode).json(error);
+  // Sometimes response might not be available (for async processes)
+  if (res) {
+    res.status(error.httpCode).json(error);
+  }
 }
 
 async function errorHandler(err, req, res, next) {

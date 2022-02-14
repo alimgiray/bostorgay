@@ -43,7 +43,11 @@ function songSchema(req, res, next) {
   const schema = Joi.object({
     name: Joi.string().required().min(3),
     artists: Joi.array().items(Joi.number()).required().min(1), // Artist IDs
-    url: Joi.string().required().min(30), // Expecting a valid youtube URL
+    url: Joi.string().allow(""), // Expecting a valid youtube URL
+    file: Joi.alternatives().conditional("url", {
+      is: "",
+      then: Joi.string().required(),
+    }),
     lyrics: Joi.string().allow(""),
   });
   validateRequest(req, res, next, schema);

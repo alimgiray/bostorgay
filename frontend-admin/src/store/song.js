@@ -66,11 +66,11 @@ const songModule = {
           });
         });
     },
-    async addSong({ commit, getters }, { name, artists, url, lyrics }) {
+    async addSong({ commit, getters }, { name, artists, url, file, lyrics }) {
       return fetch(`${API_URL}/api/songs`, {
         method: "POST",
         headers: getters.requestHeader,
-        body: JSON.stringify({ name, artists, url, lyrics }),
+        body: JSON.stringify({ name, artists, url, file, lyrics }),
       })
         .then((response) => {
           if (response.ok) {
@@ -84,7 +84,7 @@ const songModule = {
         })
         .then((song) => {
           commit("addSong", song);
-          return song.id;
+          return song;
         })
         .catch((response) => {
           response.json().then((error) => {

@@ -13,7 +13,7 @@ app.use(helmet());
 app.use(xssClean());
 app.use(hpp());
 
-app.use(express.json());
+app.use(express.json({limit: '30mb'}));
 
 app.use("/api", require("./api"));
 // Serve frontend apps

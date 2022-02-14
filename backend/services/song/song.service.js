@@ -1,7 +1,11 @@
 const url = require("url");
 const path = require("path");
+
 const ffmpegPath = path.resolve(`./bin/${process.env.FFMPEG_BIN}`);
 const outputDir = path.resolve("./audio");
+
+const ffmpeg = require("fluent-ffmpeg");
+ffmpeg.setFfmpegPath(ffmpegPath);
 
 const Sequelize = require("sequelize");
 const youtube_dl = require("youtube-mp3-downloader");
@@ -93,7 +97,7 @@ async function addSong(song) {
     });
     newSong.addArtists(artists);
     newSong = await newSong.save();
-    saveAudio(song)
+    saveAudio(song);
     return newSong;
   } catch (err) {
     if (
@@ -115,17 +119,17 @@ async function addSong(song) {
 
 // Save song as audio file
 function saveAudio(song) {
-   const songURL = url.parse(song.url, true);
-   const query = songURL.query;
-   if (!query.v) {
-     throw new errors.AppError(
-       errors.errorTypes.NOT_VALID,
-       400,
-       "Invalid Song URL",
-       true
-     );
-   }
-   yd.download(query.v, `${newSong.id}.mp3`);
+  const songURL = url.parse(song.url, true);
+  const query = songURL.query;
+  if (!query.v) {
+    throw new errors.AppError(
+      errors.errorTypes.NOT_VALID,
+      400,
+      "Invalid Song URL",
+      true
+    );
+  }
+  yd.download(query.v, `${song.id}.mp3`);
 }
 
 async function editSong(songID, song) {

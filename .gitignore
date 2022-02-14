@@ -109,5 +109,10 @@ database.sqlite
 # Output directory
 backend/audio/*.mp3
 
+# Tmp dir
+backend/tmp/*.mp3
+backend/tmp/*.mp4
+
 # Local files
 backend/**/.DS_Store
+.DS_Store
