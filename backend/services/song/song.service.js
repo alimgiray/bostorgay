@@ -1,5 +1,6 @@
 const url = require("url");
 const path = require("path");
+const fs = require("fs");
 
 const ffmpegPath = path.resolve(`./bin/${process.env.FFMPEG_BIN}`);
 const outputDir = path.resolve("./audio");
@@ -87,6 +88,7 @@ async function getSong(songID) {
       true
     );
   }
+  song.setDataValue("url", `/audio/${song.filename}.mp3`);
   return song;
 }
 
@@ -101,34 +103,22 @@ async function addSong(song) {
   try {
     let newSong = await Song.create({
       name: song.name,
-      url: song.url,
       filename: song.filename,
     });
     newSong.addArtists(artists);
     newSong = await newSong.save();
+    newSong.setDataValue("url", `/audio/${song.filename}.mp3`);
     return newSong;
   } catch (err) {
-    if (
-      err.errors &&
-      err.errors.length > 0 &&
-      err.errors[0].message.includes("url must be unique")
-    ) {
-      throw new errors.AppError(
-        errors.errorTypes.NOT_VALID,
-        400,
-        "Song URL already exists",
-        true
-      );
-    } else {
-      throw err;
-    }
+    throw err;
   }
 }
 
 function saveAudio(song) {
   const filename = uuidv4();
   const buffer = Buffer.from(song.file.split("base64,")[1], "base64");
-  fs.writeFileSync(`${filename}.mp3`, buffer);
+  fs.writeFileSync(`${outputDir}/${filename}.mp3`, buffer);
+  song.filename = filename;
 }
 
 // Save song as audio file
@@ -153,6 +143,7 @@ async function editSong(songID, song) {
   const oldSong = await getSong(songID);
   oldSong.name = song.name;
   oldSong.setArtists(artists);
+  oldSong.setDataValue("url", `/audio/${oldSong.filename}.mp3`);
   return await oldSong.save();
 }
 

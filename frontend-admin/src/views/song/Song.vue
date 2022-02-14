@@ -25,6 +25,8 @@
 </template>
 
 <script>
+const API_URL = import.meta.env.VITE_API_URL || "/";
+
 export default {
   name: "Song",
   components: {},
@@ -36,6 +38,7 @@ export default {
   },
   async mounted() {
     this.song = await this.$store.dispatch("getSong", this.id);
+    this.song.url = `${API_URL}${this.song.url}`; 
   },
   methods: {
     goEditSongPage() {
