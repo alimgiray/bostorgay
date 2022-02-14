@@ -48,7 +48,6 @@ function songSchema(req, res, next) {
       is: "",
       then: Joi.string().required(),
     }),
-    lyrics: Joi.string().allow(""),
   });
   validateRequest(req, res, next, schema);
 }

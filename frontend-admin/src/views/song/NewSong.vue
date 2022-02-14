@@ -23,6 +23,22 @@
       />
     </div>
     <div>
+      <div>Artists</div>
+      <div
+        v-for="artist in artists"
+        :key="artist.id"
+        class="flex justify-start"
+      >
+        <div>
+          <MinusIcon
+            @click="removeFromSelectedArtists(artist)"
+            class="h-6 w-6 text-blue-500 cursor-pointer"
+          />
+        </div>
+        <div class="ml-2">{{ artist.name }}</div>
+      </div>
+    </div>
+    <div>
       <input
         v-model="artistSearch"
         @keyup="searchArtist"
@@ -46,31 +62,6 @@
         <div class="ml-2">{{ artist.name }}</div>
       </div>
     </div>
-    <div>
-      <div>Artists</div>
-      <div
-        v-for="artist in artists"
-        :key="artist.id"
-        class="flex justify-start"
-      >
-        <div>
-          <MinusIcon
-            @click="removeFromSelectedArtists(artist)"
-            class="h-6 w-6 text-blue-500 cursor-pointer"
-          />
-        </div>
-        <div class="ml-2">{{ artist.name }}</div>
-      </div>
-    </div>
-    <div>
-      <textarea
-        v-model="lyrics"
-        rows="10"
-        type="text"
-        placeholder="lyrics"
-        class="auth-input"
-      />
-    </div>
     <div class="flex justify-end">
       <button @click="addNewSong" class="small-button">Add</button>
     </div>
@@ -93,7 +84,6 @@ export default {
       artistSearchResults: [],
       artists: [],
       url: "",
-      lyrics: "",
       file: null,
     };
   },
@@ -117,15 +107,17 @@ export default {
     },
     async addNewSong() {
       const artistIDs = this.artists.map((artist) => artist.id);
-      const song = await this.$store.dispatch("addSong", {
+      const newSong = {
         name: this.name,
         artists: artistIDs,
         url: this.url,
-        file: await this.toBase64(this.file),
-        lyrics: this.lyrics,
-      });
+      };
+      if (this.file) {
+        newSong.file = await this.toBase64(this.file);
+      }
+      const song = await this.$store.dispatch("addSong", newSong);
       if (song.id) {
-        this.$router.push({ name: "Song", params: { id } });
+        this.$router.push({ name: "Song", params: { id: song.id } });
       } else {
         if (song.status === "in-progress") {
           this.$store.commit("setNotification", {

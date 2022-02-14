@@ -21,6 +21,7 @@
     "nodemon": "^2.0.15",
     "sequelize": "^6.12.0-beta.1",
     "sqlite3": "^5.0.2",
+    "uuid": "^8.3.2",
     "xss-clean": "^0.1.1",
     "youtube-mp3-downloader": "^0.7.10"
   }

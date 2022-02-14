@@ -20,10 +20,6 @@
           - <a @click="goArtistPage(artist.id)">{{ artist.name }}</a>
         </div>
       </div>
-      <div class="py-1 border-b border-slate-400">
-        <h1>Lyrics:</h1>
-        {{ song?.lyrics }}
-      </div>
     </div>
   </div>
 </template>

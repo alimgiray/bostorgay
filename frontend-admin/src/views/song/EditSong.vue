@@ -5,9 +5,6 @@
       <input v-model="name" type="text" placeholder="name" class="auth-input" />
     </div>
     <div>
-      <input v-model="url" type="text" placeholder="url" class="auth-input" />
-    </div>
-    <div>
       <input
         v-model="artistSearch"
         @keyup="searchArtist"
@@ -47,15 +44,6 @@
         <div class="ml-2">{{ artist.name }}</div>
       </div>
     </div>
-    <div>
-      <textarea
-        v-model="lyrics"
-        rows="10"
-        type="text"
-        placeholder="lyrics"
-        class="auth-input"
-      />
-    </div>
     <div class="flex justify-end">
       <button @click="deleteSong" class="small-button-red mr-2">Delete</button>
       <button @click="editSong" class="small-button">Update</button>
@@ -80,8 +68,6 @@ export default {
       artistSearch: "",
       artistSearchResults: [],
       artists: [],
-      url: "",
-      lyrics: "",
     };
   },
   async mounted() {
@@ -91,8 +77,6 @@ export default {
     }
     this.song = await this.$store.dispatch("getSong", this.id);
     this.name = this.song.name;
-    this.url = this.song.url;
-    this.lyrics = this.song.lyrics;
     this.artists = this.song.artists;
   },
   methods: {
@@ -102,8 +86,6 @@ export default {
         id: this.id,
         name: this.name,
         artists: artistIDs,
-        url: this.url,
-        lyrics: this.lyrics || "",
       });
     },
     deleteSong() {

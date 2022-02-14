@@ -8,6 +8,8 @@ const ffmpeg = require("fluent-ffmpeg");
 ffmpeg.setFfmpegPath(ffmpegPath);
 
 const Sequelize = require("sequelize");
+const { v4: uuidv4 } = require("uuid");
+
 const youtube_dl = require("youtube-mp3-downloader");
 const yd = new youtube_dl({
   ffmpegPath: ffmpegPath,
@@ -90,14 +92,20 @@ async function getSong(songID) {
 
 async function addSong(song) {
   const artists = await getArtistsOfSong(song.artists);
+  if (song.url) {
+    downloadAudio(song);
+  }
+  if (song.file) {
+    saveAudio(song);
+  }
   try {
     let newSong = await Song.create({
       name: song.name,
       url: song.url,
+      filename: song.filename,
     });
     newSong.addArtists(artists);
     newSong = await newSong.save();
-    saveAudio(song);
     return newSong;
   } catch (err) {
     if (
@@ -117,8 +125,14 @@ async function addSong(song) {
   }
 }
 
-// Save song as audio file
 function saveAudio(song) {
+  const filename = uuidv4();
+  const buffer = Buffer.from(song.file.split("base64,")[1], "base64");
+  fs.writeFileSync(`${filename}.mp3`, buffer);
+}
+
+// Save song as audio file
+function downloadAudio(song) {
   const songURL = url.parse(song.url, true);
   const query = songURL.query;
   if (!query.v) {
@@ -129,15 +143,15 @@ function saveAudio(song) {
       true
     );
   }
-  yd.download(query.v, `${song.id}.mp3`);
+  const filename = uuidv4();
+  yd.download(query.v, `${filename}.mp3`);
+  song.filename = filename;
 }
 
 async function editSong(songID, song) {
   const artists = await getArtistsOfSong(song.artists);
   const oldSong = await getSong(songID);
   oldSong.name = song.name;
-  oldSong.url = song.url;
-  oldSong.lyrics = song.lyrics;
   oldSong.setArtists(artists);
   return await oldSong.save();
 }

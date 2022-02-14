@@ -17,16 +17,17 @@ const Song = database.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    url: {
+    filename: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    url: {
+      type: DataTypes.STRING,
+      allowNull: true,
       unique: true,
       validate: {
         isUrl: true,
       },
-    },
-    lyrics: {
-      type: DataTypes.STRING,
     },
   },
   {
