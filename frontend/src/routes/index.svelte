@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>Qaytarma</title>
+	<title>Qaytarma</title>
 </svelte:head>
 
 Index page

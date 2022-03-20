@@ -18,8 +18,10 @@
 	let email = '';
 	let password = '';
 
-	const handleLogin = () => {
-		login(email, password);
+	const handleLogin = async () => {
+		const success = await login(email, password);
+		if (success) {
+		}
 	};
 </script>
 
