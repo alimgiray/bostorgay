@@ -1,5 +1,7 @@
 import { browserGet } from './browser';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export async function post(fetch, url, body) {
 	body = JSON.stringify(body);
 	const headers = { 'Content-Type': 'application/json' };
@@ -9,7 +11,7 @@ export async function post(fetch, url, body) {
 		headers['Authorization'] = `Bearer ${user.token}`;
 	}
 
-	const result = await fetch(url, {
+	const result = await fetch(`${API_URL}${url}`, {
 		method: 'POST',
 		body,
 		headers
