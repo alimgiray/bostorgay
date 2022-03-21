@@ -14,6 +14,7 @@
 
 <script>
 	import { login } from '../stores/user.store';
+	import { goto } from '$app/navigation';
 
 	let email = '';
 	let password = '';
@@ -21,6 +22,7 @@
 	const handleLogin = async () => {
 		const success = await login(email, password);
 		if (success) {
+			goto('/');
 		}
 	};
 </script>

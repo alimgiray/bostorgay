@@ -10,7 +10,6 @@
 	<div><span><a href="/">Qaytarma</a></span></div>
 	<div>
 		{#if $isLoggedIn}
-			<span class="mx-4"><a href="/profile">Profile</a></span>
 			<span><a href="/" on:click={handleLogout}>Logout</a></span>
 		{:else}
 			<span class="mx-4"><a href="/login">Login</a></span>
