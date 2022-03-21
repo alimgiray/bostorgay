@@ -1,4 +1,5 @@
 import { writable } from 'svelte/store';
+import { createNotification } from './notification.store';
 import { browserRemove, browserSet, browserGet } from '$lib/browser';
 import { post } from '$lib/api';
 
@@ -12,8 +13,7 @@ export const login = async (email, password) => {
 		isLoggedIn.set(true);
 		return true;
 	} else {
-		// TODO handle error
-		console.log(error);
+		createNotification(true, error.description);
 		return false;
 	}
 };
@@ -29,8 +29,7 @@ export const register = async (email, username, password) => {
 		isLoggedIn.set(true);
 		return true;
 	} else {
-		// TODO handle error
-		console.log(error);
+		createNotification(true, error.description);
 		return false;
 	}
 };
