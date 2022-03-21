@@ -28,6 +28,7 @@ const Song = require("./song.model");
 
 module.exports = {
   getAllSongs,
+  getLatestSongs,
   searchSongs,
   getSong,
   addSong,
@@ -44,6 +45,20 @@ async function getAllSongs() {
         attributes: ["id", "name"],
       },
     ],
+  });
+}
+
+async function getLatestSongs() {
+  return await Song.findAll({
+    include: [
+      {
+        model: Artist,
+        as: "artists",
+        attributes: ["id", "name"],
+      },
+    ],
+    order: [["id", "DESC"]],
+    limit: [20],
   });
 }
 

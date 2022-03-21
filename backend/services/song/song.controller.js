@@ -10,6 +10,7 @@ const authenticateEditor = require("../../helpers/authenticate-editor");
 const songService = require("./song.service");
 
 router.get("/", getAllSongs);
+router.get("/latest", getLatestSongs);
 router.get("/search", searchSongs);
 router.get("/:id", getSong);
 router.post("/", authenticateEditor, songSchema, addSong);
@@ -19,6 +20,13 @@ router.delete("/:id", authenticateAdmin, deleteSong);
 function getAllSongs(req, res, next) {
   songService
     .getAllSongs()
+    .then((songs) => res.json(songs))
+    .catch(next);
+}
+
+function getLatestSongs(req, res, next) {
+  songService
+    .getLatestSongs()
     .then((songs) => res.json(songs))
     .catch(next);
 }
