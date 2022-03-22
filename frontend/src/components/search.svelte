@@ -1,1 +1,91 @@
-Search
+<script>
+	import { custom_event } from 'svelte/internal';
+	import { get } from '../lib/api';
+
+	import { Icon } from '@steeze-ui/svelte-icon';
+	// @ts-ignore
+	import { XCircle } from '@steeze-ui/heroicons';
+
+	let ref;
+	let searchTerm = '';
+	$: {
+		search(searchTerm);
+	}
+
+	const resetSearch = () => {
+		searchTerm = '';
+	};
+
+	function search(searchTerm) {
+		if (searchTerm) {
+			get(fetch, `/api/songs/search?q=${searchTerm}`).then((result) => {
+				const { response, error } = result;
+				if (!error) {
+					const event = custom_event(
+						'update-songs',
+						{
+							songs: response
+						},
+						true
+					);
+					ref.dispatchEvent(event);
+				}
+			});
+			get(fetch, `/api/artists/search?q=${searchTerm}`).then((result) => {
+				const { response, error } = result;
+				if (!error) {
+					const event = custom_event(
+						'update-artists',
+						{
+							artists: response
+						},
+						true
+					);
+					ref.dispatchEvent(event);
+				}
+			});
+		} else {
+			get(fetch, '/api/songs/latest').then((result) => {
+				const { response, error } = result;
+				if (!error) {
+					const event = custom_event(
+						'update-songs',
+						{
+							songs: response
+						},
+						true
+					);
+					ref.dispatchEvent(event);
+				}
+			});
+			get(fetch, '/api/artists/latest').then((result) => {
+				const { response, error } = result;
+				if (!error) {
+					const event = custom_event(
+						'update-artists',
+						{
+							artists: response
+						},
+						true
+					);
+					ref.dispatchEvent(event);
+				}
+			});
+		}
+	}
+</script>
+
+<div class="flex">
+	<input
+		type="text"
+		bind:this={ref}
+		bind:value={searchTerm}
+		placeholder="search for songs or artists"
+		class="rounded-md"
+	/>
+	<div class="cursor-pointer ml-2 my-auto align-middle ">
+		<button class="mt-1" on:click={resetSearch}
+			><Icon src={XCircle} theme="solid" class="color-gray-900 w-5 h-5" /></button
+		>
+	</div>
+</div>

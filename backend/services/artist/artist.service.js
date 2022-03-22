@@ -7,6 +7,7 @@ const Artist = require("./artist.model");
 
 module.exports = {
   getAllArtists,
+  getLatestArtists,
   searchArtists,
   getSongsOfArtist,
   getArtist,
@@ -17,6 +18,13 @@ module.exports = {
 
 async function getAllArtists() {
   return await Artist.findAll({});
+}
+
+async function getLatestArtists() {
+  return await Artist.findAll({
+    order: [["id", "DESC"]],
+    limit: [10],
+  });
 }
 
 async function searchArtists(query) {

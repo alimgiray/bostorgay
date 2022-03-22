@@ -11,6 +11,7 @@ const artistService = require("./artist.service");
 
 router.get("/", getAllArtists);
 router.get("/search", searchArtists);
+router.get("/latest", getLatestArtists);
 router.get("/:id/songs", getSongsOfArtist);
 router.get("/:id", getArtist);
 router.post("/", authenticateEditor, artistSchema, addArtist);
@@ -20,6 +21,13 @@ router.delete("/:id", authenticateAdmin, deleteArtist);
 function getAllArtists(req, res, next) {
   artistService
     .getAllArtists()
+    .then((artists) => res.json(artists))
+    .catch(next);
+}
+
+function getLatestArtists(req, res, next) {
+  artistService
+    .getLatestArtists()
     .then((artists) => res.json(artists))
     .catch(next);
 }

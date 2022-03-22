@@ -1,20 +1,26 @@
 <script context="module">
 	import { get } from '../lib/api';
 	export async function load({ params, fetch, session, stuff }) {
-		const { response, error } = await get(fetch, '/api/songs/latest');
+		const { response: artistResponse, error: artistError } = await get(
+			fetch,
+			'/api/artists/latest'
+		);
+		const { response: songsResponse, error: songsError } = await get(fetch, '/api/songs/latest');
 
-		if (error) {
+		if (artistError || songsError) {
 			return {
 				status: 200,
 				props: {
-					songs: []
+					songs: songsResponse ?? [],
+					artists: artistResponse ?? []
 				}
 			};
 		} else {
 			return {
 				status: 200,
 				props: {
-					songs: response
+					songs: songsResponse,
+					artists: artistResponse
 				}
 			};
 		}
@@ -27,9 +33,16 @@
 	import ArtistList from '../components/list/artist.list.svelte';
 
 	export let songs = [];
-	let artists = [];
+	export let artists = [];
 
-	let mode = 'song';
+	document.addEventListener('update-songs', (e) => {
+		// @ts-ignore
+		songs = e.detail?.songs;
+	});
+	document.addEventListener('update-artists', (e) => {
+		// @ts-ignore
+		artists = e.detail?.artists;
+	});
 </script>
 
 <svelte:head>
@@ -39,10 +52,7 @@
 <div class="p-4">
 	<Search />
 	<div>
-		{#if mode === 'song'}
-			<SongList {songs} />
-		{:else}
-			<ArtistList {artists} />
-		{/if}
+		<SongList {songs} on:update-songs />
+		<ArtistList {artists} on:update-artists />
 	</div>
 </div>
