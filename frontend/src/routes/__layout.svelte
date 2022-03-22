@@ -16,13 +16,13 @@
 		<Notifications />
 	</div>
 	<div class="flex flex-col justify-between h-screen">
-		<div class="h-20">
+		<div>
 			<Header />
 		</div>
 		<div class="h-full">
 			<slot />
 		</div>
-		<div class="h-20">
+		<div class="h-20 border-t">
 			<Player />
 		</div>
 	</div>

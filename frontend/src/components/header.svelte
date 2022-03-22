@@ -6,7 +6,7 @@
 	};
 </script>
 
-<div class="flex justify-between p-4">
+<div class="flex justify-between p-4 border-b">
 	<div><span><a href="/">Qaytarma</a></span></div>
 	<div>
 		{#if $isLoggedIn}
