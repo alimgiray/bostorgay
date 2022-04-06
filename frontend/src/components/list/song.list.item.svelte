@@ -3,17 +3,24 @@
 	// @ts-ignore
 	import { Play } from '@steeze-ui/heroicons';
 
+	import { currentSong } from '../../stores/player.store';
+
 	export let song = {};
+	const playSong = () => {
+		currentSong.set(song);
+	};
 </script>
 
 <div>
 	<div class="flex justify-between py-2 border-b border-b-zinc-600 text-sm hover:bg-zinc-900">
-		<div class="cursor-pointer mx-auto my-auto align-middle">
-			<Icon src={Play} theme="solid" class="color-gray-900 w-5 h-5" />
-		</div>
-		<div class="w-full ml-2 my-auto align-middle cursor-pointer">
-			{song.name}
-		</div>
+		<a href="/" on:click|preventDefault={playSong} class="flex min-w-fit pr-4">
+			<div class="cursor-pointer mx-auto my-auto align-middle">
+				<Icon src={Play} theme="solid" class="color-gray-900 w-5 h-5" />
+			</div>
+			<div class="w-full ml-2 my-auto align-middle cursor-pointer">
+				{song.name}
+			</div>
+		</a>
 		{#if song.artists && song.artists.length > 0}
 			<div class="w-full mr-2 my-auto align-middle text-right">
 				{#each song.artists as artist}
