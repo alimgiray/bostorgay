@@ -33,9 +33,7 @@
 </script>
 
 <script>
-	import { Icon } from '@steeze-ui/svelte-icon';
-	// @ts-ignore
-	import { Play } from '@steeze-ui/heroicons';
+	import SongListItem from '../../components/list/song.list.item.svelte';
 
 	export let id = '';
 	export let name = '';
@@ -49,13 +47,6 @@
 <div class="p-4">
 	<div class="pb-2 text-center">{name}</div>
 	{#each songs as song}
-		<div class="flex justify-between py-2 border-b border-b-zinc-600 text-sm hover:bg-zinc-900">
-			<div class="cursor-pointer mx-auto my-auto align-middle">
-				<Icon src={Play} theme="solid" class="color-gray-900 w-5 h-5" />
-			</div>
-			<div class="w-full ml-2 my-auto align-middle">
-				{song.name}
-			</div>
-		</div>
+		<SongListItem {song} />
 	{/each}
 </div>
