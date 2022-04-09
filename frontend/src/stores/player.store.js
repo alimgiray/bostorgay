@@ -5,6 +5,6 @@ export const isPlaying = writable(false);
 export const queue = writable([]);
 
 export const play = (song) => {
-	currentSong.set(song);
 	isPlaying.set(true);
+	currentSong.set(song);
 };

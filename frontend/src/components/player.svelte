@@ -5,12 +5,10 @@
 	import { currentSong, isPlaying } from '../stores/player.store';
 
 	const pauseSong = () => {
-		console.log('pause');
 		isPlaying.set(false);
 	};
 
 	const resumeSong = () => {
-		console.log('resume');
 		isPlaying.set(true);
 	};
 </script>

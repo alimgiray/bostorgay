@@ -3,11 +3,11 @@
 	// @ts-ignore
 	import { Play } from '@steeze-ui/heroicons';
 
-	import { currentSong } from '../../stores/player.store';
+	import { play } from '../../stores/player.store';
 
 	export let song = {};
 	const playSong = () => {
-		currentSong.set(song);
+		play(song);
 	};
 </script>
 
