@@ -13,11 +13,11 @@ app.use(helmet());
 app.use(xssClean());
 app.use(hpp());
 
-app.use(express.json({limit: '30mb'}));
+app.use(express.json({ limit: "30mb" }));
 
 app.use("/api", require("./api"));
 // Save audio files
-app.use("/audio", express.static("./audio"));
+app.use("/audio", express.static("./audio/"));
 // Serve frontend apps
 app.use("/admin", express.static("../admin-frontend/dist/"));
 app.use("/", express.static("../frontend/dist/"));
