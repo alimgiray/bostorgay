@@ -14,7 +14,6 @@
 			return {
 				status: 200,
 				props: {
-					id: 0,
 					name: '',
 					songs: []
 				}
@@ -23,7 +22,6 @@
 			return {
 				status: 200,
 				props: {
-					id: artistResponse.id,
 					name: artistResponse.name,
 					songs: songsResponse
 				}
@@ -35,7 +33,6 @@
 <script>
 	import SongListItem from '../../components/list/song.list.item.svelte';
 
-	export let id = '';
 	export let name = '';
 	export let songs = [];
 </script>

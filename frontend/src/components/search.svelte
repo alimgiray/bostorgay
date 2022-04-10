@@ -3,7 +3,6 @@
 	import { get } from '../lib/api';
 
 	import { Icon } from '@steeze-ui/svelte-icon';
-	// @ts-ignore
 	import { XCircle } from '@steeze-ui/heroicons';
 
 	let ref;
@@ -16,6 +15,7 @@
 		searchTerm = '';
 	};
 
+	// TODO implement debounce
 	function search(searchTerm) {
 		if (searchTerm) {
 			get(fetch, `/api/songs/search?q=${searchTerm}`).then((result) => {

@@ -1,7 +1,7 @@
 <script>
 	import '../app.css';
 	import Header from '../components/header.svelte';
-	import Player from '../components/player.svelte';
+	import PlayerContainer from '../components/player/player.container.svelte';
 	import Notifications from '../components/notification/notifications.svelte';
 
 	import { onMount } from 'svelte';
@@ -24,7 +24,7 @@
 				<slot />
 			</div>
 			<div class="border-t">
-				<Player />
+				<PlayerContainer />
 			</div>
 		</div>
 	</main>
