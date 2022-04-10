@@ -10,7 +10,7 @@
 	$: display = $currentSong == null ? 'none' : 'flex';
 </script>
 
-<div class="py-2 px-4" style={`display: ${display}`}>
+<div class="py-2 px-4 z-10 bg-zinc-800" style={`display: ${display}`}>
 	<div class="flex w-full justify-between">
 		<Controls />
 		<Player />

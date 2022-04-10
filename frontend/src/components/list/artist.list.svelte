@@ -4,7 +4,7 @@
 </script>
 
 <div class="pt-2 pb-4">
-	<div class="">Artists</div>
+	<div class="mb-2">Artists</div>
 	{#if artists.length > 0}
 		{#each artists as artist}
 			<ArtistListItem {artist} />

@@ -2,6 +2,7 @@
 	import '../app.css';
 	import Header from '../components/header.svelte';
 	import PlayerContainer from '../components/player/player.container.svelte';
+	import Queue from '../components/queue/queue.svelte';
 	import Notifications from '../components/notification/notifications.svelte';
 
 	import { onMount } from 'svelte';
@@ -23,6 +24,7 @@
 			<div class="h-full">
 				<slot />
 			</div>
+			<Queue />
 			<div class="border-t">
 				<PlayerContainer />
 			</div>

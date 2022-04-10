@@ -4,7 +4,7 @@
 </script>
 
 <div class="py-4">
-	<div>Songs</div>
+	<div class="mb-2">Songs</div>
 	{#if songs.length > 0}
 		{#each songs as song}
 			<SongListItem {song} />
