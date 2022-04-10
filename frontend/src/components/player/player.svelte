@@ -32,7 +32,16 @@
 			});
 		}
 	});
+
+	const handleKeydown = (e) => {
+		// If space pressed
+		if (e.keyCode === 32) {
+			isPlaying.set(!$isPlaying);
+		}
+	};
 </script>
+
+<svelte:window on:keydown={handleKeydown} />
 
 <div class="flex">
 	<div class="flex flex-col justify-center ml-3">
