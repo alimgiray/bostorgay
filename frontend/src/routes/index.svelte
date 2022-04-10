@@ -46,7 +46,7 @@
 </script>
 
 <svelte:head>
-	<title>Qaytarma</title>
+	<title>Bostorgay</title>
 </svelte:head>
 
 <div class="p-4">

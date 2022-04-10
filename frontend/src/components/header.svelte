@@ -7,7 +7,7 @@
 </script>
 
 <div class="flex justify-between p-4 border-b">
-	<div><span><a href="/">Qaytarma</a></span></div>
+	<div><span><a href="/">Bostorgay</a></span></div>
 	<div>
 		{#if $isLoggedIn}
 			<span><a href="/" on:click={handleLogout}>Logout</a></span>
