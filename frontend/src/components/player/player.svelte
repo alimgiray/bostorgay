@@ -1,6 +1,7 @@
 <script>
 	// @ts-nocheck
 	import { currentSong, src, isPlaying, totalTime, currentTime } from '../../stores/player.store';
+	import { playNextSong } from '../../stores/queue.store';
 
 	isPlaying.subscribe((playing) => {
 		const audioElement = document.getElementById('audio');
@@ -15,17 +16,20 @@
 		}
 	});
 
-	currentSong.subscribe((newSong) => {
+	currentSong.subscribe((song) => {
 		const audioElement = document.getElementById('audio');
 		if (audioElement) {
+			if (!song) {
+				audioElement.pause();
+				audioElement.currentTime = 0;
+			}
 			audioElement.load();
 			audioElement.addEventListener('canplay', () => {
 				audioElement.play();
 				totalTime.set(Math.trunc(audioElement.duration));
 			});
 			audioElement.addEventListener('ended', () => {
-				// TODO after implementing queue, play next song
-				console.log('ended');
+				playNextSong(song);
 			});
 			audioElement.addEventListener('timeupdate', () => {
 				currentTime.set(Math.trunc(audioElement.currentTime));
@@ -45,7 +49,11 @@
 
 <div class="flex">
 	<div class="flex flex-col justify-center ml-3">
-		<span class="ml-1">{$currentSong?.name}</span>
+		{#if $currentSong}
+			<span class="ml-1">{$currentSong.name}</span>
+		{:else}
+			<span class="ml-1">-</span>
+		{/if}
 		<audio id="audio">
 			<source id="audioSource" src={$src} />
 			Your browser does not support the audio format.

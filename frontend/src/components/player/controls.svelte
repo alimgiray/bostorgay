@@ -2,14 +2,18 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { Play, Pause } from '@steeze-ui/heroicons';
 
-	import { isPlaying } from '../../stores/player.store';
+	import { isPlaying, currentSong } from '../../stores/player.store';
 
 	const pauseSong = () => {
-		isPlaying.set(false);
+		if ($currentSong) {
+			isPlaying.set(false);
+		}
 	};
 
 	const resumeSong = () => {
-		isPlaying.set(true);
+		if ($currentSong) {
+			isPlaying.set(true);
+		}
 	};
 </script>
 

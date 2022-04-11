@@ -22,6 +22,13 @@ export const play = (song) => {
 	}
 };
 
+// Stop playing songs
+export const stop = () => {
+	isPlaying.set(false);
+	currentSong.set(null);
+	src.set('');
+};
+
 const existsInQueue = (song) => {
 	const songs = get(queue);
 	return songs.some((s) => s.id === song.id);
