@@ -1,16 +1,28 @@
 <script>
 	import { Icon } from '@steeze-ui/svelte-icon';
 	// @ts-ignore
-	import { Play } from '@steeze-ui/heroicons';
+	import { PlusSm, MinusSm } from '@steeze-ui/heroicons';
 
 	import { play, currentSong } from '../../stores/player.store';
+	import { append, remove, exists, queue } from '../../stores/queue.store';
 
 	export let song = {};
 	const playSong = () => {
 		play(song);
 	};
 
+	const addToQueue = () => {
+		append(song);
+	};
+
+	const removeFromQueue = () => {
+		remove(song);
+	};
+
+	let inQueue = false;
+
 	$: isCurrentSong = $currentSong?.id === song.id;
+	$: $queue, (inQueue = exists(song));
 </script>
 
 <div>
@@ -19,14 +31,26 @@
 			isCurrentSong ? 'bg-gray-500' : ''
 		}`}
 	>
-		<a href="/" on:click|preventDefault={playSong} class="flex min-w-fit pr-4">
-			<div class="cursor-pointer mx-auto my-auto align-middle">
-				<Icon src={Play} theme="solid" class="color-gray-900 w-5 h-5" />
-			</div>
-			<div class="w-full ml-2 my-auto align-middle cursor-pointer">
-				{song.name}
-			</div>
-		</a>
+		<div class="flex">
+			{#if !inQueue}
+				<a href="/" on:click|preventDefault={addToQueue} class="flex min-w-fit pr-2">
+					<div class="w-full my-auto align-middle cursor-pointer">
+						<Icon src={PlusSm} theme="solid" class="color-gray-900 w-5 h-5" />
+					</div>
+				</a>
+			{:else}
+				<a href="/" on:click|preventDefault={removeFromQueue} class="flex min-w-fit pr-2">
+					<div class="w-full my-auto align-middle cursor-pointer">
+						<Icon src={MinusSm} theme="solid" class="color-gray-900 w-5 h-5" />
+					</div>
+				</a>
+			{/if}
+			<a href="/" on:click|preventDefault={playSong} class="flex min-w-fit pr-2">
+				<div class="w-full my-auto align-middle cursor-pointer">
+					{song.name}
+				</div>
+			</a>
+		</div>
 		{#if song.artists && song.artists.length > 0}
 			<div class="w-full mr-2 my-auto align-middle text-right">
 				{#each song.artists as artist}

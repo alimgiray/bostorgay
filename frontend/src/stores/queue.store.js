@@ -6,14 +6,26 @@ export const queue = writable([]);
 export const visible = writable(false);
 
 export const prepend = (song) => {
+	if (exists(song)) {
+		return;
+	}
 	queue.update((q) => [song, ...q]);
 };
 
 export const append = (song) => {
+	if (exists(song)) {
+		return;
+	}
 	queue.update((q) => [...q, song]);
 };
 
-// TODO maybe use iterators??
+export const remove = (song) => {
+	if (!exists(song)) {
+		return;
+	}
+	queue.update((songs) => songs.filter((s) => s.id !== song.id));
+};
+
 export const playNextSong = (currentSong) => {
 	if (!currentSong) {
 		stop();
@@ -33,4 +45,9 @@ export const playNextSong = (currentSong) => {
 	} else {
 		stop();
 	}
+};
+
+export const exists = (song) => {
+	const songs = get(queue);
+	return songs.some((s) => s.id === song.id);
 };

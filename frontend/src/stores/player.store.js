@@ -1,8 +1,8 @@
-import { get, writable } from 'svelte/store';
+import { writable } from 'svelte/store';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-import { queue, prepend } from './queue.store';
+import { exists, prepend } from './queue.store';
 
 export const currentSong = writable(null);
 export const src = writable('');
@@ -17,7 +17,7 @@ export const play = (song) => {
 	currentSong.set(song);
 	src.set(`${API_URL}${song.url}`);
 
-	if (!existsInQueue(song)) {
+	if (!exists(song)) {
 		prepend(song);
 	}
 };
@@ -27,9 +27,4 @@ export const stop = () => {
 	isPlaying.set(false);
 	currentSong.set(null);
 	src.set('');
-};
-
-const existsInQueue = (song) => {
-	const songs = get(queue);
-	return songs.some((s) => s.id === song.id);
 };
