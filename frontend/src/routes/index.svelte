@@ -32,6 +32,12 @@
 	import SongList from '../components/list/song.list.svelte';
 	import ArtistList from '../components/list/artist.list.svelte';
 
+	import { getPlaylists } from '../stores/playlist.store';
+	import { isLoggedIn } from '../stores/user.store';
+	if ($isLoggedIn) {
+		getPlaylists();
+	}
+
 	export let songs = [];
 	export let artists = [];
 

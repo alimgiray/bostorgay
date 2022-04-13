@@ -2,7 +2,7 @@ import { writable } from 'svelte/store';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-import { exists, prepend } from './queue.store';
+import { exists, prepend, visible } from './queue.store';
 
 export const currentSong = writable(null);
 export const src = writable('');
@@ -19,6 +19,7 @@ export const play = (song) => {
 
 	if (!exists(song)) {
 		prepend(song);
+		visible.set(true);
 	}
 };
 

@@ -29,10 +29,11 @@ export const addSongToPlaylist = async (playlistID, songID) => {
 	const lists = get(playlists);
 	const playlist = lists.find((p) => p.id === playlistID);
 	if (playlist) {
-		playlist.songs.push(songID);
+		const songs = playlist.songs.map((s) => s.id);
+		songs.push(songID);
 		const { error } = await put(fetch, `/api/playlists/${playlist.id}`, {
 			name: playlist.name,
-			songs: playlist.songs
+			songs
 		});
 		if (!error) {
 			getPlaylists();
@@ -48,7 +49,7 @@ export const removeSongFromPlaylist = async (playlistID, songID) => {
 	const lists = get(playlists);
 	const playlist = lists.find((p) => p.id === playlistID);
 	if (playlist) {
-		const songs = playlist.songs.filter((s) => s.id !== songID);
+		const songs = playlist.songs.filter((s) => s.id !== songID).map((s) => s.id);
 		const { error } = await put(fetch, `/api/playlists/${playlist.id}`, {
 			name: playlist.name,
 			songs
