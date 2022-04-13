@@ -17,6 +17,10 @@ export const append = (song) => {
 		return;
 	}
 	queue.update((q) => [...q, song]);
+	const songs = get(queue);
+	if (songs.length === 1) {
+		play(song);
+	}
 };
 
 export const remove = (song) => {
