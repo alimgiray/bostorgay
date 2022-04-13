@@ -1,11 +1,11 @@
 const Sequelize = require("sequelize");
-const Op = Sequelize.Op;
 
 const errors = require("../../errors");
 
 const Playlist = require("./playlist.model");
 const User = require("../user/user.model");
 const Song = require("../song/song.model");
+const Artist = require("../artist/artist.model");
 
 module.exports = {
   getAllPlaylistsOfUser,
@@ -29,6 +29,12 @@ async function getAllPlaylistsOfUser(userID) {
       {
         model: Song,
         as: "songs",
+        include: [
+          {
+            model: Artist,
+            as: "artists",
+          },
+        ],
       },
     ],
   });
@@ -48,6 +54,12 @@ async function getPlaylist(playlistID) {
       {
         model: Song,
         as: "songs",
+        include: [
+          {
+            model: Artist,
+            as: "artists",
+          },
+        ],
       },
     ],
   });
@@ -79,6 +91,12 @@ async function getUserPlaylist(userID, playlistID) {
       {
         model: Song,
         as: "songs",
+        include: [
+          {
+            model: Artist,
+            as: "artists",
+          },
+        ],
       },
     ],
   });

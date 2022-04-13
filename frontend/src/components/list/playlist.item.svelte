@@ -3,10 +3,17 @@
 	// @ts-ignore
 	import { Pencil } from '@steeze-ui/heroicons';
 
+	import { queue } from '../../stores/queue.store';
+	import { play } from '../../stores/player.store';
+
 	export let playlist = {};
 
 	const playPlaylist = () => {
-		console.log('play playlist');
+		const songs = playlist.songs;
+		if (songs.length > 0) {
+			queue.set(songs);
+			play(songs[0]);
+		}
 	};
 </script>
 
