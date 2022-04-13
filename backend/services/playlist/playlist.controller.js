@@ -35,7 +35,6 @@ function getPlaylist(req, res, next) {
 function playlistSchema(req, res, next) {
   const schema = Joi.object({
     name: Joi.string().required().min(3),
-    songs: Joi.array().items(Joi.number()), // Song IDs
   });
   validateRequest(req, res, next, schema);
 }
@@ -43,13 +42,8 @@ function playlistSchema(req, res, next) {
 function createPlaylist(req, res, next) {
   const userID = req.user.id;
   const name = req.body.name;
-  const songs = req.body.songs;
-  const playlist = {
-    name,
-    songs,
-  };
   playlistService
-    .createPlaylist(userID, playlist)
+    .createPlaylist(userID, name)
     .then((playlist) => res.json(playlist))
     .catch(next);
 }

@@ -34,7 +34,7 @@ async function getAllPlaylistsOfUser(username) {
   });
 }
 
-async function getPlaylist(useusernameID, playlistID) {
+async function getPlaylist(username, playlistID) {
   const playlist = await Playlist.findOne({
     where: {
       id: playlistID,
@@ -65,16 +65,12 @@ async function getPlaylist(useusernameID, playlistID) {
   return playlist;
 }
 
-async function createPlaylist(userID, playlist) {
+async function createPlaylist(userID, name) {
   const user = await User.findOne({ where: { id: userID } });
   const newPlaylist = await Playlist.create({
-    name: playlist.name,
+    name: name,
   });
   user.addPlaylist(newPlaylist);
-  if (playlist.songs && playlist.songs.length > 0) {
-    const songs = await Song.findAll({ where: { id: playlist.songs } });
-    newPlaylist.setSongs(songs);
-  }
   return await newPlaylist.save();
 }
 
