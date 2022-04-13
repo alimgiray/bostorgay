@@ -13,6 +13,7 @@
 </script>
 
 <script>
+	import SongList from '../../components/list/song.list.svelte';
 	export let playlist;
 </script>
 
@@ -20,4 +21,7 @@
 	<title>{playlist.name}</title>
 </svelte:head>
 
-<div class="p-4">Playlist {playlist.name}</div>
+<div class="p-4">
+	<div>{playlist.name}</div>
+	<SongList songs={playlist.songs} />
+</div>
