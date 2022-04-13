@@ -34,7 +34,35 @@ async function getAllPlaylistsOfUser(userID) {
   });
 }
 
-async function getPlaylist(userID, playlistID) {
+async function getPlaylist(playlistID) {
+  const playlist = await Playlist.findOne({
+    where: {
+      id: playlistID,
+    },
+    include: [
+      {
+        model: User,
+        as: "user",
+        attributes: ["id", "username"],
+      },
+      {
+        model: Song,
+        as: "songs",
+      },
+    ],
+  });
+  if (!playlist) {
+    throw new errors.AppError(
+      errors.errorTypes.NOT_FOUND,
+      404,
+      "Playlist not found",
+      true
+    );
+  }
+  return playlist;
+}
+
+async function getUserPlaylist(userID, playlistID) {
   const playlist = await Playlist.findOne({
     where: {
       id: playlistID,
@@ -75,15 +103,15 @@ async function createPlaylist(userID, name) {
 }
 
 async function editPlaylist(userID, playlist) {
-  const oldPlaylist = await getPlaylist(userID, playlist.id);
+  const oldPlaylist = await getUserPlaylist(userID, playlist.id);
   oldPlaylist.name = playlist.name;
   const songs = await Song.findAll({ where: { id: playlist.songs } });
   await oldPlaylist.setSongs(songs);
   await oldPlaylist.save();
-  return await getPlaylist(userID, playlist.id);
+  return await getUserPlaylist(userID, playlist.id);
 }
 
 async function deletePlaylist(userID, playlistID) {
-  const playlist = await getPlaylist(userID, playlistID);
+  const playlist = await getUserPlaylist(userID, playlistID);
   await playlist.destroy();
 }
