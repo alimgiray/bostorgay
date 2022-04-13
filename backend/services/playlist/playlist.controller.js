@@ -33,6 +33,7 @@ function getPlaylist(req, res, next) {
 function playlistSchema(req, res, next) {
   const schema = Joi.object({
     name: Joi.string().required().min(3),
+    songs: Joi.array().items(Joi.number()), // Song ids
   });
   validateRequest(req, res, next, schema);
 }

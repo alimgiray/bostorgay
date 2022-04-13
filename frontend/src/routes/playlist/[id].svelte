@@ -16,4 +16,8 @@
 	export let playlist;
 </script>
 
+<svelte:head>
+	<title>{playlist.name}</title>
+</svelte:head>
+
 <div class="p-4">Playlist {playlist.name}</div>
