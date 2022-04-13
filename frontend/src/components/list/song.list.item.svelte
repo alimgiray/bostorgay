@@ -7,6 +7,7 @@
 	import { append, remove, exists, queue } from '../../stores/queue.store';
 
 	export let song = {};
+
 	const playSong = () => {
 		play(song);
 	};

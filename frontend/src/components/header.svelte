@@ -10,7 +10,8 @@
 	<div><span><a href="/">Bostorgay</a></span></div>
 	<div>
 		{#if $isLoggedIn}
-			<span><a href="/" on:click={handleLogout}>Logout</a></span>
+			<span><a href="/playlist">Playlists</a></span>
+			<span><a href="/" on:click={handleLogout} class="ml-2">Logout</a></span>
 		{:else}
 			<span class="mx-4"><a href="/login">Login</a></span>
 			<span><a href="/register">Register</a></span>

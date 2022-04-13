@@ -10,6 +10,7 @@
 			`/api/artists/${params.id}/songs`
 		);
 
+		// TODO handle errors by sending it to the page and renderin appropriate error message
 		if (artistError || songsError) {
 			return {
 				status: 200,
