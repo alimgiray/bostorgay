@@ -10,24 +10,25 @@ const playlistService = require("./playlist.service");
 
 router.all("/*", authenticate);
 
-router.get("/:username", getAllPlaylist);
+router.get("/", getAllPlaylist);
 router.get("/:id", getPlaylist);
 router.post("/", playlistSchema, createPlaylist);
 router.put("/:id", playlistSchema, editPlaylist);
 router.delete("/:id", deletePlaylist);
 
 function getAllPlaylist(req, res, next) {
-  const username = req.params.username;
+  const userID = req.user.id;
   playlistService
-    .getAllPlaylistsOfUser(username)
+    .getAllPlaylistsOfUser(userID)
     .then((playlists) => res.json(playlists))
     .catch(next);
 }
 
 function getPlaylist(req, res, next) {
+  const userID = req.user.id;
   const playlistID = req.params.id;
   playlistService
-    .getPlaylist(playlistID)
+    .getPlaylist(userID, playlistID)
     .then((playlist) => res.json(playlist))
     .catch(next);
 }

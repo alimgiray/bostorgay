@@ -3,7 +3,8 @@
 	import { get } from 'svelte/store';
 
 	export async function load({ params, fetch, session, stuff }) {
-		if (!get(isLoggedIn)) {
+		const loggedIn = get(isLoggedIn);
+		if (!loggedIn) {
 			return { status: 302, redirect: '/' };
 		}
 		return {

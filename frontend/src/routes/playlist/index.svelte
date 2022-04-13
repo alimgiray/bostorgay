@@ -2,26 +2,21 @@
 	import { isLoggedIn } from '../../stores/user.store';
 	import { get } from 'svelte/store';
 	import { get as getRequest } from '../../lib/api';
-	import { browserGet } from '$lib/browser';
 
-	export async function load({ params, fetch, session, stuff }) {
-		if (!get(isLoggedIn)) {
+	export const load = async ({ fetch, session }) => {
+		const loggedIn = get(isLoggedIn);
+		if (!loggedIn) {
 			return { status: 302, redirect: '/' };
 		}
 
-		const user = browserGet('user');
-		if (!user) {
-			return { status: 302, redirect: '/' };
-		}
-		const username = user.username;
 		// TODO handle error by sending it to the page and renderin appropriate error message
-		const { response, error } = await getRequest(fetch, `/api/playlists/${username}`);
+		const { response, error } = await getRequest(fetch, `/api/playlists`);
 
 		if (error) {
 			return { status: 200, props: { playlists: [] } };
 		}
 		return { status: 200, props: { playlists: response } };
-	}
+	};
 </script>
 
 <script>
