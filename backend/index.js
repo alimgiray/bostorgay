@@ -19,7 +19,7 @@ app.use("/api", require("./api"));
 // Save audio files
 app.use("/audio", express.static("./audio/"));
 // Serve frontend apps
-app.use("/admin", express.static("../admin-frontend/dist/"));
+app.use("/admin", express.static("../frontend-admin/dist/"));
 app.use("/", express.static("../frontend/dist/"));
 // Global error handler
 app.use(require("./errors/error-handler"));
