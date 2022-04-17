@@ -4,7 +4,7 @@
 </script>
 
 {#if $visible}
-	<div class="border-t max-h-96">
+	<div class="border-t max-h-96 bg-zinc-800">
 		<div class="border-b flex justify-between">
 			<div class="pl-1">Queue</div>
 			<div class="pr-1 text-sm flex flex-col justify-center">
