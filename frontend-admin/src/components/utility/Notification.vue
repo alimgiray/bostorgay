@@ -61,6 +61,9 @@ export default {
       } else {
         this.$refs.modal.classList.remove("visible");
         this.$refs.modal.classList.add("fadeOut");
+        setTimeout(() => {
+          this.$refs.modal.classList.add("hidden");
+        }, 5000);
       }
     },
     isError: function (newVal) {
@@ -79,7 +82,7 @@ export default {
           message: "Your session is expired. Please login again to continue",
           isError: true,
         });
-        this.$router.push({name: "Login"});
+        this.$router.push({ name: "Login" });
       }
     },
   },

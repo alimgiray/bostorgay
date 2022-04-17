@@ -3,18 +3,15 @@
     <Notification />
     <Nav />
     <router-view />
-    <Collapsable />
   </main>
 </template>
 
 <script>
 import Nav from "./components/Nav.vue";
-import Collapsable from "./components/Collapsable.vue";
 import Notification from "./components/utility/Notification.vue";
 export default {
   components: {
     Nav,
-    Collapsable,
     Notification,
   },
   async created() {
