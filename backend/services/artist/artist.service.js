@@ -4,6 +4,7 @@ const Op = Sequelize.Op;
 const errors = require("../../errors");
 
 const Artist = require("./artist.model");
+const Song = require("../song/song.model");
 
 module.exports = {
   getAllArtists,
@@ -40,7 +41,18 @@ async function searchArtists(query) {
 
 async function getSongsOfArtist(artistID) {
   const artist = await getArtist(artistID);
-  return artist.getSongs();
+  return await Song.findAll({
+    include: [
+      {
+        model: Artist,
+        as: "artists",
+        attributes: ["id", "name"],
+        where: {
+          id: artistID,
+        },
+      },
+    ],
+  });
 }
 
 async function getArtist(artistID) {

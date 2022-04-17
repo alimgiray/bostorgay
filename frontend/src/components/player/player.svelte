@@ -50,8 +50,11 @@
 <div class="flex">
 	<div class="flex flex-col justify-center ml-3">
 		{#if $currentSong}
-			<span class="ml-1"
-				>{$currentSong.name} - {$currentSong.artists.map((artist) => artist.name).join(', ')}</span
+			<span class="ml-1 text-center"
+				>{$currentSong.name}
+				<div class="text-center text-sm text-gray-400">
+					{$currentSong.artists.map((artist) => artist.name).join(' ')}
+				</div></span
 			>
 		{:else}
 			<span class="ml-1">-</span>
