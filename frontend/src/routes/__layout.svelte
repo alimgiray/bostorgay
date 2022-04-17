@@ -24,7 +24,7 @@
 			<div class="h-full">
 				<slot />
 			</div>
-			<div class=" fixed bottom-0 w-full">
+			<div class="fixed bottom-0 w-full">
 				<Queue />
 				<div class="border-t">
 					<PlayerContainer />

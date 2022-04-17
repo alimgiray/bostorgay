@@ -57,8 +57,10 @@
 
 <div class="p-4">
 	<Search />
-	<div>
+	<div class="mt-4">
+		<div>Songs</div>
 		<SongList {songs} on:update-songs />
+		<div>Artists</div>
 		<ArtistList {artists} on:update-artists />
 	</div>
 </div>

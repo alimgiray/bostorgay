@@ -3,8 +3,7 @@
 	export let artists = [];
 </script>
 
-<div class="pt-2 pb-4">
-	<div class="mb-2">Artists</div>
+<div class="pt-2 pb-12">
 	{#if artists.length > 0}
 		{#each artists as artist}
 			<ArtistListItem {artist} />

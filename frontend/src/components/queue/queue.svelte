@@ -5,7 +5,7 @@
 
 {#if $visible}
 	<div class="border-t max-h-96 bg-zinc-800">
-		<div class="border-b flex justify-between">
+		<div class="border-b flex justify-between bg-zinc-900">
 			<div class="pl-1">Queue</div>
 			<div class="pr-1 text-sm flex flex-col justify-center">
 				{$queue.length} song{$queue.length > 1 ? '(s)' : ''}
