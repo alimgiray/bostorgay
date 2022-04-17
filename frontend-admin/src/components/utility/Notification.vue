@@ -1,5 +1,8 @@
 <template>
-  <div ref="modal" class="absolute w-full max-w-lg z-10 text-white hidden">
+  <div
+    ref="modal"
+    class="absolute w-96 ml-[calc(50%-12em)] z-10 text-white hidden"
+  >
     <div class="flex justify-between text-lg py-2 font-bold border-b">
       <div class="mx-3">{{ title }}</div>
       <div class="mx-3 pt-1">
