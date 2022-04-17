@@ -1,7 +1,9 @@
 <template>
   <div class="flex justify-between p-2 border-b border-slate-300">
     <div>
-      <div @click="goSongPage(song.id)">{{ song.name }}</div>
+      <div @click="goSongPage(song.id)" class="cursor-pointer">
+        {{ song.name }}
+      </div>
       <div>
         <span
           v-for="(artist, index) in artists"
@@ -16,30 +18,13 @@
         </span>
       </div>
     </div>
-    <div class="flex items-center">
-      <button>
-        <PlayIcon @click="play()" class="mx-1 h-6 w-6 text-blue-500" />
-      </button>
-      <button>
-        <PlusIcon
-          @click="addToQueue(false)"
-          class="mx-1 h-6 w-6 text-blue-500"
-        />
-      </button>
-    </div>
   </div>
 </template>
 
 <script>
-import { PlayIcon, PlusIcon, TrashIcon } from "@heroicons/vue/outline";
-
 export default {
   name: "SongListItem",
-  components: {
-    PlayIcon,
-    PlusIcon,
-    TrashIcon,
-  },
+  components: {},
   props: {
     song: Object,
     artists: Array,
@@ -54,22 +39,6 @@ export default {
   methods: {
     goArtistPage(artistID) {
       this.$router.push({ name: "Artist", params: { id: artistID } });
-    },
-    isSongAlreadyInQueue() {
-      return this.$store.state.player.queue.some(
-        (song) => song.id === this.song.id
-      );
-    },
-    play() {
-      if (!this.isSongAlreadyInQueue()) {
-        this.addToQueue(true);
-      }
-      this.$store.commit("playSong", this.song);
-    },
-    addToQueue(prepend) {
-      if (!this.isSongAlreadyInQueue()) {
-        this.$store.commit("addToQueue", { song: this.song, prepend });
-      }
     },
     goSongPage(id) {
       this.$router.push({ name: "Song", params: { id: id } });

@@ -4,8 +4,6 @@ import userStore from "./user";
 import notificationStore from "./notification";
 import artistStore from "./artist";
 import songStore from "./song";
-import playerStore from "./player";
-import playlistStore from "./playlist";
 
 export default createStore({
   modules: {
@@ -13,8 +11,6 @@ export default createStore({
     notification: notificationStore,
     artist: artistStore,
     song: songStore,
-    player: playerStore,
-    playlist: playlistStore,
   },
   state: {},
   mutations: {},
