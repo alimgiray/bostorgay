@@ -17,6 +17,15 @@
 		}
 	});
 
+	document.addEventListener('update-time', (e) => {
+		const audioElement = document.getElementById('audio');
+		if (audioElement) {
+			// @ts-ignore
+			audioElement.currentTime = e.detail?.time;
+			currentTime.set(Math.trunc(audioElement.currentTime));
+		}
+	});
+
 	currentSong.subscribe((song) => {
 		const audioElement = document.getElementById('audio');
 		if (audioElement) {
@@ -58,7 +67,7 @@
 				<div class="text-center text-sm text-gray-400">
 					{$currentSong.artists.map((artist) => artist.name).join(' ')}
 				</div>
-				<div class="mt-0"><Time /></div>
+				<div class="mt-0 mb-1"><Time /></div>
 			</span>
 		{:else}
 			<span>-</span>
