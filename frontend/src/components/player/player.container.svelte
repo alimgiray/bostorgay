@@ -4,8 +4,8 @@
 	import QueueControl from './queue.control.svelte';
 </script>
 
-<div class="flex py-1 px-2 z-10 bg-zinc-800">
-	<div class="flex w-full justify-between">
+<div class="flex h-full bg-zinc-800">
+	<div class="flex py-1 px-2 w-full justify-between bg-zinc-800">
 		<Controls />
 		<Player />
 		<div class="flex">
