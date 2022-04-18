@@ -57,8 +57,7 @@
 
 <div class="p-4">
 	<Search />
-	<div class="mt-4">
-		<div class="text-center underline">Songs</div>
+	<div>
 		<SongList {songs} on:update-songs />
 		<div class="text-center underline">Artists</div>
 		<ArtistList {artists} on:update-artists />

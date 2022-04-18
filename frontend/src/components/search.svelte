@@ -6,16 +6,23 @@
 	import { XCircle } from '@steeze-ui/heroicons';
 
 	let ref;
+	let timeout;
 	let searchTerm = '';
 	$: {
-		search(searchTerm);
+		debounce(searchTerm);
 	}
 
 	const resetSearch = () => {
 		searchTerm = '';
 	};
 
-	// TODO implement debounce
+	const debounce = (searchTerm) => {
+		clearTimeout(timeout);
+		timeout = setTimeout(() => {
+			search(searchTerm);
+		}, 500);
+	};
+
 	function search(searchTerm) {
 		if (searchTerm) {
 			get(fetch, `/api/songs/search?q=${searchTerm}`).then((result) => {
