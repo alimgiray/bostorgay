@@ -29,11 +29,13 @@
 </svelte:head>
 
 <div class="p-4">
-	<div class="pb-2 flex justify-between">
-		<div>Playlists</div>
-		<div><a href="/playlist/new">Create</a></div>
+	<div class="pb-2 flex justify-center">
+		<div class="underline">Playlists</div>
 	</div>
 	{#each playlists as playlist}
 		<PlaylistItem {playlist} />
 	{/each}
+	<div class="flex justify-end mt-4">
+		<a href="/playlist/new" class="text-zinc-200">Create New</a>
+	</div>
 </div>

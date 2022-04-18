@@ -1,6 +1,8 @@
 import { writable, get } from 'svelte/store';
 import { post, get as getRequest, put } from '$lib/api';
 import { createNotification } from './notification.store';
+import { queue } from './queue.store';
+import { play } from './player.store';
 import { isLoggedIn } from './user.store';
 
 export const playlists = writable([]);
@@ -61,6 +63,14 @@ export const removeSongFromPlaylist = async (playlistID, songID) => {
 			createNotification(true, error.description);
 			return false;
 		}
+	}
+};
+
+export const playPlaylist = (playlist) => {
+	const songs = playlist.songs;
+	if (songs.length > 0) {
+		queue.set(songs);
+		play(songs[0]);
 	}
 };
 

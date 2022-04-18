@@ -77,17 +77,18 @@
 					</div>
 				</a>
 			{/if}
-			<a href="/" on:click|preventDefault={playSong} class="flex min-w-fit pr-2">
+			<a href="/" on:click|preventDefault={playSong} class="flex min-w-max">
 				<div class="w-full my-auto align-middle cursor-pointer">
 					{song.name}
 				</div>
 			</a>
 		</div>
 		{#if song.artists && song.artists.length > 0}
-			<div class="w-full mr-2 my-auto align-middle text-right">
+			<div class="w-full my-auto align-middle text-right">
 				{#each song.artists as artist}
 					<span class="ml-2">
 						<a
+							class="text-zinc-400"
 							href={`/artist/${artist.name
 								.replace(/[^a-z0-9_]+/gi, '-')
 								.replace(/^-|-$/g, '')

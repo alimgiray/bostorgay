@@ -17,7 +17,7 @@
 	};
 </script>
 
-<div>
+<div class="flex flex-col justify-center">
 	{#if $isPlaying}
 		<a href="/" on:click|preventDefault={pauseSong}>
 			<div class="cursor-pointer">

@@ -81,7 +81,6 @@
 		bind:this={ref}
 		bind:value={searchTerm}
 		placeholder="search for songs or artists"
-		class="rounded-md"
 	/>
 	<div class="cursor-pointer ml-2 my-auto align-middle ">
 		<button class="mt-1" on:click={resetSearch}

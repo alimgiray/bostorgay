@@ -10,7 +10,6 @@ const savedQueue = browserGet('queue');
 if (savedQueue) {
 	if (savedQueue.length > 0) {
 		queue.set(savedQueue);
-		visible.set(true);
 	}
 }
 

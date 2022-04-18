@@ -15,17 +15,12 @@
 <script>
 	import SongList from '../../components/list/song.list.svelte';
 
-	import { queue } from '../../stores/queue.store';
-	import { play } from '../../stores/player.store';
+	import { playPlaylist } from '../../stores/playlist.store';
 
 	export let playlist;
 
-	const playPlaylist = () => {
-		const songs = playlist.songs;
-		if (songs.length > 0) {
-			queue.set(songs);
-			play(songs[0]);
-		}
+	const play = () => {
+		playPlaylist(playlist);
 	};
 </script>
 
@@ -35,7 +30,7 @@
 
 <div class="p-4">
 	<div>
-		<a href="/" on:click|preventDefault={playPlaylist} class="w-full">
+		<a href="/" on:click|preventDefault={play} class="w-full">
 			{playlist.name}
 		</a>
 	</div>
