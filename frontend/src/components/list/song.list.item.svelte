@@ -77,7 +77,7 @@
 			</a>
 		</div>
 		{#if song.artists && song.artists.length > 0}
-			<div class="w-full my-auto align-middle text-right">
+			<div class="w-full my-auto align-middle text-right truncate">
 				{#each song.artists as artist}
 					<span class="ml-2">
 						<a
