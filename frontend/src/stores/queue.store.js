@@ -62,6 +62,23 @@ export const playNextSong = (currentSong) => {
 	}
 };
 
+export const playPreviousSong = (currentSong) => {
+	if (!currentSong) return;
+
+	const songs = get(queue);
+	let previousSong = null;
+	for (let i = 0; i < songs.length; i++) {
+		if (songs[i].id === currentSong.id) {
+			if (i > 0) {
+				previousSong = songs[i - 1];
+			}
+		}
+	}
+	if (previousSong) {
+		play(previousSong);
+	}
+};
+
 export const exists = (song) => {
 	const songs = get(queue);
 	return songs.some((s) => s.id === song.id);
