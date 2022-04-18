@@ -49,7 +49,7 @@
 <svelte:window on:keydown={handleKeydown} />
 
 <div class="flex truncate">
-	<div class="flex flex-col justify-center ml-3 truncate">
+	<div class="truncate">
 		{#if $currentSong}
 			<span
 				><div class="text-center truncate">
@@ -58,8 +58,8 @@
 				<div class="text-center text-sm text-gray-400">
 					{$currentSong.artists.map((artist) => artist.name).join(' ')}
 				</div>
-				<div class="p-0 m-0"><Time /></div></span
-			>
+				<div class="mt-0"><Time /></div>
+			</span>
 		{:else}
 			<span>-</span>
 		{/if}

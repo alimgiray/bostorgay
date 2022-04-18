@@ -9,7 +9,7 @@
 	};
 </script>
 
-<div class="flex flex-col justify-center ml-2">
+<div class="flex flex-col justify-center">
 	<div>
 		{#if $visible}
 			<a href="/" on:click|preventDefault={toggleQueue}>

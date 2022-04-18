@@ -19,6 +19,6 @@
 	};
 </script>
 
-<div class="text-center">
-	<span class="text-xs">{displayElapsedTime()} / {displayTotalTime()}</span>
+<div class="text-center text-xs">
+	<span class="font-light">{displayElapsedTime()} / {displayTotalTime()}</span>
 </div>

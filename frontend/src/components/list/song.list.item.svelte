@@ -1,7 +1,7 @@
 <script>
 	import { Icon } from '@steeze-ui/svelte-icon';
 	// @ts-ignore
-	import { PlusSm, MinusSm, DotsVertical } from '@steeze-ui/heroicons';
+	import { PlusSm, MinusSm, DotsVertical, X } from '@steeze-ui/heroicons';
 
 	import { play, currentSong } from '../../stores/player.store';
 	import { append, remove, exists, queue } from '../../stores/queue.store';
@@ -98,25 +98,33 @@
 		</div>
 
 		{#if $isLoggedIn}
-			<a href="/" on:click|preventDefault={toggleModal} class="flex min-w-fit ml-2">
-				<div class="w-full my-auto align-middle cursor-pointer">
-					<Icon src={DotsVertical} theme="solid" class="color-gray-900 w-5 h-5" />
-				</div>
-			</a>
+			{#if modalOpen}
+				<a href="/" on:click|preventDefault={toggleModal} class="flex min-w-fit ml-2">
+					<div class="w-full my-auto align-middle cursor-pointer">
+						<Icon src={X} theme="solid" class="color-gray-900 w-5 h-5" />
+					</div>
+				</a>
+			{:else}
+				<a href="/" on:click|preventDefault={toggleModal} class="flex min-w-fit ml-2">
+					<div class="w-full my-auto align-middle cursor-pointer">
+						<Icon src={DotsVertical} theme="solid" class="color-gray-900 w-5 h-5" />
+					</div>
+				</a>
+			{/if}
 		{/if}
 	</div>
 </div>
 
 {#if modalOpen && $isLoggedIn}
-	<div class="ml-12 py-1 text-sm">
+	<div class="ml-8 py-1 pr-8 text-sm max-h-64">
 		{#each $playlists as playlist}
 			<a href="/" on:click|preventDefault={() => modifyPlaylist(playlist.id)}>
-				<div class="flex border-b py-1">
+				<div class="flex border-b border-zinc-600 py-2">
 					<div><input type="checkbox" checked={playlistContainsSong(playlist.id)} /></div>
 					<div class="ml-2">{playlist.name}</div>
 				</div>
 			</a>
 		{/each}
-		<div class="border-b py-1"><a href="/playlist/new">Create new playlist</a></div>
+		<div class="border-b py-2 text-right"><a href="/playlist/new">Create new playlist</a></div>
 	</div>
 {/if}
