@@ -79,9 +79,9 @@
 		{#if song.artists && song.artists.length > 0}
 			<div class="w-full my-auto align-middle text-right truncate">
 				{#each song.artists as artist}
-					<span class="ml-2">
+					<span class="ml-1">
 						<a
-							class="text-zinc-400"
+							class="text-zinc-400 underline"
 							href={`/artist/${artist.name
 								.replace(/[^a-z0-9_]+/gi, '-')
 								.replace(/^-|-$/g, '')
