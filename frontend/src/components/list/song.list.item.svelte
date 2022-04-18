@@ -70,13 +70,6 @@
 					</div>
 				</a>
 			{/if}
-			{#if $isLoggedIn}
-				<a href="/" on:click|preventDefault={toggleModal} class="flex min-w-fit pr-2">
-					<div class="w-full my-auto align-middle cursor-pointer">
-						<Icon src={ViewList} theme="solid" class="color-gray-900 w-5 h-5" />
-					</div>
-				</a>
-			{/if}
 			<a href="/" on:click|preventDefault={playSong} class="flex min-w-max">
 				<div class="w-full my-auto align-middle cursor-pointer">
 					{song.name}
@@ -98,6 +91,13 @@
 					</span>
 				{/each}
 			</div>
+		{/if}
+		{#if $isLoggedIn}
+			<a href="/" on:click|preventDefault={toggleModal} class="flex min-w-fit ml-2">
+				<div class="w-full my-auto align-middle cursor-pointer">
+					<Icon src={ViewList} theme="solid" class="color-gray-900 w-5 h-5" />
+				</div>
+			</a>
 		{/if}
 	</div>
 </div>
