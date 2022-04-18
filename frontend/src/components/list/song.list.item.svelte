@@ -70,28 +70,33 @@
 					</div>
 				</a>
 			{/if}
-			<a href="/" on:click|preventDefault={playSong} class="flex min-w-max">
-				<div class="w-full my-auto align-middle cursor-pointer">
-					{song.name}
+			<div>
+				<div>
+					<a href="/" on:click|preventDefault={playSong} class="flex min-w-max">
+						<div class="w-full my-auto align-middle cursor-pointer">
+							{song.name}
+						</div>
+					</a>
 				</div>
-			</a>
-		</div>
-		{#if song.artists && song.artists.length > 0}
-			<div class="w-full my-auto align-middle text-right truncate">
-				{#each song.artists as artist}
-					<span class="ml-1">
-						<a
-							class="text-zinc-400 underline"
-							href={`/artist/${artist.name
-								.replace(/[^a-z0-9_]+/gi, '-')
-								.replace(/^-|-$/g, '')
-								.toLowerCase()}---${artist.id}`}
-							>{artist.name}
-						</a>
-					</span>
-				{/each}
+				{#if song.artists && song.artists.length > 0}
+					<div class="w-full my-auto align-middle truncate text-xs">
+						{#each song.artists as artist}
+							<span class="mr-1">
+								<a
+									class="text-zinc-400 underline"
+									href={`/artist/${artist.name
+										.replace(/[^a-z0-9_]+/gi, '-')
+										.replace(/^-|-$/g, '')
+										.toLowerCase()}---${artist.id}`}
+									>{artist.name}
+								</a>
+							</span>
+						{/each}
+					</div>
+				{/if}
 			</div>
-		{/if}
+		</div>
+
 		{#if $isLoggedIn}
 			<a href="/" on:click|preventDefault={toggleModal} class="flex min-w-fit ml-2">
 				<div class="w-full my-auto align-middle cursor-pointer">
