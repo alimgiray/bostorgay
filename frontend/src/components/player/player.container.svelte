@@ -11,7 +11,6 @@
 		<Controls />
 		<Player />
 		<div class="flex">
-			<Time />
 			<QueueControl />
 		</div>
 	</div>

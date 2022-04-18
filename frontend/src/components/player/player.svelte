@@ -2,6 +2,7 @@
 	// @ts-nocheck
 	import { currentSong, src, isPlaying, totalTime, currentTime } from '../../stores/player.store';
 	import { playNextSong } from '../../stores/queue.store';
+	import Time from './time.svelte';
 
 	isPlaying.subscribe((playing) => {
 		const audioElement = document.getElementById('audio');
@@ -47,17 +48,20 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
-<div class="flex">
-	<div class="flex flex-col justify-center ml-3">
+<div class="flex truncate">
+	<div class="flex flex-col justify-center ml-3 truncate">
 		{#if $currentSong}
-			<span class="ml-1 text-center"
-				>{$currentSong.name}
+			<span
+				><div class="text-center truncate">
+					{$currentSong.name}
+				</div>
 				<div class="text-center text-sm text-gray-400">
 					{$currentSong.artists.map((artist) => artist.name).join(' ')}
-				</div></span
+				</div>
+				<div class="p-0 m-0"><Time /></div></span
 			>
 		{:else}
-			<span class="ml-1">-</span>
+			<span>-</span>
 		{/if}
 		<audio id="audio">
 			<source id="audioSource" src={$src} />

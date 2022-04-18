@@ -19,6 +19,6 @@
 	};
 </script>
 
-<div class="flex flex-col justify-center">
-	<span class="text-sm">{displayElapsedTime()} / {displayTotalTime()}</span>
+<div class="text-center">
+	<span class="text-xs">{displayElapsedTime()} / {displayTotalTime()}</span>
 </div>

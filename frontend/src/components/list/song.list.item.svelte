@@ -1,7 +1,7 @@
 <script>
 	import { Icon } from '@steeze-ui/svelte-icon';
 	// @ts-ignore
-	import { PlusSm, MinusSm, ViewList } from '@steeze-ui/heroicons';
+	import { PlusSm, MinusSm, DotsVertical } from '@steeze-ui/heroicons';
 
 	import { play, currentSong } from '../../stores/player.store';
 	import { append, remove, exists, queue } from '../../stores/queue.store';
@@ -95,7 +95,7 @@
 		{#if $isLoggedIn}
 			<a href="/" on:click|preventDefault={toggleModal} class="flex min-w-fit ml-2">
 				<div class="w-full my-auto align-middle cursor-pointer">
-					<Icon src={ViewList} theme="solid" class="color-gray-900 w-5 h-5" />
+					<Icon src={DotsVertical} theme="solid" class="color-gray-900 w-5 h-5" />
 				</div>
 			</a>
 		{/if}
