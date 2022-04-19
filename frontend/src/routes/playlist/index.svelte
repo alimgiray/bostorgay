@@ -30,12 +30,16 @@
 
 <div class="p-4">
 	<div class="pb-2 flex justify-center">
-		<div class="underline">Playlists</div>
+		<div class="font-bold">Playlists</div>
 	</div>
 	{#each playlists as playlist}
 		<PlaylistItem {playlist} />
 	{/each}
 	<div class="flex justify-end mt-4">
-		<a href="/playlist/new" class="text-zinc-200">Create New</a>
+		<a
+			href="/playlist/new"
+			class="text-slate-200 border border-orange-500 w-full py-2 text-center hover:bg-orange-500 hover:text-slate-800 hover:font-bold"
+			>Create New</a
+		>
 	</div>
 </div>

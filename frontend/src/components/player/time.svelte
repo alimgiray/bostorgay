@@ -42,7 +42,7 @@
 				class="
 					appearance-none
 					w-full
-					bg-zinc-600
+					bg-slate-600
 					h-1
 					p-0
 					focus:outline-none focus:ring-0 focus:shadow-none"

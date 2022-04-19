@@ -12,17 +12,19 @@
 </script>
 
 <div
-	class={`border-t max-h-96 bg-zinc-800 ${$visible ? 'visibility: hidden' : 'visibility: visible'}`}
+	class={`border-t border-slate-500 max-h-96 bg-slate-800 ${
+		$visible ? 'visibility: hidden' : 'visibility: visible'
+	}`}
 >
-	<div class="border-b flex justify-between bg-zinc-900">
+	<div class="border-b border-slate-500 flex justify-between bg-slate-700">
 		<div class="flex ml-2 py-1">
-			<div>Queue</div>
+			<div class="text-slate-100">Queue</div>
 		</div>
 		<div class="flex mr-2">
 			<div class="flex flex-col justify-center">
 				<a href="/" on:click|preventDefault={toggleQueue}>
 					<div class="cursor-pointer">
-						<Icon src={ChevronDown} theme="solid" class="color-gray-900 w-6 h-6" />
+						<Icon src={ChevronDown} theme="solid" class="text-orange-500 w-6 h-6" />
 					</div>
 				</a>
 			</div>

@@ -10,17 +10,17 @@
 </script>
 
 <div class="flex flex-col justify-center">
-	<div>
+	<div class="flex justify-end pr-2">
 		{#if $visible}
 			<a href="/" on:click|preventDefault={toggleQueue}>
 				<div class="cursor-pointer">
-					<Icon src={ChevronDown} theme="solid" class="color-gray-900 w-8 h-8" />
+					<Icon src={ChevronUp} theme="solid" class="w-8 h-8" />
 				</div>
 			</a>
 		{:else}
 			<a href="/" on:click|preventDefault={toggleQueue}>
 				<div class="cursor-pointer">
-					<Icon src={ChevronUp} theme="solid" class="color-gray-900 w-8 h-8" />
+					<Icon src={ChevronDown} theme="solid" class="w-8 h-8" />
 				</div>
 			</a>
 		{/if}

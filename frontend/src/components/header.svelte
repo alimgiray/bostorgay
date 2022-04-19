@@ -6,9 +6,11 @@
 	};
 </script>
 
-<div class="flex justify-between p-4 border-b">
-	<div><span><a href="/">Bostorgay</a></span></div>
+<div class="flex justify-between p-4 border-b border-slate-400">
 	<div>
+		<span><a href="/" class="text-orange-500 text-xl font-bold">Bostorgay</a></span>
+	</div>
+	<div class="text-sm mt-1.5">
 		{#if $isLoggedIn}
 			<span><a href="/playlist">Playlists</a></span>
 			<span><a href="/" on:click={handleLogout} class="ml-2">Logout</a></span>

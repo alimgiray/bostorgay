@@ -88,11 +88,12 @@
 		bind:this={ref}
 		bind:value={searchTerm}
 		placeholder="search for songs or artists"
+		class="text-orange-4000"
 	/>
 	{#if searchTerm.length > 0}
 		<div class="cursor-pointer ml-2 my-auto align-middle ">
 			<button class="mt-1" on:click={resetSearch}
-				><Icon src={XCircle} theme="solid" class="color-gray-900 w-5 h-5" /></button
+				><Icon src={XCircle} theme="solid" class="text-orange-500 w-5 h-5" /></button
 			>
 		</div>
 	{/if}

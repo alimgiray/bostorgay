@@ -26,7 +26,7 @@
 			</div>
 			<div class="fixed bottom-0 w-full">
 				<Queue />
-				<div class="border-t min-h-max">
+				<div class="border-t border-slate-500 min-h-max">
 					<PlayerContainer />
 				</div>
 			</div>

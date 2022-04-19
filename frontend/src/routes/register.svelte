@@ -28,19 +28,22 @@
 	};
 </script>
 
-<div class="p-4 w-full md:w-1/3 mx-auto">
+<div class="px-4 w-full md:w-1/3 mx-auto">
 	<form on:submit|preventDefault={handleRegister}>
-		<div class="mt-2">
+		<div class="mt-4">
 			<input type="text" bind:value={username} placeholder="username" />
 		</div>
-		<div class="mt-2">
+		<div class="mt-3">
 			<input type="email" bind:value={email} placeholder="email" />
 		</div>
-		<div class="mt-2">
+		<div class="mt-3">
 			<input type="password" bind:value={password} placeholder="password" />
 		</div>
-		<div class="mt-2 flex justify-end">
-			<button class="border px-4 py-1">Register</button>
+		<div class="mt-3 flex justify-end">
+			<button
+				class="text-slate-200 border border-orange-500 w-full py-2 text-center hover:bg-orange-500 hover:text-slate-800 hover:font-bold"
+				>Register</button
+			>
 		</div>
 	</form>
 </div>
