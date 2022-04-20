@@ -1,7 +1,7 @@
 <script>
 	// @ts-nocheck
 	import { currentSong, src, isPlaying, totalTime, currentTime } from '../../stores/player.store';
-	import { playNextSong } from '../../stores/queue.store';
+	import { playNextSong, playPreviousSong } from '../../stores/queue.store';
 	import Time from './time.svelte';
 
 	isPlaying.subscribe((playing) => {
@@ -48,9 +48,18 @@
 	});
 
 	const handleKeydown = (e) => {
-		// If space pressed
+		e.preventDefault();
 		if (e.keyCode === 32) {
+			// Space
 			isPlaying.set(!$isPlaying);
+		}
+		if (e.keyCode === 39) {
+			// Right Arrow
+			playNextSong($currentSong);
+		}
+		if (e.keyCode === 37) {
+			// Left Arrow
+			playPreviousSong($currentSong);
 		}
 	};
 </script>

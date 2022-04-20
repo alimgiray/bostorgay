@@ -6,6 +6,7 @@ import { play } from './player.store';
 import { isLoggedIn } from './user.store';
 
 export const playlists = writable([]);
+export const currentPlaylist = writable(null);
 
 export const create = async (name) => {
 	const { response, error } = await post(fetch, `/api/playlists`, { name });
@@ -71,6 +72,7 @@ export const playPlaylist = (playlist) => {
 	if (songs.length > 0) {
 		queue.set(songs);
 		play(songs[0]);
+		currentPlaylist.set(playlist);
 	}
 };
 

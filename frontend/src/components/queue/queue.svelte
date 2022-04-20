@@ -1,13 +1,20 @@
 <script>
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { ChevronDown } from '@steeze-ui/heroicons';
+	import { ChevronDown, X } from '@steeze-ui/heroicons';
 
 	import { queue, visible } from '../../stores/queue.store';
+	import { currentPlaylist } from '../../stores/playlist.store';
 
 	import SongListItem from '../list/song.list.item.svelte';
 
 	const toggleQueue = () => {
 		visible.update((v) => !v);
+	};
+
+	const clearQueue = () => {
+		currentPlaylist.set(null);
+		queue.set([]);
+		toggleQueue();
 	};
 </script>
 
@@ -17,8 +24,21 @@
 	}`}
 >
 	<div class="border-b border-slate-500 flex justify-between bg-slate-700">
-		<div class="flex ml-2 py-1">
-			<div class="text-slate-100">Queue</div>
+		<div class="flex ml-1 py-1">
+			{#if $queue.length > 0 || $currentPlaylist}
+				<a href="/" on:click|preventDefault={clearQueue}>
+					<div class="cursor-pointer">
+						<Icon src={X} theme="solid" class="cursor-pointer text-orange-500 w-5 h-5 mt-0.5" />
+					</div>
+				</a>
+			{/if}
+			<div class="text-slate-100 ml-2">
+				{#if $currentPlaylist}
+					{$currentPlaylist.name}
+				{:else}
+					Queue
+				{/if}
+			</div>
 		</div>
 		<div class="flex mr-2">
 			<div class="flex flex-col justify-center">
