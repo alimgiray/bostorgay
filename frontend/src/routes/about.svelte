@@ -55,4 +55,12 @@
 			<span class="text-orange-500">{artistCount} artists</span> available on this platform currently.</span
 		>
 	</p>
+
+	<p class="my-2">
+		<span class="text-orange-500">Design </span>
+		<span
+			>of the website done by <a href="mailto:nurbike0@gmail.com" class="text-orange-500">Nurbike</a
+			>.</span
+		>
+	</p>
 </div>
