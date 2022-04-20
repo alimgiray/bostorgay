@@ -34,6 +34,7 @@ module.exports = {
   addSong,
   editSong,
   deleteSong,
+  getSongCount,
 };
 
 async function getAllSongs() {
@@ -180,4 +181,9 @@ async function getArtistsOfSong(artistIDs) {
     );
   }
   return artists;
+}
+
+async function getSongCount() {
+  const count = await Song.count();
+  return { count };
 }

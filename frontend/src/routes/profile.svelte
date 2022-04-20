@@ -22,6 +22,7 @@
 <script>
 	import Account from '../components/profile/account.svelte';
 	import Playlists from '../components/playlist/playlists.svelte';
+	import Footer from '../components/footer.svelte';
 
 	export let playlists = [];
 </script>
@@ -34,7 +35,10 @@
 	<div class="pb-4">
 		<Playlists {playlists} />
 	</div>
-	<div class="mt-4">
+	<div class="pb-4 mt-4">
 		<Account />
+	</div>
+	<div class="mt-4">
+		<Footer />
 	</div>
 </div>

@@ -10,6 +10,7 @@ const authenticateEditor = require("../../helpers/authenticate-editor");
 const songService = require("./song.service");
 
 router.get("/", getAllSongs);
+router.get("/count", getSongCount);
 router.get("/latest", getLatestSongs);
 router.get("/search", searchSongs);
 router.get("/:id", getSong);
@@ -82,6 +83,13 @@ function deleteSong(req, res, next) {
   songService
     .deleteSong(songID)
     .then(() => res.sendStatus(204))
+    .catch(next);
+}
+
+function getSongCount(req, res, next) {
+  songService
+    .getSongCount()
+    .then((resp) => res.json(resp))
     .catch(next);
 }
 

@@ -15,6 +15,7 @@ module.exports = {
   addArtist,
   editArtist,
   deleteArtist,
+  getArtistCount,
 };
 
 async function getAllArtists() {
@@ -86,4 +87,9 @@ async function editArtist(artistID, name) {
 async function deleteArtist(artistID) {
   const artist = await getArtist(artistID);
   await artist.destroy();
+}
+
+async function getArtistCount() {
+  const count = await Artist.count();
+  return { count };
 }

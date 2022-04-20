@@ -10,6 +10,7 @@ const authenticateEditor = require("../../helpers/authenticate-editor");
 const artistService = require("./artist.service");
 
 router.get("/", getAllArtists);
+router.get("/count", getArtistCount);
 router.get("/search", searchArtists);
 router.get("/latest", getLatestArtists);
 router.get("/:id/songs", getSongsOfArtist);
@@ -85,6 +86,13 @@ function deleteArtist(req, res, next) {
   artistService
     .deleteArtist(artistID)
     .then(() => res.sendStatus(204))
+    .catch(next);
+}
+
+function getArtistCount(req, res, next) {
+  artistService
+    .getArtistCount()
+    .then((resp) => res.json(resp))
     .catch(next);
 }
 

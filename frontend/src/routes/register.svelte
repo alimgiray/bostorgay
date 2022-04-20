@@ -13,6 +13,7 @@
 </script>
 
 <script>
+	import Footer from '../components/footer.svelte';
 	import { register } from '../stores/user.store';
 	import { goto } from '$app/navigation';
 
@@ -46,4 +47,7 @@
 			>
 		</div>
 	</form>
+</div>
+<div class="mt-4">
+	<Footer />
 </div>
