@@ -12,7 +12,7 @@
 	</div>
 	<div class="text-sm mt-1.5">
 		{#if $isLoggedIn}
-			<span><a href="/playlist">Playlists</a></span>
+			<span><a href="/profile">Profile</a></span>
 			<span><a href="/" on:click={handleLogout} class="ml-2">Logout</a></span>
 		{:else}
 			<span class="mx-4"><a href="/login">Login</a></span>

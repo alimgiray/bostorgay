@@ -13,6 +13,7 @@ module.exports = {
   getByUsername,
   deleteUser,
   updateUser,
+  updatePassword,
 };
 
 async function register(username, password, email) {
@@ -128,5 +129,20 @@ async function deleteUser(userID) {
 async function updateUser(userID, type) {
   const user = await getUser(userID);
   user.type = type;
+  return await user.save();
+}
+
+async function updatePassword(userID, oldPassword, newPassword) {
+  const user = await User.findOne({ where: { id: userID } });
+  if (!(await bcrypt.compare(oldPassword, user.password))) {
+    throw new errors.AppError(
+      errors.errorTypes.NOT_AUTHORIZED,
+      401,
+      "Invalid email or password",
+      true
+    );
+  }
+  const hash = await bcrypt.hash(newPassword, 10);
+  user.password = hash;
   return await user.save();
 }

@@ -14,6 +14,7 @@ router.get("/refresh", authenticate, refreshToken);
 router.get("/:username", getUser);
 router.get("/", authenticateAdmin, getAllUsers);
 router.delete("/:id", authenticateAdmin, deleteUser);
+router.put("/password", authenticate, updatePasswordSchema, updatePassword);
 router.put("/:id/", authenticateAdmin, updateUserSchema, updateUser);
 
 function registerSchema(req, res, next) {
@@ -95,6 +96,24 @@ function updateUser(req, res, next) {
   const type = req.body.type;
   userService
     .updateUser(userID, type)
+    .then((user) => res.json(user))
+    .catch(next);
+}
+
+function updatePasswordSchema(req, res, next) {
+  const schema = Joi.object({
+    oldPassword: Joi.string().required().min(3),
+    newPassword: Joi.string().required().min(8),
+  });
+  validateRequest(req, res, next, schema);
+}
+
+function updatePassword(req, res, next) {
+  const userID = req.user.id;
+  const oldPassword = req.body.oldPassword;
+  const newPassword = req.body.newPassword;
+  userService
+    .updatePassword(userID, oldPassword, newPassword)
     .then((user) => res.json(user))
     .catch(next);
 }

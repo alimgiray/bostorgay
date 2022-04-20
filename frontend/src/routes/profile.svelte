@@ -1,7 +1,7 @@
 <script context="module">
-	import { isLoggedIn } from '../../stores/user.store';
+	import { isLoggedIn } from '../stores/user.store';
 	import { get } from 'svelte/store';
-	import { get as getRequest } from '../../lib/api';
+	import { get as getRequest } from '../lib/api';
 
 	export const load = async ({ fetch, session }) => {
 		const loggedIn = get(isLoggedIn);
@@ -20,26 +20,21 @@
 </script>
 
 <script>
-	import PlaylistItem from '../../components/list/playlist.item.svelte';
+	import Account from '../components/profile/account.svelte';
+	import Playlists from '../components/playlist/playlists.svelte';
+
 	export let playlists = [];
 </script>
 
 <svelte:head>
-	<title>Playlists</title>
+	<title>Profile</title>
 </svelte:head>
 
 <div class="p-4">
-	<div class="pb-2 flex justify-center">
-		<div class="font-bold">Playlists</div>
+	<div class="pb-4">
+		<Playlists {playlists} />
 	</div>
-	{#each playlists as playlist}
-		<PlaylistItem {playlist} />
-	{/each}
-	<div class="flex justify-end mt-4">
-		<a
-			href="/playlist/new"
-			class="text-slate-200 border border-orange-500 w-full py-2 text-center hover:bg-orange-500 hover:text-slate-800 hover:font-bold"
-			>Create New</a
-		>
+	<div class="mt-4">
+		<Account />
 	</div>
 </div>

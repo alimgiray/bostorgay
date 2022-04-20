@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 import { createNotification } from './notification.store';
 import { browserRemove, browserSet, browserGet } from '$lib/browser';
-import { post } from '$lib/api';
+import { post, put } from '$lib/api';
 
 let user = browserGet('user');
 export const isLoggedIn = writable(user ? true : false);
@@ -37,4 +37,17 @@ export const register = async (email, username, password) => {
 export const logout = () => {
 	isLoggedIn.set(false);
 	browserRemove('user');
+};
+
+export const updatePassword = async (oldPassword, newPassword) => {
+	const { error } = await put(fetch, `/api/users/password`, {
+		oldPassword,
+		newPassword
+	});
+	if (!error) {
+		return true;
+	} else {
+		createNotification(true, error.description);
+		return false;
+	}
 };
