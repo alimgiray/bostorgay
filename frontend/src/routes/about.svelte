@@ -43,23 +43,26 @@
 		<span
 			>is an important subject for musicians and I'm aware of it. I don't make any money from this
 			website, there are no ads and there never will be. However, if you don't want your music to be
-			on this platform, <a href="mailto:alimgiray@gmail.com" class="text-orange-500">contact me</a> and
-			I'll remove it.</span
+			on this platform, <a href="mailto:alimgiray@gmail.com" class="text-orange-500 underline"
+				>contact me</a
+			> and I'll remove it.</span
 		>
 	</p>
 
 	<p class="my-2">
 		<span class="text-orange-500">In total </span>
 		<span
-			>there are <span class="text-orange-500">{songCount} songs</span> from
-			<span class="text-orange-500">{artistCount} artists</span> available on this platform currently.</span
+			>there are <a href="/" class="text-orange-500 underline">{songCount} songs</a> from
+			<a href="/" class="text-orange-500 underline">{artistCount} artists</a> available on this platform
+			currently.</span
 		>
 	</p>
 
 	<p class="my-2">
 		<span class="text-orange-500">Design </span>
 		<span
-			>of the website done by <a href="mailto:nurbike0@gmail.com" class="text-orange-500">Nurbike</a
+			>of the website done by <a href="mailto:nurbike0@gmail.com" class="text-orange-500 underline"
+				>Nurbike</a
 			>.</span
 		>
 	</p>
