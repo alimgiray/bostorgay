@@ -84,6 +84,7 @@
 
 <div class="flex">
 	<input
+		id="search"
 		type="text"
 		bind:this={ref}
 		bind:value={searchTerm}
