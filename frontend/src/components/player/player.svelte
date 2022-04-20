@@ -48,17 +48,22 @@
 	});
 
 	const handleKeydown = (e) => {
-		e.preventDefault();
 		if (e.keyCode === 32) {
 			// Space
+			e.preventDefault();
+
 			isPlaying.set(!$isPlaying);
 		}
 		if (e.keyCode === 39) {
 			// Right Arrow
+			e.preventDefault();
+
 			playNextSong($currentSong);
 		}
 		if (e.keyCode === 37) {
 			// Left Arrow
+			e.preventDefault();
+
 			playPreviousSong($currentSong);
 		}
 	};
