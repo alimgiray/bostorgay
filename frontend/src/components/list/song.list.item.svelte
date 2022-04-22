@@ -73,11 +73,11 @@
 			<div>
 				<div>
 					<a href="/" on:click|preventDefault={playSong} class="flex min-w-max">
-						<div
+						<h1
 							class="w-full my-auto align-middle cursor-pointer text-slate-300 hover:text-slate-400"
 						>
 							{song.name}
-						</div>
+						</h1>
 					</a>
 				</div>
 				{#if song.artists && song.artists.length > 0}

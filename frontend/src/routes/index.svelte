@@ -59,7 +59,7 @@
 	<Search />
 	<div>
 		<SongList {songs} on:update-songs />
-		<div class="text-lg font-bold text-orange-500">Artists</div>
+		<h1 class="text-lg font-bold text-orange-500">Artists</h1>
 		<ArtistList {artists} on:update-artists />
 	</div>
 </div>

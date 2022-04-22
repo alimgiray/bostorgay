@@ -11,13 +11,13 @@
 			.replace(/^-|-$/g, '')
 			.toLowerCase()}---${artist.id}`}
 	>
-		<div
+		<h1
 			class="flex justify-between py-2 border-b border-b-slate-700 text-sm hover:bg-slate-900 cursor-pointer"
 		>
 			<div class="flex w-full my-auto align-middle">
 				<Icon src={ArrowNarrowRight} theme="solid" class="text-orange-400 w-4 h-4 ml-2" />
 				<span class="ml-2">{artist.name}</span>
 			</div>
-		</div>
+		</h1>
 	</a>
 </div>
