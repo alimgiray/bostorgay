@@ -70,3 +70,24 @@ export async function get(fetch, url) {
 		return { response: null, error: data };
 	}
 }
+
+export async function deleteRequest(fetch, url) {
+	const headers = { 'Content-Type': 'application/json' };
+
+	const user = browserGet('user');
+	if (user) {
+		headers['Authorization'] = `Bearer ${user.token}`;
+	}
+
+	const result = await fetch(`${API_URL}${url}`, {
+		method: 'DELETE',
+		headers
+	});
+
+	if (result.ok) {
+		return { error: null };
+	} else {
+		const error = await result.json();
+		return { error };
+	}
+}

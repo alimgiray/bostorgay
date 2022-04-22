@@ -1,5 +1,5 @@
 import { writable, get } from 'svelte/store';
-import { post, get as getRequest, put } from '$lib/api';
+import { post, get as getRequest, put, deleteRequest } from '$lib/api';
 import { createNotification } from './notification.store';
 import { queue } from './queue.store';
 import { play } from './player.store';
@@ -64,6 +64,16 @@ export const removeSongFromPlaylist = async (playlistID, songID) => {
 			createNotification(true, error.description);
 			return false;
 		}
+	}
+};
+
+export const deletePlaylist = async (playlistID) => {
+	const { error } = await deleteRequest(fetch, `/api/playlists/${playlistID}`);
+	if (!error) {
+		return true;
+	} else {
+		createNotification(true, error.description);
+		return false;
 	}
 };
 
