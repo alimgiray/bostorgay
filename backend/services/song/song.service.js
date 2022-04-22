@@ -50,7 +50,7 @@ async function getAllSongs() {
   });
 }
 
-async function getLatestSongs() {
+async function getLatestSongs(from) {
   return await Song.findAll({
     include: [
       {
@@ -60,7 +60,8 @@ async function getLatestSongs() {
       },
     ],
     order: [["id", "DESC"]],
-    limit: [20],
+    limit: 20,
+    offset: from,
   });
 }
 
@@ -68,7 +69,7 @@ async function searchSongs(query) {
   return await Song.findAll({
     where: {
       name: Sequelize.where(
-        Sequelize.fn("UPPER", Sequelize.col("name")),
+        Sequelize.fn("UPPER", Sequelize.col("song.name")),
         "LIKE",
         "%" + query.toUpperCase() + "%"
       ),
@@ -80,7 +81,6 @@ async function searchSongs(query) {
         attributes: ["id", "name"],
       },
     ],
-    limit: 20,
   });
 }
 

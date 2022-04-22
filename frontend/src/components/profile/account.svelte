@@ -25,10 +25,7 @@
 			<input type="password" bind:value={newPassword} placeholder="New Password" />
 		</div>
 		<div class="mt-3 flex justify-end">
-			<button
-				class="text-slate-200 border border-orange-500 w-full py-2 text-center hover:bg-orange-500 hover:text-slate-800 hover:font-bold"
-				>Update Password</button
-			>
+			<button class="full-button">Update Password</button>
 		</div>
 	</form>
 </div>

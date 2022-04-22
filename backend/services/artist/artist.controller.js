@@ -27,8 +27,9 @@ function getAllArtists(req, res, next) {
 }
 
 function getLatestArtists(req, res, next) {
+  const from = req.query.from ?? 0;
   artistService
-    .getLatestArtists()
+    .getLatestArtists(from)
     .then((artists) => res.json(artists))
     .catch(next);
 }

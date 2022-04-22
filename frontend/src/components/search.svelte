@@ -1,11 +1,10 @@
 <script>
-	import { custom_event } from 'svelte/internal';
-	import { get } from '../lib/api';
-
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { XCircle } from '@steeze-ui/heroicons';
 
-	let ref;
+	import { searchSongs } from '../stores/song.store';
+	import { searchArtists } from '../stores/artist.store';
+
 	let timeout;
 	let searchTerm = '';
 	$: {
@@ -24,61 +23,8 @@
 	};
 
 	function search(searchTerm) {
-		if (searchTerm) {
-			get(fetch, `/api/songs/search?q=${searchTerm}`).then((result) => {
-				const { response, error } = result;
-				if (!error) {
-					const event = custom_event(
-						'update-songs',
-						{
-							songs: response
-						},
-						true
-					);
-					ref.dispatchEvent(event);
-				}
-			});
-			get(fetch, `/api/artists/search?q=${searchTerm}`).then((result) => {
-				const { response, error } = result;
-				if (!error) {
-					const event = custom_event(
-						'update-artists',
-						{
-							artists: response
-						},
-						true
-					);
-					ref.dispatchEvent(event);
-				}
-			});
-		} else {
-			get(fetch, '/api/songs/latest').then((result) => {
-				const { response, error } = result;
-				if (!error) {
-					const event = custom_event(
-						'update-songs',
-						{
-							songs: response
-						},
-						true
-					);
-					ref.dispatchEvent(event);
-				}
-			});
-			get(fetch, '/api/artists/latest').then((result) => {
-				const { response, error } = result;
-				if (!error) {
-					const event = custom_event(
-						'update-artists',
-						{
-							artists: response
-						},
-						true
-					);
-					ref.dispatchEvent(event);
-				}
-			});
-		}
+		searchSongs(searchTerm);
+		searchArtists(searchTerm);
 	}
 </script>
 
@@ -86,7 +32,6 @@
 	<input
 		id="search"
 		type="text"
-		bind:this={ref}
 		bind:value={searchTerm}
 		placeholder="search for songs or artists"
 		class="text-orange-4000"

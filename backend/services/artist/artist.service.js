@@ -22,21 +22,23 @@ async function getAllArtists() {
   return await Artist.findAll({ order: [["name", "ASC"]] });
 }
 
-async function getLatestArtists() {
+async function getLatestArtists(from) {
   return await Artist.findAll({
     order: [["id", "DESC"]],
-    limit: [10],
+    limit: 20,
+    offset: from,
   });
 }
 
 async function searchArtists(query) {
   return await Artist.findAll({
     where: {
-      name: {
-        [Op.substring]: query,
-      },
+      name: Sequelize.where(
+        Sequelize.fn("UPPER", Sequelize.col("artist.name")),
+        "LIKE",
+        "%" + query.toUpperCase() + "%"
+      ),
     },
-    limit: 5,
   });
 }
 
@@ -49,7 +51,7 @@ async function getSongsOfArtist(artistID) {
         as: "artists",
         attributes: ["id", "name"],
         where: {
-          id: artistID,
+          id: artist.id,
         },
       },
     ],

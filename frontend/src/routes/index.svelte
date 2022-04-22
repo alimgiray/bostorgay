@@ -1,29 +1,12 @@
 <script context="module">
-	import { get } from '../lib/api';
-	export async function load({ params, fetch, session, stuff }) {
-		const { response: artistResponse, error: artistError } = await get(
-			fetch,
-			'/api/artists/latest'
-		);
-		const { response: songsResponse, error: songsError } = await get(fetch, '/api/songs/latest');
+	import { getSongs } from '../stores/song.store';
+	import { getArtists } from '../stores/artist.store';
 
-		if (artistError || songsError) {
-			return {
-				status: 200,
-				props: {
-					songs: songsResponse ?? [],
-					artists: artistResponse ?? []
-				}
-			};
-		} else {
-			return {
-				status: 200,
-				props: {
-					songs: songsResponse,
-					artists: artistResponse
-				}
-			};
-		}
+	export async function load({ params, fetch, session, stuff }) {
+		await getSongs();
+		await getArtists();
+
+		return { status: 200 };
 	}
 </script>
 
@@ -37,18 +20,6 @@
 	if ($isLoggedIn) {
 		getPlaylists();
 	}
-
-	export let songs = [];
-	export let artists = [];
-
-	document.addEventListener('update-songs', (e) => {
-		// @ts-ignore
-		songs = e.detail?.songs;
-	});
-	document.addEventListener('update-artists', (e) => {
-		// @ts-ignore
-		artists = e.detail?.artists;
-	});
 </script>
 
 <svelte:head>
@@ -58,8 +29,8 @@
 <div class="p-4">
 	<Search />
 	<div>
-		<SongList {songs} on:update-songs />
+		<SongList />
 		<h1 class="text-lg font-bold text-orange-500">Artists</h1>
-		<ArtistList {artists} on:update-artists />
+		<ArtistList />
 	</div>
 </div>

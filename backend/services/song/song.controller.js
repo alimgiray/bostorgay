@@ -26,8 +26,9 @@ function getAllSongs(req, res, next) {
 }
 
 function getLatestSongs(req, res, next) {
+  const from = req.query.from ?? 0;
   songService
-    .getLatestSongs()
+    .getLatestSongs(from)
     .then((songs) => res.json(songs))
     .catch(next);
 }

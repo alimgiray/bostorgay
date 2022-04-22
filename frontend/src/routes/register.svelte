@@ -41,10 +41,7 @@
 			<input type="password" bind:value={password} placeholder="password" />
 		</div>
 		<div class="mt-3 flex justify-end">
-			<button
-				class="text-slate-200 border border-orange-500 w-full py-2 text-center hover:bg-orange-500 hover:text-slate-800 hover:font-bold"
-				>Register</button
-			>
+			<button class="full-button">Register</button>
 		</div>
 	</form>
 </div>

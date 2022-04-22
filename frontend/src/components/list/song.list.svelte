@@ -1,13 +1,16 @@
 <script>
 	import SongListItem from './song.list.item.svelte';
-	export let songs = [];
+	import { songs, isSearchResults, loadMoreSongs } from '../../stores/song.store';
 </script>
 
 <div class="py-4">
-	{#if songs.length > 0}
-		{#each songs as song}
+	{#if $songs.length > 0}
+		{#each $songs as song}
 			<SongListItem {song} />
 		{/each}
+		{#if !$isSearchResults}
+			<button class="mt-2 full-button" on:click={loadMoreSongs}>Load More</button>
+		{/if}
 	{:else}
 		<div class="py-2 text-sm">No songs found</div>
 	{/if}
