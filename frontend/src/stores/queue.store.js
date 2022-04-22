@@ -28,7 +28,7 @@ export const append = (song) => {
 	queue.update((q) => [...q, song]);
 	browserSet('queue', get(queue));
 	const songs = get(queue);
-	if (songs.length === 1) {
+	if (songs.length === 1 && songs[0].id !== song.id) {
 		play(song);
 	}
 };
