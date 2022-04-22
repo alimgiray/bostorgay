@@ -19,7 +19,7 @@ module.exports = {
 };
 
 async function getAllArtists() {
-  return await Artist.findAll({});
+  return await Artist.findAll({ order: [["name", "ASC"]] });
 }
 
 async function getLatestArtists() {

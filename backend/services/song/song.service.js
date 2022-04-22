@@ -39,6 +39,7 @@ module.exports = {
 
 async function getAllSongs() {
   return await Song.findAll({
+    order: [["id", "DESC"]],
     include: [
       {
         model: Artist,
