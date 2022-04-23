@@ -1,4 +1,5 @@
 import { browser } from '$app/env';
+import NoSleep from 'nosleep.js';
 
 export function browserSet(key, value) {
 	if (browser) {
@@ -19,5 +20,12 @@ export function browserGet(key) {
 export function browserRemove(key) {
 	if (browser) {
 		localStorage.removeItem(key);
+	}
+}
+
+export function preventSleeping() {
+	if (browser) {
+		const noSleep = new NoSleep();
+		noSleep.enable();
 	}
 }
