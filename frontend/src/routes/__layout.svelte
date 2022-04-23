@@ -1,14 +1,19 @@
 <script>
+	import { onMount } from 'svelte';
+	import NoSleep from 'nosleep.js';
+
 	import '../app.css';
 	import Header from '../components/header.svelte';
 	import PlayerContainer from '../components/player/player.container.svelte';
 	import Queue from '../components/queue/queue.svelte';
 	import Notifications from '../components/notification/notifications.svelte';
 
-	import { onMount } from 'svelte';
 	let mounted = false;
+	const noSleep = new NoSleep();
+
 	onMount(async () => {
 		mounted = true;
+		noSleep.enable();
 	});
 </script>
 

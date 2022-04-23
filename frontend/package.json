@@ -29,6 +29,7 @@
   },
   "type": "module",
   "dependencies": {
+    "nosleep.js": "^0.12.0",
     "svelte-easy-popover": "^1.0.0"
   }
 }
