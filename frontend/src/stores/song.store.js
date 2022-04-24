@@ -4,6 +4,7 @@ import { createNotification } from './notification.store';
 
 export const songs = writable([]);
 export const isSearchResults = writable(false);
+export const showMoreSongsButton = writable(true);
 
 export const getSongs = async () => {
 	const { response, error } = await get(fetch, '/api/songs/latest');
@@ -46,6 +47,8 @@ export const loadMoreSongs = async () => {
 			if (response?.length > 0) {
 				songs.update((songs) => [...songs, ...response]);
 				isSearchResults.set(false);
+			} else {
+				showMoreSongsButton.set(false);
 			}
 		} else {
 			createNotification(true, error.description);

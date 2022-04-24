@@ -17,16 +17,22 @@
 
 	import { getPlaylists } from '../stores/playlist.store';
 	import { isLoggedIn } from '../stores/user.store';
+	import { showMoreSongsButton } from '../stores/song.store';
+	import { showMoreArtistsButton } from '../stores/artist.store';
+
 	if ($isLoggedIn) {
 		getPlaylists();
 	}
+
+	showMoreSongsButton.set(true);
+	showMoreArtistsButton.set(true);
 </script>
 
 <svelte:head>
 	<title>Bostorgay</title>
 </svelte:head>
 
-<div class="p-4">
+<div class="p-4 pb-24 w-full md:w-1/3 mx-auto">
 	<Search />
 	<div>
 		<SongList />

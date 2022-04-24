@@ -1,6 +1,11 @@
 <script>
 	import SongListItem from './song.list.item.svelte';
-	import { songs, isSearchResults, loadMoreSongs } from '../../stores/song.store';
+	import {
+		songs,
+		isSearchResults,
+		loadMoreSongs,
+		showMoreSongsButton
+	} from '../../stores/song.store';
 </script>
 
 <div class="py-4">
@@ -8,7 +13,7 @@
 		{#each $songs as song}
 			<SongListItem {song} />
 		{/each}
-		{#if !$isSearchResults}
+		{#if !$isSearchResults && $showMoreSongsButton}
 			<button class="mt-2 full-button" on:click={loadMoreSongs}>Load More</button>
 		{/if}
 	{:else}

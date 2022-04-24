@@ -1,6 +1,11 @@
 <script>
 	import ArtistListItem from './artist.list.item.svelte';
-	import { artists, isSearchResults, loadMoreArtists } from '../../stores/artist.store';
+	import {
+		artists,
+		isSearchResults,
+		loadMoreArtists,
+		showMoreArtistsButton
+	} from '../../stores/artist.store';
 </script>
 
 <div class="pt-2 pb-12">
@@ -8,7 +13,7 @@
 		{#each $artists as artist}
 			<ArtistListItem {artist} />
 		{/each}
-		{#if !$isSearchResults}
+		{#if !$isSearchResults && $showMoreArtistsButton}
 			<button class="mt-2 full-button" on:click={loadMoreArtists}>Load More</button>
 		{/if}
 	{:else}
