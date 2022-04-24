@@ -1,6 +1,6 @@
 import { writable, get } from 'svelte/store';
 import { get as getRequest } from '$lib/api';
-import { browserSet, browserGet } from '$lib/browser';
+import { browserSet, browserGet, browserRemove } from '$lib/browser';
 import { createNotification } from './notification.store';
 
 import { play, stop } from './player.store';
@@ -41,6 +41,11 @@ export const remove = (song) => {
 	}
 	queue.update((songs) => songs.filter((s) => s.id !== song.id));
 	browserSet('queue', get(queue));
+};
+
+export const clear = () => {
+	queue.set([]);
+	browserRemove('queue');
 };
 
 export const playNextSong = (currentSong) => {
