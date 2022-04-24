@@ -26,7 +26,7 @@
 	};
 </script>
 
-<div class="flex flex-col justify-center">
+<div class="flex flex-col justify-center bg-slate-800">
 	<div class="flex">
 		<a href="/" on:click|preventDefault={previousSong}>
 			<div class="cursor-pointer">

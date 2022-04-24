@@ -71,7 +71,7 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
-<div class="flex justify-center truncate">
+<div class="flex justify-center truncate bg-slate-800">
 	<div class="truncate">
 		{#if $currentSong}
 			<span
