@@ -11,6 +11,7 @@ const songService = require("./song.service");
 
 router.get("/", getAllSongs);
 router.get("/count", getSongCount);
+router.get("/random", getRandomSongs);
 router.get("/latest", getLatestSongs);
 router.get("/search", searchSongs);
 router.get("/:id", getSong);
@@ -21,6 +22,13 @@ router.delete("/:id", authenticateAdmin, deleteSong);
 function getAllSongs(req, res, next) {
   songService
     .getAllSongs()
+    .then((songs) => res.json(songs))
+    .catch(next);
+}
+
+function getRandomSongs(req, res, next) {
+  songService
+    .getRandomSongs()
     .then((songs) => res.json(songs))
     .catch(next);
 }

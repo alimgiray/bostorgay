@@ -19,6 +19,7 @@
 	import { isLoggedIn } from '../stores/user.store';
 	import { showMoreSongsButton } from '../stores/song.store';
 	import { showMoreArtistsButton } from '../stores/artist.store';
+	import { generateRandomQueue } from '../stores/queue.store';
 
 	if ($isLoggedIn) {
 		getPlaylists();
@@ -34,6 +35,7 @@
 
 <div class="p-4 pb-24 w-full md:w-1/3 mx-auto">
 	<Search />
+	<button class="full-button mt-4" on:click={generateRandomQueue}>Play Random!</button>
 	<div>
 		<SongList />
 		<h1 class="text-lg font-bold text-orange-500">Artists</h1>

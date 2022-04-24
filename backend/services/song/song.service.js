@@ -2,6 +2,8 @@ const url = require("url");
 const path = require("path");
 const fs = require("fs");
 
+const database = require("../../database");
+
 const ffmpegPath = path.resolve(`./bin/${process.env.FFMPEG_BIN}`);
 const outputDir = path.resolve("./audio");
 
@@ -28,6 +30,7 @@ const Song = require("./song.model");
 
 module.exports = {
   getAllSongs,
+  getRandomSongs,
   getLatestSongs,
   searchSongs,
   getSong,
@@ -47,6 +50,20 @@ async function getAllSongs() {
         attributes: ["id", "name"],
       },
     ],
+  });
+}
+
+async function getRandomSongs() {
+  return await Song.findAll({
+    include: [
+      {
+        model: Artist,
+        as: "artists",
+        attributes: ["id", "name"],
+      },
+    ],
+    order: database.random(),
+    limit: 20,
   });
 }
 

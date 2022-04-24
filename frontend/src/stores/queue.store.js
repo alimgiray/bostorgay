@@ -1,5 +1,7 @@
 import { writable, get } from 'svelte/store';
+import { get as getRequest } from '$lib/api';
 import { browserSet, browserGet } from '$lib/browser';
+import { createNotification } from './notification.store';
 
 import { play, stop } from './player.store';
 
@@ -82,4 +84,16 @@ export const playPreviousSong = (currentSong) => {
 export const exists = (song) => {
 	const songs = get(queue);
 	return songs.some((s) => s.id === song.id);
+};
+
+export const generateRandomQueue = async () => {
+	const { response, error } = await getRequest(fetch, `/api/songs/random`);
+	if (!error) {
+		queue.set(response);
+		play(response[0]);
+		return true;
+	} else {
+		createNotification(true, error.description);
+		return false;
+	}
 };
